@@ -22,14 +22,43 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltEngine_h_
-#define BoltEngine_h_
+#ifndef BoltConfigurationMacros_h_
+#define BoltConfigurationMacros_h_
 
-#include "BoltConfigurationMacros.h"
-#include "BoltUtilityMacros.h"
+#ifdef BOLTENGINE_EXPORT
+#ifdef _MSC_VER
+#define BOLTENGINE_API __declspec(dllexport)
+#endif
+#else
+#ifdef _MSC_VER
+#define BOLTENGINE_API __declspec(dllimport)
+#endif
+#endif
 
-#include "IUnCopyable.h"
+#ifdef _MSC_VER
+#ifdef _DEBUG
+#define BOLTENGINE_DEBUGMODE 1
+#else 
+#define BOLTENGINE_DEBUGMODE 0
+#endif
+#else
+#endif
 
-#include "CException.h"
+
+#define BOLTENGINE_PLATFORM_WIN32 0
+#define BOLTENGINE_PLATFORM_LINUX 1
+#define BOLTENGINE_PLATFORM_MAC 2
+
+#define BOLTENGINE_PLATFORM BOLTENGINE_PLATFORM_WIN32
+
+
+#define BOLTENGINE_COMPILED_VISUALCPP 0
+#define BOLTENGINE_COMPILED_GCC 1
+
+#define BOLTENGINE_COMPILED BOLTENGINE_COMPILED_VISUALCPP
+
+#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
+#pragma warning(disable : 4251)
+#endif
 
 #endif

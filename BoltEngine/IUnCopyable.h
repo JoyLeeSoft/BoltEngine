@@ -22,14 +22,27 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltEngine_h_
-#define BoltEngine_h_
+#ifndef IUnCopyable_h_
+#define IUnCopyable_h_
 
-#include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
+#include "BoltConfigurationMacros.h"
 
-#include "IUnCopyable.h"
+BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+BOLTENGINE_NAMESPACE_BEGIN(Utility)
 
-#include "CException.h"
+class BOLTENGINE_API IUnCopyable
+{
+protected:
+	IUnCopyable() {}
+	virtual ~IUnCopyable() {}
+
+private:
+	IUnCopyable(const IUnCopyable &);
+	IUnCopyable &operator =(const IUnCopyable &);
+};
+
+BOLTENGINE_NAMESPACE_END()
+BOLTENGINE_NAMESPACE_END()
 
 #endif

@@ -51,7 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;BOLTENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;BOLTENGINE_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -78,7 +78,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoltConfigurationMacros.h" />
     <ClInclude Include="BoltEngine.h" />
+    <ClInclude Include="BoltUtilityMacros.h" />
+    <ClInclude Include="CException.h" />
+    <ClInclude Include="IUnCopyable.h" />
+    <ClInclude Include="Type.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExceptionCodes.enum" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CException.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,14 +22,58 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltEngine_h_
-#define BoltEngine_h_
-
-#include "BoltConfigurationMacros.h"
+#include "CException.h"
 #include "BoltUtilityMacros.h"
 
-#include "IUnCopyable.h"
+BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+BOLTENGINE_NAMESPACE_BEGIN(Exception)
 
-#include "CException.h"
+const Vector<const CString>::Type CException::m_ExceptionNames =
+{
+#define AUTO_ENUM(x) #x,
+#include "ExceptionCodes.enum"
+#undef AUTO_ENUM
+};
 
-#endif
+CException::CException(EExceptionCode code, const CString &func_name, const CString &desc) : m_ExceptionCode(code),
+	m_FunctionName(func_name), m_Description(desc)
+{
+
+}
+
+CException::CException(CException &rhs)
+{
+	CHANGE_MEMBER_BEGIN(rhs)
+		CHANGE_MEMBER(m_ExceptionCode)
+		CHANGE_MEMBER(m_FunctionName)
+		CHANGE_MEMBER(m_Description)
+	CHANGE_MEMBER_END()
+}
+
+CException::~CException() throw()
+{
+
+}
+
+CException::EExceptionCode CException::GetExceptionCode() const throw()
+{
+	return m_ExceptionCode;
+}
+
+const CString &CException::GetExceptionName() const throw()
+{
+	return m_ExceptionNames[m_ExceptionCode];
+}
+
+const CString &CException::GetFunctionName() const throw()
+{
+	return m_FunctionName;
+}
+
+const CString &CException::GetDescription() const throw()
+{
+	return m_Description;
+}
+
+BOLTENGINE_NAMESPACE_END()
+BOLTENGINE_NAMESPACE_END()

@@ -22,14 +22,17 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltEngine_h_
-#define BoltEngine_h_
+#ifndef BoltUtilityMacros_h_
+#define BoltUtilityMacros_h_
 
-#include "BoltConfigurationMacros.h"
-#include "BoltUtilityMacros.h"
+#define BOLTENGINE_NAMESPACE_BEGIN(name) namespace name {
+#define BOLTENGINE_NAMESPACE_END() }
 
-#include "IUnCopyable.h"
+#define SAFE_RELEASE(p) if (p) { p->Release(); p = 0; }
+#define SAFE_DELETE(p) if (p) { delete p; p = 0; }
 
-#include "CException.h"
+#define CHANGE_MEMBER_BEGIN(rhs) { auto &other = rhs;
+#define CHANGE_MEMBER(name) name = rhs.name;
+#define CHANGE_MEMBER_END() }
 
 #endif

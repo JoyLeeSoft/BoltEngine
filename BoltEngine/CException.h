@@ -22,14 +22,46 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltEngine_h_
-#define BoltEngine_h_
+#ifndef CException_h_
+#define CException_h_
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
+#include "Type.h"
 
-#include "IUnCopyable.h"
+BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+BOLTENGINE_NAMESPACE_BEGIN(Exception)
 
-#include "CException.h"
+class BOLTENGINE_API CException
+{
+public:
+#define AUTO_ENUM(name) name,
+	enum EExceptionCode : int
+	{
+		#include "ExceptionCodes.enum"
+	};
+#undef AUTO_ENUM
+
+protected:
+	EExceptionCode m_ExceptionCode;
+	CString m_FunctionName;
+	CString m_Description;
+
+private:
+	static const Vector<const CString>::Type m_ExceptionNames;
+
+public:
+	CException(EExceptionCode code, const CString &func_name, const CString &desc);
+	CException(CException &rhs);
+	~CException() throw();
+
+	virtual EExceptionCode GetExceptionCode() const throw();
+	virtual const CString &GetExceptionName() const throw();
+	virtual const CString &GetFunctionName() const throw();
+	virtual const CString &GetDescription() const throw();
+};
+
+BOLTENGINE_NAMESPACE_END()
+BOLTENGINE_NAMESPACE_END()
 
 #endif

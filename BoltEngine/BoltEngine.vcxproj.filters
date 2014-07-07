@@ -2,5 +2,41 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="BoltEngine.h" />
+    <ClInclude Include="BoltConfigurationMacros.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BoltUtilityMacros.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="IUnCopyable.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CException.h">
+      <Filter>Exception</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{110d8b19-a8cd-4ab5-9f7e-b2ea9eadb6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{15eae013-1b5b-4080-9801-d2cf2ea1436d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exception">
+      <UniqueIdentifier>{df125331-0d28-451b-8948-580119e02e44}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExceptionCodes.enum">
+      <Filter>Exception</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CException.cpp">
+      <Filter>Exception</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
