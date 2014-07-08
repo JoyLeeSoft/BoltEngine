@@ -17,6 +17,9 @@
     <ClInclude Include="CException.h">
       <Filter>Exception</Filter>
     </ClInclude>
+    <ClInclude Include="ISingleton.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

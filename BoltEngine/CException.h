@@ -32,16 +32,17 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Exception)
 
+
+enum EExceptionCode : Int
+{
+#define e(name) name,
+#include "ExceptionCodes.enum"
+#undef e
+};
+
+
 class BOLTENGINE_API CException
 {
-public:
-#define AUTO_ENUM(name) name,
-	enum EExceptionCode : int
-	{
-		#include "ExceptionCodes.enum"
-	};
-#undef AUTO_ENUM
-
 protected:
 	EExceptionCode m_ExceptionCode;
 	CString m_FunctionName;
@@ -52,14 +53,36 @@ private:
 
 public:
 	CException(EExceptionCode code, const CString &func_name, const CString &desc);
-	CException(CException &rhs);
+	CException(CException &other);
 	~CException() throw();
 
-	virtual EExceptionCode GetExceptionCode() const throw();
+	virtual Int GetExceptionCode() const throw();
 	virtual const CString &GetExceptionName() const throw();
 	virtual const CString &GetFunctionName() const throw();
 	virtual const CString &GetDescription() const throw();
+
+	CException &operator =(const CException &rhs);
 };
+
+#ifndef MAKE_EXCEPTION_CLASS
+#define MAKE_EXCEPTION_CLASS(name) \
+	class BOLTENGINE_API name : public CException\
+	{\
+	public:\
+		name(EExceptionCode code, const CString &func_name, const CString &desc) : CException(code, func_name, desc)\
+		{\
+		}\
+	};
+#endif
+
+#define e(name) MAKE_EXCEPTION_CLASS(C##name##Exception)
+#include "ExceptionCodes.enum"
+#undef e
+
+#ifndef THROW_EXCEPTION
+#define THROW_EXCEPTION(error_code, func_name, desc) \
+	throw C##error_code##Exception(error_code, func_name, desc)
+#endif
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()

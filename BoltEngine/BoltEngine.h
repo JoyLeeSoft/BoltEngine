@@ -29,6 +29,7 @@
 #include "BoltUtilityMacros.h"
 
 #include "IUnCopyable.h"
+#include "ISingleton.h"
 
 #include "CException.h"
 

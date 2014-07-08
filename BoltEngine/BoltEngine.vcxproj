@@ -82,6 +82,7 @@
     <ClInclude Include="BoltEngine.h" />
     <ClInclude Include="BoltUtilityMacros.h" />
     <ClInclude Include="CException.h" />
+    <ClInclude Include="ISingleton.h" />
     <ClInclude Include="IUnCopyable.h" />
     <ClInclude Include="Type.h" />
   </ItemGroup>

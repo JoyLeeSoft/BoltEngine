@@ -31,7 +31,7 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Utility)
 
-class BOLTENGINE_API IUnCopyable
+class IUnCopyable
 {
 protected:
 	IUnCopyable() {}

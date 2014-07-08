@@ -22,65 +22,48 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef Type_h_
-#define Type_h_
+#ifndef ISingleton_h_
+#define ISingleton_h_
 
 #include "BoltUtilityMacros.h"
-#include "BoltConfigurationMacros.h"
-
-// Temporary includes.
-#include <string>
-#include <vector>
+#include "IUnCopyable.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+BOLTENGINE_NAMESPACE_BEGIN(Utility)
 
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int32
-#endif
-Int;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int16
-#endif
-Short;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int8
-#endif
-Byte;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int32
-#endif
-Int;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int64
-#endif
-Long;
-
-typedef float Float;
-
-typedef double Double;
-
-typedef char Char;
-typedef wchar_t WChar;
-
-// Temporary types.
-// Will be implemented soon.
-typedef /* Utility::CBasicString<Char> */ std::string CString;
-typedef /* Utility::CBasicString<WChar> */ std::wstring *CStringW;
-template<class T> struct Vector
+template <typename T> class ISingleton : public IUnCopyable
 {
-	typedef std::vector<T> Type;
+private:
+	static T *m_Instance;
+
+public:
+	static T &GetInstance()
+	{
+		if (m_Instance == nullptr)
+			m_Instance = new T;
+
+		return *m_Instance;
+	}
+
+	static T *GetPointer()
+	{
+		return *GetInstance();
+	}
+
+	static const T &GetConstInstance()
+	{
+		return GetInstance();
+	}
+
+	static void DeleteInstance()
+	{
+		SAFE_DELETE(m_Instance);
+	}
 };
 
+template <typename T> T *ISingleton<T>::m_Instance = nullptr;
 
+BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
 
 #endif

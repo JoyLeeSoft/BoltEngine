@@ -30,9 +30,9 @@ BOLTENGINE_NAMESPACE_BEGIN(Exception)
 
 const Vector<const CString>::Type CException::m_ExceptionNames =
 {
-#define AUTO_ENUM(x) #x,
+#define e(x) #x,
 #include "ExceptionCodes.enum"
-#undef AUTO_ENUM
+#undef e
 };
 
 CException::CException(EExceptionCode code, const CString &func_name, const CString &desc) : m_ExceptionCode(code),
@@ -55,7 +55,7 @@ CException::~CException() throw()
 
 }
 
-CException::EExceptionCode CException::GetExceptionCode() const throw()
+Int CException::GetExceptionCode() const throw()
 {
 	return m_ExceptionCode;
 }
@@ -73,6 +73,17 @@ const CString &CException::GetFunctionName() const throw()
 const CString &CException::GetDescription() const throw()
 {
 	return m_Description;
+}
+
+CException &CException::operator =(const CException &rhs)
+{
+	CHANGE_MEMBER_BEGIN(rhs)
+		CHANGE_MEMBER(m_ExceptionCode)
+		CHANGE_MEMBER(m_FunctionName)
+		CHANGE_MEMBER(m_Description)
+	CHANGE_MEMBER_END()
+
+	return *this;
 }
 
 BOLTENGINE_NAMESPACE_END()
