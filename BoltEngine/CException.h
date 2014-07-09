@@ -28,14 +28,17 @@
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "Type.h"
+#include "CString.h"
+#include "CArray.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Exception)
 
+using namespace TL;
 
 enum EExceptionCode : Int
 {
-#define e(name) name,
+#define e(name) name##Exception,
 #include "ExceptionCodes.enum"
 #undef e
 };
@@ -49,7 +52,7 @@ protected:
 	CString m_Description;
 
 private:
-	static const Vector<const CString>::Type m_ExceptionNames;
+	static const CArray<const CString>::Type m_ExceptionNames;
 
 public:
 	CException(EExceptionCode code, const CString &func_name, const CString &desc);
@@ -81,7 +84,7 @@ public:
 
 #ifndef THROW_EXCEPTION
 #define THROW_EXCEPTION(error_code, func_name, desc) \
-	throw C##error_code##Exception(error_code, func_name, desc)
+	throw C##error_code(error_code, func_name, desc)
 #endif
 
 BOLTENGINE_NAMESPACE_END()

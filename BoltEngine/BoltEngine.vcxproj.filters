@@ -23,6 +23,18 @@
     <ClInclude Include="CDynamicLib.h">
       <Filter>Plugin</Filter>
     </ClInclude>
+    <ClInclude Include="IPlugin.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="CVersion.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="CString.h">
+      <Filter>TL</Filter>
+    </ClInclude>
+    <ClInclude Include="CArray.h">
+      <Filter>TL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -37,6 +49,9 @@
     <Filter Include="Plugin">
       <UniqueIdentifier>{eb6bd8b9-6ac5-4500-8406-022268599354}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TL">
+      <UniqueIdentifier>{f8c36dac-3c15-46cf-8134-a2176176b612}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ExceptionCodes.enum">
@@ -49,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="CDynamicLib.cpp">
       <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlugin.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="CVersion.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

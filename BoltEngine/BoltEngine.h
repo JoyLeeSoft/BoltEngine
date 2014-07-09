@@ -30,6 +30,7 @@
 
 #include "IUnCopyable.h"
 #include "ISingleton.h"
+#include "CVersion.h"
 
 #include "CException.h"
 

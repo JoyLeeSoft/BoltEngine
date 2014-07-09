@@ -68,18 +68,10 @@ typedef float Float;
 
 typedef double Double;
 
+typedef bool Bool;
+
 typedef char Char;
 typedef wchar_t WChar;
-
-// Temporary types.
-// Will be implemented soon.
-typedef /* Utility::CBasicString<Char> */ std::string CString;
-typedef /* Utility::CBasicString<WChar> */ std::wstring *CStringW;
-template<class T> struct Vector
-{
-	typedef std::vector<T> Type;
-};
-
 
 BOLTENGINE_NAMESPACE_END()
 

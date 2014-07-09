@@ -25,10 +25,10 @@
 #include "CDynamicLib.h"
 #include "CException.h"
 
-using namespace BoltEngine::Exception;
-
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+
+using namespace Exception;
 
 CDynamicLib::CDynamicLib(const CString &name) : m_IsLoaded(false), m_LibName(name), m_LibHandle(0)
 {
@@ -51,7 +51,7 @@ void CDynamicLib::Load()
 	m_LibHandle = DYNAMIC_LIB_LOAD(m_LibName.c_str());
 
 	if (!m_LibHandle)
-		THROW_EXCEPTION(FileNotOpend, "BoltEngine::Plugin::CDynamicLib::Load",
+		THROW_EXCEPTION(FileNotOpendException, "BoltEngine::Plugin::CDynamicLib::Load",
 			"Could not load dynamic library (" + m_LibName + ")");
 
 	m_IsLoaded = true;
@@ -63,7 +63,7 @@ void CDynamicLib::Unload()
 	{
 		if (!DYNAMIC_LIB_FREE(m_LibHandle))
 		{
-			THROW_EXCEPTION(Internal, "BoltEngine::Plugin::CDynamicLib::Unload",
+			THROW_EXCEPTION(InternalException, "BoltEngine::Plugin::CDynamicLib::Unload",
 				"Could not unload dynamic library (" + m_LibName + ")");
 		}
 	}

@@ -25,3 +25,4 @@
 e(NotImplemented)
 e(FileNotOpend)
 e(Internal)
+e(Argument)

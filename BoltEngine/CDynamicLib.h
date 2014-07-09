@@ -27,8 +27,8 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-
 #include "Type.h"
+#include "CString.h"
 
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
 #include <windows.h>
@@ -41,6 +41,8 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
+using namespace TL;
+
 class BOLTENGINE_API CDynamicLib
 {
 public:
@@ -51,13 +53,13 @@ private:
 	DYNAMIC_LIB_HANDLE m_LibHandle;
 	CString m_LibName;
 
-	bool m_IsLoaded;
+	Bool m_IsLoaded;
 
 public:
 	void Load();
 	void Unload();
 
-	bool IsLoaded() const;
+	Bool IsLoaded() const;
 	const CString &GetName() const;
 
 	void *GetSymbol(const CString &name) const;

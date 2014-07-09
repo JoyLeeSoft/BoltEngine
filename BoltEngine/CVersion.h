@@ -22,72 +22,53 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "CException.h"
+#ifndef CVersion_h_
+#define CVersion_h_
+
+#include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
+#include "Type.h"
 #include "CString.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Exception)
+BOLTENGINE_NAMESPACE_BEGIN(Utility)
 
 using namespace TL;
 
-const CArray<const CString>::Type CException::m_ExceptionNames =
+class BOLTENGINE_API CVersion
 {
-#define e(x) #x,
-#include "ExceptionCodes.enum"
-#undef e
+private:
+	Int m_Major;
+	Int m_Minor;
+	Int m_Build;
+
+public:
+	CVersion(Int major, Int minor, Int build);
+
+	CVersion(const CString &version_str);
+
+	Int GetMajor() const;
+
+	Int GetMinor() const;
+
+	Int GetBuild() const;
+
+	Bool operator <(const CVersion &rhs);
+
+	Bool operator <=(const CVersion &rhs);
+
+	Bool operator >(const CVersion &rhs);
+
+	Bool operator >=(const CVersion &rhs);
+
+	Bool operator ==(const CVersion &rhs);
+
+	Bool operator !=(const CVersion &rhs);
+
+	operator const CString() const;
 };
 
-CException::CException(EExceptionCode code, const CString &func_name, const CString &desc) : m_ExceptionCode(code),
-	m_FunctionName(func_name), m_Description(desc)
-{
-
-}
-
-CException::CException(CException &rhs)
-{
-	CHANGE_MEMBER_BEGIN(rhs)
-		CHANGE_MEMBER(m_ExceptionCode)
-		CHANGE_MEMBER(m_FunctionName)
-		CHANGE_MEMBER(m_Description)
-	CHANGE_MEMBER_END()
-}
-
-CException::~CException() throw()
-{
-
-}
-
-Int CException::GetCode() const throw()
-{
-	return m_ExceptionCode;
-}
-
-const CString &CException::GetName() const throw()
-{
-	return m_ExceptionNames[m_ExceptionCode];
-}
-
-const CString &CException::GetFunctionName() const throw()
-{
-	return m_FunctionName;
-}
-
-const CString &CException::GetDescription() const throw()
-{
-	return m_Description;
-}
-
-CException &CException::operator =(const CException &rhs)
-{
-	CHANGE_MEMBER_BEGIN(rhs)
-		CHANGE_MEMBER(m_ExceptionCode)
-		CHANGE_MEMBER(m_FunctionName)
-		CHANGE_MEMBER(m_Description)
-	CHANGE_MEMBER_END()
-
-	return *this;
-}
-
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
+
+#endif

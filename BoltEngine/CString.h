@@ -22,72 +22,17 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "CException.h"
+#include <string>
+
 #include "BoltUtilityMacros.h"
-#include "CString.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Exception)
+BOLTENGINE_NAMESPACE_BEGIN(TL)
 
-using namespace TL;
-
-const CArray<const CString>::Type CException::m_ExceptionNames =
-{
-#define e(x) #x,
-#include "ExceptionCodes.enum"
-#undef e
-};
-
-CException::CException(EExceptionCode code, const CString &func_name, const CString &desc) : m_ExceptionCode(code),
-	m_FunctionName(func_name), m_Description(desc)
-{
-
-}
-
-CException::CException(CException &rhs)
-{
-	CHANGE_MEMBER_BEGIN(rhs)
-		CHANGE_MEMBER(m_ExceptionCode)
-		CHANGE_MEMBER(m_FunctionName)
-		CHANGE_MEMBER(m_Description)
-	CHANGE_MEMBER_END()
-}
-
-CException::~CException() throw()
-{
-
-}
-
-Int CException::GetCode() const throw()
-{
-	return m_ExceptionCode;
-}
-
-const CString &CException::GetName() const throw()
-{
-	return m_ExceptionNames[m_ExceptionCode];
-}
-
-const CString &CException::GetFunctionName() const throw()
-{
-	return m_FunctionName;
-}
-
-const CString &CException::GetDescription() const throw()
-{
-	return m_Description;
-}
-
-CException &CException::operator =(const CException &rhs)
-{
-	CHANGE_MEMBER_BEGIN(rhs)
-		CHANGE_MEMBER(m_ExceptionCode)
-		CHANGE_MEMBER(m_FunctionName)
-		CHANGE_MEMBER(m_Description)
-	CHANGE_MEMBER_END()
-
-	return *this;
-}
+// Temporary types.
+// Will be implemented soon.
+typedef /* Utility::CBasicString<Char> */ std::string CString;
+typedef /* Utility::CBasicString<WChar> */ std::wstring *CStringW;
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
