@@ -22,6 +22,67 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-e(NotImplemented)
-e(FileNotOpend)
-e(Internal)
+#include "CDynamicLib.h"
+#include "CException.h"
+
+using namespace BoltEngine::Exception;
+
+BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+
+CDynamicLib::CDynamicLib(const CString &name) : m_IsLoaded(false), m_LibName(name), m_LibHandle(0)
+{
+	
+}
+
+CDynamicLib::~CDynamicLib()
+{
+
+}
+
+void CDynamicLib::Load()
+{
+	CString name = m_LibName;
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+	if (name.substr(name.length() - 4, 4) != ".dll")
+		name += ".dll";
+#endif
+
+	m_LibHandle = DYNAMIC_LIB_LOAD(m_LibName.c_str());
+
+	if (!m_LibHandle)
+		THROW_EXCEPTION(FileNotOpend, "BoltEngine::Plugin::CDynamicLib::Load",
+			"Could not load dynamic library (" + m_LibName + ")");
+
+	m_IsLoaded = true;
+}
+
+void CDynamicLib::Unload()
+{
+	if (m_IsLoaded)
+	{
+		if (!DYNAMIC_LIB_FREE(m_LibHandle))
+		{
+			THROW_EXCEPTION(Internal, "BoltEngine::Plugin::CDynamicLib::Unload",
+				"Could not unload dynamic library (" + m_LibName + ")");
+		}
+	}
+}
+
+bool CDynamicLib::IsLoaded() const
+{
+	return m_IsLoaded;
+}
+
+const CString &CDynamicLib::GetName() const
+{
+	return m_LibName;
+}
+
+void *CDynamicLib::GetSymbol(const CString &name) const
+{
+	return (void *)DYNAMIC_LIB_GETSYMBOL(m_LibHandle, name.c_str());
+}
+
+BOLTENGINE_NAMESPACE_END()
+BOLTENGINE_NAMESPACE_END()

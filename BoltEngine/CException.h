@@ -56,8 +56,8 @@ public:
 	CException(CException &other);
 	~CException() throw();
 
-	virtual Int GetExceptionCode() const throw();
-	virtual const CString &GetExceptionName() const throw();
+	virtual Int GetCode() const throw();
+	virtual const CString &GetName() const throw();
 	virtual const CString &GetFunctionName() const throw();
 	virtual const CString &GetDescription() const throw();
 

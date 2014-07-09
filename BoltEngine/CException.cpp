@@ -55,12 +55,12 @@ CException::~CException() throw()
 
 }
 
-Int CException::GetExceptionCode() const throw()
+Int CException::GetCode() const throw()
 {
 	return m_ExceptionCode;
 }
 
-const CString &CException::GetExceptionName() const throw()
+const CString &CException::GetName() const throw()
 {
 	return m_ExceptionNames[m_ExceptionCode];
 }

@@ -33,4 +33,6 @@
 
 #include "CException.h"
 
+#include "CDynamicLib.h"
+
 #endif

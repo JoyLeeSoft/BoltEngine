@@ -20,6 +20,9 @@
     <ClInclude Include="ISingleton.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="CDynamicLib.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -31,6 +34,9 @@
     <Filter Include="Exception">
       <UniqueIdentifier>{df125331-0d28-451b-8948-580119e02e44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Plugin">
+      <UniqueIdentifier>{eb6bd8b9-6ac5-4500-8406-022268599354}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ExceptionCodes.enum">
@@ -40,6 +46,9 @@
   <ItemGroup>
     <ClCompile Include="CException.cpp">
       <Filter>Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="CDynamicLib.cpp">
+      <Filter>Plugin</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

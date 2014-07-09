@@ -81,6 +81,7 @@
     <ClInclude Include="BoltConfigurationMacros.h" />
     <ClInclude Include="BoltEngine.h" />
     <ClInclude Include="BoltUtilityMacros.h" />
+    <ClInclude Include="CDynamicLib.h" />
     <ClInclude Include="CException.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="IUnCopyable.h" />
@@ -90,6 +91,7 @@
     <None Include="ExceptionCodes.enum" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CDynamicLib.cpp" />
     <ClCompile Include="CException.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
