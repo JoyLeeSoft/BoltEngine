@@ -22,71 +22,29 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include <boost/current_function.hpp>
+#ifndef IRendererPlugin_h_
+#define IRendererPlugin_h_
 
-#include "CDynamicLib.h"
-#include "CException.h"
+#include "BoltConfigurationMacros.h"
+#include "BoltUtilityMacros.h"
+#include "IPlugin.h"
+#include "IRenderer.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-using namespace Exception;
+using namespace Renderer;
 
-CDynamicLib::CDynamicLib(const string &name) : m_IsLoaded(false), m_LibName(name), m_LibHandle(0)
+class BOLTENGINE_API IRendererPlugin : public IPlugin
 {
-	
-}
+protected:
+	IRendererPlugin(const string &name, const CVersion &version);
 
-CDynamicLib::~CDynamicLib()
-{
-	Unload();
-}
+public:
+	virtual IRenderer *GetRenderer() = 0;
+};
 
-void CDynamicLib::Load()
-{
-	string name = m_LibName;
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-	if (name.substr(name.length() - 4, 4) != ".dll")
-		name += ".dll";
+BOLTENGINE_NAMESPACE_END()
+BOLTENGINE_NAMESPACE_END()
+
 #endif
-
-	m_LibHandle = DYNAMIC_LIB_LOAD(m_LibName.c_str());
-
-	if (!m_LibHandle)
-		THROW_EXCEPTION(FileLoadException, BOOST_CURRENT_FUNCTION,
-			"Could not load dynamic library (" + m_LibName + ")");
-
-	m_IsLoaded = true;
-}
-
-void CDynamicLib::Unload()
-{
-	if (m_IsLoaded)
-	{
-		if (!DYNAMIC_LIB_FREE(m_LibHandle))
-		{
-			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION,
-				"Could not unload dynamic library (" + m_LibName + ")");
-		}
-
-		m_IsLoaded = false;
-	}
-}
-
-bool CDynamicLib::IsLoaded() const
-{
-	return m_IsLoaded;
-}
-
-const string &CDynamicLib::GetName() const
-{
-	return m_LibName;
-}
-
-void *CDynamicLib::GetSymbol(const string &name) const
-{
-	return (void *)DYNAMIC_LIB_GETSYMBOL(m_LibHandle, name.c_str());
-}
-
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()

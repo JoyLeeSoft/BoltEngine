@@ -22,70 +22,37 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include <boost/current_function.hpp>
-
-#include "CDynamicLib.h"
-#include "CException.h"
-
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
-
-using namespace Exception;
-
-CDynamicLib::CDynamicLib(const string &name) : m_IsLoaded(false), m_LibName(name), m_LibHandle(0)
-{
-	
-}
-
-CDynamicLib::~CDynamicLib()
-{
-	Unload();
-}
-
-void CDynamicLib::Load()
-{
-	string name = m_LibName;
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-	if (name.substr(name.length() - 4, 4) != ".dll")
-		name += ".dll";
+#ifdef _MSC_VER
+#ifdef _DEBUG
+#pragma comment(lib, "../Debug/BoltEngine")
+#else
+#pragma comment(lib, "../Release/BoltEngine")
+#endif
 #endif
 
-	m_LibHandle = DYNAMIC_LIB_LOAD(m_LibName.c_str());
+#include "BoltD2D1RendererMain.h"
+#include "CD2D1RendererPlugin.h"
 
-	if (!m_LibHandle)
-		THROW_EXCEPTION(FileLoadException, BOOST_CURRENT_FUNCTION,
-			"Could not load dynamic library (" + m_LibName + ")");
+BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
-	m_IsLoaded = true;
+using namespace Plugin;
+
+CD2D1RendererPlugin *g_Plugin;
+
+extern "C" BOLTPLUGIN_API void OnLibLoad()
+{
+	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D version 1 renderer plugin", CVersion(1, 0, 0));
 }
 
-void CDynamicLib::Unload()
+extern "C" BOLTPLUGIN_API void OnLibUnload()
 {
-	if (m_IsLoaded)
-	{
-		if (!DYNAMIC_LIB_FREE(m_LibHandle))
-		{
-			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION,
-				"Could not unload dynamic library (" + m_LibName + ")");
-		}
-
-		m_IsLoaded = false;
-	}
+	SAFE_DELETE(g_Plugin);
 }
 
-bool CDynamicLib::IsLoaded() const
+extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
 {
-	return m_IsLoaded;
-}
-
-const string &CDynamicLib::GetName() const
-{
-	return m_LibName;
-}
-
-void *CDynamicLib::GetSymbol(const string &name) const
-{
-	return (void *)DYNAMIC_LIB_GETSYMBOL(m_LibHandle, name.c_str());
+	return g_Plugin;
 }
 
 BOLTENGINE_NAMESPACE_END()

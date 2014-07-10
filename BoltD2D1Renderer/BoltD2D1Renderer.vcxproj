@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DE533DCC-A380-4FF2-902C-AC235731D27F}</ProjectGuid>
+    <ProjectGuid>{111C6D84-6FC1-4B81-B984-49117EECA6A3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BoltEngine</RootNamespace>
+    <RootNamespace>BoltD2D1Renderer</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,13 +41,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(BOOST_DIRECTORY);$(IncludePath)</IncludePath>
-    <LibraryPath>$(BOOST_STAGE_32);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(BOOST_DIRECTORY);$(IncludePath)</IncludePath>
-    <LibraryPath>$(BOOST_STAGE_32);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -55,7 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;BOLTENGINE_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -71,7 +67,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BOLTENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -82,30 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoltConfigurationMacros.h" />
-    <ClInclude Include="BoltEngine.h" />
-    <ClInclude Include="BoltUtilityMacros.h" />
-    <ClInclude Include="CDynamicLib.h" />
-    <ClInclude Include="CException.h" />
-    <ClInclude Include="CPluginManager.h" />
-    <ClInclude Include="CVersion.h" />
-    <ClInclude Include="IPlugin.h" />
-    <ClInclude Include="IRenderer.h" />
-    <ClInclude Include="IRendererPlugin.h" />
-    <ClInclude Include="ISingleton.h" />
-    <ClInclude Include="IUnCopyable.h" />
-    <ClInclude Include="Type.h" />
+    <ClInclude Include="BoltD2D1RendererMain.h" />
+    <ClInclude Include="CD2D1Renderer.h" />
+    <ClInclude Include="CD2D1RendererPlugin.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ExceptionCodes.enum" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CDynamicLib.cpp" />
-    <ClCompile Include="CException.cpp" />
-    <ClCompile Include="CPluginManager.cpp" />
-    <ClCompile Include="CVersion.cpp" />
-    <ClCompile Include="IPlugin.cpp" />
-    <ClCompile Include="IRendererPlugin.cpp" />
+    <ClCompile Include="BoltD2D1RendererMain.cpp" />
+    <ClCompile Include="CD2D1Renderer.cpp" />
+    <ClCompile Include="CD2D1RendererPlugin.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,7 +27,6 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "string.h"
 #include "CVersion.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
@@ -42,13 +41,20 @@ using namespace Utility;
 
 class BOLTENGINE_API IPlugin
 {
-public:
-	virtual const string &GetName() const = 0;
-	virtual EPluginKind GetKind() const = 0;
-	virtual const CVersion &GetVersion() const = 0;
+protected:
+	IPlugin(const string &name, const CVersion &version);
 
-	virtual bool Install() const = 0;
-	virtual void Uninstall() const = 0;
+protected:
+	const string m_Name;
+	const CVersion m_Version;
+
+public:
+	const string &GetName() const;
+	virtual EPluginKind GetKind() const = 0;
+	const CVersion &GetVersion() const;
+
+	virtual bool Install() = 0;
+	virtual void Uninstall() = 0;
 };
 
 BOLTENGINE_NAMESPACE_END()

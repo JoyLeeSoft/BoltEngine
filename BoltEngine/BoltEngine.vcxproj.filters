@@ -32,6 +32,12 @@
     <ClInclude Include="CPluginManager.h">
       <Filter>Plugin</Filter>
     </ClInclude>
+    <ClInclude Include="IRendererPlugin.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -45,6 +51,9 @@
     </Filter>
     <Filter Include="Plugin">
       <UniqueIdentifier>{eb6bd8b9-6ac5-4500-8406-022268599354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{e29a6513-11fa-4ac4-9c17-6dfd23afec07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +72,12 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="CPluginManager.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlugin.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="IRendererPlugin.cpp">
       <Filter>Plugin</Filter>
     </ClCompile>
   </ItemGroup>

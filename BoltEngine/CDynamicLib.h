@@ -48,7 +48,7 @@ public:
 
 private:
 	DYNAMIC_LIB_HANDLE m_LibHandle;
-	string m_LibName;
+	const string m_LibName;
 
 	Bool m_IsLoaded;
 

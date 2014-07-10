@@ -36,6 +36,10 @@
 #endif
 
 #ifdef _MSC_VER
+#define BOLTPLUGIN_API __declspec(dllexport)
+#endif
+
+#ifdef _MSC_VER
 #ifdef _DEBUG
 #define BOLTENGINE_DEBUGMODE 1
 #else 

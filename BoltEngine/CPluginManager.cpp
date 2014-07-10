@@ -28,10 +28,12 @@
 #include "CDynamicLib.h"
 #include "CException.h"
 #include "IPlugin.h"
+#include "IRenderer.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
+using namespace Renderer;
 using namespace Exception;
 
 namespace
@@ -75,7 +77,7 @@ void CPluginManager::LoadPlugin(const string &name)
 
 		if (!plugin->Install())
 		{
-			OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol("OnLibUnloaded");
+			OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol("OnLibUnload");
 			if (OnLibUnload)
 				OnLibUnload();
 
@@ -88,7 +90,6 @@ void CPluginManager::LoadPlugin(const string &name)
 		switch (plugin->GetKind())
 		{
 		case EPluginKind::Renderer:
-			
 			break;
 
 		default:
@@ -124,7 +125,7 @@ void CPluginManager::_ShutdownPlugin(PluginMap::iterator &it)
 
 	auto plugin_lib = it->second.m_PluginLib;
 
-	OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol("OnLibUnloaded");
+	OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol("OnLibUnload");
 	if (OnLibUnload == nullptr)
 		THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION, "Could not found plugin exit point");
 	OnLibUnload();
