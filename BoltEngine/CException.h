@@ -28,13 +28,9 @@
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "Type.h"
-#include "CString.h"
-#include "CArray.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Exception)
-
-using namespace TL;
 
 enum EExceptionCode : Int
 {
@@ -43,26 +39,25 @@ enum EExceptionCode : Int
 #undef e
 };
 
-
 class BOLTENGINE_API CException
 {
 protected:
 	EExceptionCode m_ExceptionCode;
-	CString m_FunctionName;
-	CString m_Description;
+	string m_FunctionName;
+	string m_Description;
 
 private:
-	static const CArray<const CString>::Type m_ExceptionNames;
+	static const vector<const string> m_ExceptionNames;
 
 public:
-	CException(EExceptionCode code, const CString &func_name, const CString &desc);
+	CException(EExceptionCode code, const string &func_name, const string &desc);
 	CException(CException &other);
 	~CException() throw();
 
 	virtual Int GetCode() const throw();
-	virtual const CString &GetName() const throw();
-	virtual const CString &GetFunctionName() const throw();
-	virtual const CString &GetDescription() const throw();
+	virtual const string &GetName() const throw();
+	virtual const string &GetFunctionName() const throw();
+	virtual const string &GetDescription() const throw();
 
 	CException &operator =(const CException &rhs);
 };
@@ -72,7 +67,7 @@ public:
 	class BOLTENGINE_API name : public CException\
 	{\
 	public:\
-		name(EExceptionCode code, const CString &func_name, const CString &desc) : CException(code, func_name, desc)\
+		name(EExceptionCode code, const string &func_name, const string &desc) : CException(code, func_name, desc)\
 		{\
 		}\
 	};

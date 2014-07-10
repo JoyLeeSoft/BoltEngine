@@ -63,6 +63,7 @@
 
 #if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
 #pragma warning(disable : 4251)
+#pragma warning(disable : 4275)
 #endif
 
 #endif

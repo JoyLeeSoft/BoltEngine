@@ -36,4 +36,6 @@
 
 #include "CDynamicLib.h"
 
+#include "CPluginManager.h"
+
 #endif

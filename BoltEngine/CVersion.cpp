@@ -35,20 +35,11 @@ BOLTENGINE_NAMESPACE_BEGIN(Utility)
 
 using namespace Exception;
 
-std::vector<CString> SplitString(const CString &str, const CString &token)
+std::vector<string> SplitString(const string &str, const string &token)
 {
-	boost::tokenizer<boost::char_separator<Char>, CString::const_iterator, CString>
+	boost::tokenizer<boost::char_separator<Char>, string::const_iterator, string>
 		temp(str, boost::char_separator<Char>(token.c_str()));
-	return std::vector<CString>(temp.begin(), temp.end());
-}
-
-Int HowManyChar(const CString &str, Char ch)
-{
-	Int ret = 0;
-	for (Char c : str)
-		if (c == ch) ret++;
-
-	return ret;
+	return std::vector<string>(temp.begin(), temp.end());
 }
 
 CVersion::CVersion(Int major, Int minor, Int build)
@@ -58,9 +49,9 @@ CVersion::CVersion(Int major, Int minor, Int build)
 	m_Build = build;
 }
 
-CVersion::CVersion(const CString &version_str)
+CVersion::CVersion(const string &version_str)
 {
-	Int n = HowManyChar(version_str, '.');
+	Int n = count(version_str.begin(), version_str.end(), '.');
 	
 	if (n == 2)
 	{
@@ -74,14 +65,14 @@ CVersion::CVersion(const CString &version_str)
 		}
 		catch (std::invalid_argument &)
 		{
-			THROW_EXCEPTION(ArgumentException, "BoltEngine::Utility::CVersion::CVersion",
+			THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION,
 				"Argument 'version_str' is not available");
 		}
 
 		return;
 	}
 
-	THROW_EXCEPTION(ArgumentException, "BoltEngine::Utility::CVersion::CVersion",
+	THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION,
 		"Argument 'version_str' is not available");
 }
 
@@ -126,7 +117,7 @@ Bool CVersion::operator !=(const CVersion &rhs)
 	return !(*this == rhs);
 }
 
-CVersion::operator const CString() const
+CVersion::operator const string() const
 {
 	return std::to_string(m_Major) + '.' + std::to_string(m_Minor) + '.' + std::to_string(m_Build);
 }

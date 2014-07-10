@@ -25,12 +25,18 @@
 #ifndef Type_h_
 #define Type_h_
 
-#include "BoltUtilityMacros.h"
-#include "BoltConfigurationMacros.h"
-
-// Temporary includes.
+/* Standard C++ header includes */
 #include <string>
 #include <vector>
+#include <list>
+#include <map>
+#include <memory>
+#include <algorithm>
+
+using namespace std;
+
+#include "BoltUtilityMacros.h"
+#include "BoltConfigurationMacros.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 

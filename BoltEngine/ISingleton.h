@@ -47,7 +47,7 @@ public:
 
 	static T *GetPointer()
 	{
-		return *GetInstance();
+		return &(GetInstance());
 	}
 
 	static const T &GetConstInstance()

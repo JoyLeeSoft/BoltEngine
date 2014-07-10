@@ -28,12 +28,9 @@
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "Type.h"
-#include "CString.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Utility)
-
-using namespace TL;
 
 class BOLTENGINE_API CVersion
 {
@@ -45,7 +42,7 @@ private:
 public:
 	CVersion(Int major, Int minor, Int build);
 
-	CVersion(const CString &version_str);
+	CVersion(const string &version_str);
 
 	Int GetMajor() const;
 
@@ -65,7 +62,7 @@ public:
 
 	Bool operator !=(const CVersion &rhs);
 
-	operator const CString() const;
+	operator const string() const;
 };
 
 BOLTENGINE_NAMESPACE_END()

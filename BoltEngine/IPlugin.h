@@ -25,24 +25,30 @@
 #ifndef IPlugin_h_
 #define IPlugin_h_
 
+#include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "CString.h"
+#include "string.h"
 #include "CVersion.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-using namespace TL;
+enum EPluginKind
+{
+	Renderer,
+};
+
 using namespace Utility;
 
-class IPlugin
+class BOLTENGINE_API IPlugin
 {
-protected:
-	const CVersion m_PluginVersion;
-
 public:
-	virtual const CString &GetName() const = 0;
-	const CVersion &GetVersion() const;
+	virtual const string &GetName() const = 0;
+	virtual EPluginKind GetKind() const = 0;
+	virtual const CVersion &GetVersion() const = 0;
+
+	virtual bool Install() const = 0;
+	virtual void Uninstall() const = 0;
 };
 
 BOLTENGINE_NAMESPACE_END()

@@ -85,10 +85,9 @@
     <ClInclude Include="BoltConfigurationMacros.h" />
     <ClInclude Include="BoltEngine.h" />
     <ClInclude Include="BoltUtilityMacros.h" />
-    <ClInclude Include="CArray.h" />
     <ClInclude Include="CDynamicLib.h" />
     <ClInclude Include="CException.h" />
-    <ClInclude Include="CString.h" />
+    <ClInclude Include="CPluginManager.h" />
     <ClInclude Include="CVersion.h" />
     <ClInclude Include="IPlugin.h" />
     <ClInclude Include="ISingleton.h" />
@@ -101,8 +100,8 @@
   <ItemGroup>
     <ClCompile Include="CDynamicLib.cpp" />
     <ClCompile Include="CException.cpp" />
+    <ClCompile Include="CPluginManager.cpp" />
     <ClCompile Include="CVersion.cpp" />
-    <ClCompile Include="IPlugin.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

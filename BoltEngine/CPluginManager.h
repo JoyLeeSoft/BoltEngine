@@ -22,16 +22,43 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include <vector>
-
+#include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
+#include "ISingleton.h"
+#include "Type.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(TL)
+BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-template<class T> struct CArray
+using namespace Utility;
+
+class CDynamicLib;
+class IPlugin;
+
+class BOLTENGINE_API CPluginManager : public ISingleton<CPluginManager>
 {
-	typedef std::vector<T> Type;
+public:
+	CPluginManager();
+	~CPluginManager();
+
+private:
+	struct SPluginStruct 
+	{
+	public:
+		CDynamicLib *m_PluginLib;
+		IPlugin *m_Plugin;
+	};
+
+	typedef map<string, SPluginStruct> PluginMap;
+
+	PluginMap m_Plugins;
+
+public:
+	void LoadPlugin(const string &name);
+	void UnloadPlugin(const string &name);
+
+private:
+	void _ShutdownPlugin(PluginMap::iterator &it);
 };
 
 BOLTENGINE_NAMESPACE_END()
