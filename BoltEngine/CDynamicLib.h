@@ -32,7 +32,7 @@
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
 #include <windows.h>
 #define DYNAMIC_LIB_HANDLE HMODULE
-#define DYNAMIC_LIB_LOAD(name) LoadLibraryExA(name, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
+#define DYNAMIC_LIB_LOAD(name) LoadLibraryExW(name, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
 #define DYNAMIC_LIB_GETSYMBOL(module, name) GetProcAddress(module, name)
 #define DYNAMIC_LIB_FREE(module) FreeLibrary(module)
 #endif
@@ -43,12 +43,12 @@ BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 class BOLTENGINE_API CDynamicLib
 {
 public:
-	CDynamicLib(const string &name);
+	CDynamicLib(const wstring &name);
 	virtual ~CDynamicLib();
 
 private:
 	DYNAMIC_LIB_HANDLE m_LibHandle;
-	const string m_LibName;
+	const wstring m_LibName;
 
 	Bool m_IsLoaded;
 
@@ -57,9 +57,9 @@ public:
 	void Unload();
 
 	Bool IsLoaded() const;
-	const string &GetName() const;
+	const wstring &GetName() const;
 
-	void *GetSymbol(const string &name) const;
+	void *GetSymbol(const wstring &name) const;
 };
 
 BOLTENGINE_NAMESPACE_END()

@@ -37,16 +37,16 @@ using namespace Utility;
 class BOLTENGINE_API IPlugin
 {
 protected:
-	IPlugin(const string &name, const string &description, const CVersion &version);
+	IPlugin(const wstring &name, const wstring &description, const CVersion &version);
 
 protected:
-	const string m_Name;
-	const string m_Description;
+	const wstring m_Name;
+	const wstring m_Description;
 	const CVersion m_Version;
 
 public:
-	const string &GetName() const;
-	const string &GetDescription() const;
+	const wstring &GetName() const;
+	const wstring &GetDescription() const;
 	const CVersion &GetVersion() const;
 
 	virtual bool Install() = 0;

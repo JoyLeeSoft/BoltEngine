@@ -46,7 +46,7 @@ CD2D1Renderer::~CD2D1Renderer()
 void CD2D1Renderer::Initialize()
 {
 	if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_Factory)))
-		THROW_EXCEPTION(RendererException, BOOST_CURRENT_FUNCTION, "Could not create Direct 2D factory");
+		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create Direct 2D factory");
 }
 
 void CD2D1Renderer::Destroy()

@@ -35,4 +35,7 @@
 #define CHANGE_MEMBER(name) name = rhs.name;
 #define CHANGE_MEMBER_END() }
 
+#define __W(x) L##x
+#define _W(x) __W(x)
+
 #endif

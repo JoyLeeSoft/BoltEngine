@@ -23,6 +23,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <boost/current_function.hpp>
+#include <boost/locale.hpp>
 
 #include "CDynamicLib.h"
 #include "CException.h"
@@ -32,7 +33,7 @@ BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
 using namespace Exception;
 
-CDynamicLib::CDynamicLib(const string &name) : m_IsLoaded(false), m_LibName(name), m_LibHandle(0)
+CDynamicLib::CDynamicLib(const wstring &name) : m_IsLoaded(false), m_LibName(name), m_LibHandle(0)
 {
 	
 }
@@ -44,17 +45,17 @@ CDynamicLib::~CDynamicLib()
 
 void CDynamicLib::Load()
 {
-	string name = m_LibName;
+	wstring name = m_LibName;
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-	if (name.substr(name.length() - 4, 4) != ".dll")
-		name += ".dll";
+	if (name.substr(name.length() - 4, 4) != L".dll")
+		name += L".dll";
 #endif
 
-	m_LibHandle = DYNAMIC_LIB_LOAD(m_LibName.c_str());
+	m_LibHandle = DYNAMIC_LIB_LOAD(name.c_str());
 
 	if (!m_LibHandle)
-		THROW_EXCEPTION(FileLoadException, BOOST_CURRENT_FUNCTION,
-			"Could not load dynamic library (" + m_LibName + ")");
+		THROW_EXCEPTION(FileLoadException, _W(BOOST_CURRENT_FUNCTION),
+			L"Could not load dynamic library \"" + m_LibName + L"\"");
 
 	m_IsLoaded = true;
 }
@@ -65,8 +66,8 @@ void CDynamicLib::Unload()
 	{
 		if (!DYNAMIC_LIB_FREE(m_LibHandle))
 		{
-			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION,
-				"Could not unload dynamic library (" + m_LibName + ")");
+			THROW_EXCEPTION(SystemException, _W(BOOST_CURRENT_FUNCTION),
+				L"Could not unload dynamic library (" + m_LibName + L")");
 		}
 
 		m_IsLoaded = false;
@@ -78,14 +79,15 @@ bool CDynamicLib::IsLoaded() const
 	return m_IsLoaded;
 }
 
-const string &CDynamicLib::GetName() const
+const wstring &CDynamicLib::GetName() const
 {
 	return m_LibName;
 }
 
-void *CDynamicLib::GetSymbol(const string &name) const
+void *CDynamicLib::GetSymbol(const wstring &name) const
 {
-	return (void *)DYNAMIC_LIB_GETSYMBOL(m_LibHandle, name.c_str());
+	string temp = boost::locale::conv::from_utf(name, "ISO8859-15");
+	return (void *)DYNAMIC_LIB_GETSYMBOL(m_LibHandle, temp.c_str());
 }
 
 BOLTENGINE_NAMESPACE_END()

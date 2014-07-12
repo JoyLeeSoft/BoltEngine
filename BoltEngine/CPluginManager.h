@@ -52,13 +52,13 @@ private:
 		IPlugin *m_Plugin;
 	};
 
-	typedef map<string, SPluginStruct> PluginMap;
+	typedef map<wstring, SPluginStruct> PluginMap;
 
 	PluginMap m_Plugins;
 
 public:
-	void LoadPlugin(const string &name);
-	void UnloadPlugin(const string &name);
+	void LoadPlugin(const wstring &name);
+	void UnloadPlugin(const wstring &name);
 
 private:
 	void _ShutdownPlugin(PluginMap::iterator &it);

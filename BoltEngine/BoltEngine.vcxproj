@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(BOOST_DIRECTORY);$(IncludePath)</IncludePath>
-    <LibraryPath>$(BOOST_STAGE_32);$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\boost_1_55_0\stage\stage-msvc-12.0-lib-32\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

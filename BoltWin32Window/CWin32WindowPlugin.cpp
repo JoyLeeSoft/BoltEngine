@@ -33,7 +33,7 @@ BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 using namespace Exception;
 using namespace Renderer;
 
-CWin32WindowPlugin::CWin32WindowPlugin(const string &name, const string &description, 
+CWin32WindowPlugin::CWin32WindowPlugin(const wstring &name, const wstring &description, 
 	const CVersion &version) : IWindowPlugin(name, description, version)
 {
 
@@ -55,7 +55,7 @@ void CWin32WindowPlugin::Uninstall()
 	CBoltEngine::Get().GetWindowManager()->DeleteWindowFactoryPlugin(this);
 }
 
-IWindow *CWin32WindowPlugin::Create(const string &title)
+IWindow *CWin32WindowPlugin::Create(const wstring &title)
 {
 	CWin32Window *window = new CWin32Window(title);
 	window->Initialize();

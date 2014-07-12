@@ -55,7 +55,7 @@ void CWindowManager::DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
 	m_FactoryPlugins.remove(plugin);
 }
 
-void CWindowManager::SetWindowFactoryPlugin(const string &name)
+void CWindowManager::SetWindowFactoryPlugin(const wstring &name)
 {
 	auto it = find_if(m_FactoryPlugins.begin(), m_FactoryPlugins.end(), [name](IWindowPlugin *plugin)
 	{
@@ -68,14 +68,14 @@ void CWindowManager::SetWindowFactoryPlugin(const string &name)
 	} 
 	else
 	{
-		THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION, "Could not found plugin \"" + name + "\"");
+		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin \"" + name + L"\"");
 	}
 }
 
-IWindow *CWindowManager::Create(const string &title)
+IWindow *CWindowManager::Create(const wstring &title)
 {
 	if (m_FactoryPlugin == nullptr)
-		THROW_EXCEPTION(InvalidOperationException, BOOST_CURRENT_FUNCTION, "No active factory plugins");
+		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
 	return m_FactoryPlugin->Create(title);
 }

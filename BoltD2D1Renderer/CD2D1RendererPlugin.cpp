@@ -30,7 +30,7 @@ BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
 using namespace Exception;
 
-CD2D1RendererPlugin::CD2D1RendererPlugin(const string &name, const CVersion &version) : IRendererPlugin(name, version),
+CD2D1RendererPlugin::CD2D1RendererPlugin(const wstring &name, const CVersion &version) : IRendererPlugin(name, version),
 	m_Renderer(nullptr)
 {
 	

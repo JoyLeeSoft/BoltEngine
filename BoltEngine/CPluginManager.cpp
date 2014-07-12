@@ -60,44 +60,53 @@ CPluginManager::~CPluginManager()
 	m_Plugins.clear();
 }
 
-void CPluginManager::LoadPlugin(const string &name)
+void CPluginManager::LoadPlugin(const wstring &name)
 {
 	if (m_Plugins.find(name) == m_Plugins.end())
 	{
 		CDynamicLib *plugin_lib = new CDynamicLib(name);
-		plugin_lib->Load();
 		
-		OnLibLoadFuncPtr OnLibLoad = (OnLibLoadFuncPtr)plugin_lib->GetSymbol("OnLibLoad");
+		try 
+		{
+			plugin_lib->Load();
+		}
+		catch (CFileLoadException &e)
+		{
+			delete plugin_lib;
+			throw e;
+		}
+		
+		OnLibLoadFuncPtr OnLibLoad = (OnLibLoadFuncPtr)plugin_lib->GetSymbol(L"OnLibLoad");
 		if (OnLibLoad == nullptr)
-			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION, "Could not found plugin entry point");
+			THROW_EXCEPTION(SystemException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin entry point");
 		OnLibLoad();
 
-		GetPluginFuncPtr GetPlugin = (GetPluginFuncPtr)plugin_lib->GetSymbol("GetPlugin");
+		GetPluginFuncPtr GetPlugin = (GetPluginFuncPtr)plugin_lib->GetSymbol(L"GetPlugin");
 		if (GetPlugin == nullptr)
-			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION, "Could not found plugin object");
+			THROW_EXCEPTION(SystemException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin object");
 		IPlugin *plugin = GetPlugin();
 
 		if (!plugin->Install())
 		{
-			OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol("OnLibUnload");
+			OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol(L"OnLibUnload");
 			if (OnLibUnload)
 				OnLibUnload();
 
 			plugin_lib->Unload();
-			SAFE_DELETE(plugin_lib);
+			delete plugin_lib;
 
-			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION, "Could not install plugin");
+			THROW_EXCEPTION(SystemException, _W(BOOST_CURRENT_FUNCTION), L"Could not install plugin");
 		}
 
 		m_Plugins[name] = { plugin_lib, plugin };
 	} 
 	else
 	{
-		THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION, "Plugin \"" + name + "\" is already loaded");
+		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Plugin \"" + name + L"\" is already loaded");
 	}
 }
 
-void CPluginManager::UnloadPlugin(const string &name)
+void CPluginManager::UnloadPlugin(const wstring &name)
 {
 	auto it = m_Plugins.find(name);
 
@@ -108,7 +117,7 @@ void CPluginManager::UnloadPlugin(const string &name)
 	}
 	else
 	{
-		THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION, "Could not found Plugin \"" + name + "\"");
+		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found Plugin \"" + name + L"\"");
 	}
 }
 
@@ -118,13 +127,13 @@ void CPluginManager::_ShutdownPlugin(PluginMap::iterator &it)
 
 	auto plugin_lib = it->second.m_PluginLib;
 
-	OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol("OnLibUnload");
+	OnLibUnloadFuncPtr OnLibUnload = (OnLibUnloadFuncPtr)plugin_lib->GetSymbol(L"OnLibUnload");
 	if (OnLibUnload == nullptr)
-		THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION, "Could not found plugin exit point");
+		THROW_EXCEPTION(SystemException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin exit point");
 	OnLibUnload();
 
 	plugin_lib->Unload();
-	SAFE_DELETE(plugin_lib);
+	delete plugin_lib;
 }
 
 BOLTENGINE_NAMESPACE_END()

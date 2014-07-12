@@ -52,7 +52,7 @@ public:
 
 	static void Delete()
 	{
-		SAFE_DELETE(m_Instance);
+		delete m_Instance;
 	}
 };
 

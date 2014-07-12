@@ -35,14 +35,14 @@ BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 class BOLTPLUGIN_API CWin32WindowPlugin : public IWindowPlugin
 {
 public:
-	CWin32WindowPlugin(const string &name, const string &description, const CVersion &version);
+	CWin32WindowPlugin(const wstring &name, const wstring &description, const CVersion &version);
 	virtual ~CWin32WindowPlugin();
 
 public:
 	virtual bool Install();
 	virtual void Uninstall();
 
-	virtual IWindow *Create(const string &title);
+	virtual IWindow *Create(const wstring &title);
 };
 
 BOLTENGINE_NAMESPACE_END()

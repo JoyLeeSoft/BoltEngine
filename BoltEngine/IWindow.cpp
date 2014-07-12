@@ -27,7 +27,7 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
-IWindow::IWindow(const string &title) : m_Name(title)
+IWindow::IWindow(const wstring &title) : m_Name(title)
 {
 
 }
@@ -37,7 +37,7 @@ IWindow::~IWindow()
 
 }
 
-const string &IWindow::GetName() const
+const wstring &IWindow::GetName() const
 {
 	return m_Name;
 }

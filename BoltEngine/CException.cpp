@@ -24,19 +24,18 @@
 
 #include "CException.h"
 #include "BoltUtilityMacros.h"
-#include "string.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Exception)
 
-const vector<const string> CException::m_ExceptionNames =
+const vector<const wstring> CException::m_ExceptionNames =
 {
-#define e(x) #x,
+#define e(x) L#x##L"Exception",
 #include "ExceptionCodes.enum"
 #undef e
 };
 
-CException::CException(EExceptionCode code, const string &func_name, const string &desc) : m_ExceptionCode(code),
+CException::CException(EExceptionCode code, const wstring &func_name, const wstring &desc) : m_ExceptionCode(code),
 	m_FunctionName(func_name), m_Description(desc)
 {
 
@@ -61,17 +60,17 @@ Int CException::GetCode() const throw()
 	return m_ExceptionCode;
 }
 
-const string &CException::GetName() const throw()
+const wstring &CException::GetName() const throw()
 {
 	return m_ExceptionNames[m_ExceptionCode];
 }
 
-const string &CException::GetFunctionName() const throw()
+const wstring &CException::GetFunctionName() const throw()
 {
 	return m_FunctionName;
 }
 
-const string &CException::GetDescription() const throw()
+const wstring &CException::GetDescription() const throw()
 {
 	return m_Description;
 }

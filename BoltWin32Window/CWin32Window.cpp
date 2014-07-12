@@ -33,7 +33,7 @@ BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
 using namespace Exception;
 
-CWin32Window::CWin32Window(const string &title) : IWindow(title), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
+CWin32Window::CWin32Window(const wstring &title) : IWindow(title), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
 {
 
 }
@@ -59,15 +59,15 @@ void CWin32Window::Initialize()
 		WndClass.lpszMenuName = NULL;
 		WndClass.style = CS_HREDRAW | CS_VREDRAW;
 		if (RegisterClassW(&WndClass) == 0)
-			THROW_EXCEPTION(WindowException, BOOST_CURRENT_FUNCTION, "Could not register window class");
+			THROW_EXCEPTION(WindowException, _W(BOOST_CURRENT_FUNCTION), L"Could not register window class");
 
-		m_hWnd = CreateWindowA("BoltEngine Win32 Window Class", m_Name.c_str(), WS_OVERLAPPEDWINDOW,
+		m_hWnd = CreateWindowW(L"BoltEngine Win32 Window Class", m_Name.c_str(), WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 			NULL, (HMENU)NULL, GetModuleHandle(nullptr), NULL);
 		if (!m_hWnd)
 		{
-			UnregisterClassA("BoltEngine Win32 Window Class", GetModuleHandle(nullptr));
-			THROW_EXCEPTION(WindowException, BOOST_CURRENT_FUNCTION, "Could not create window");
+			UnregisterClassW(L"BoltEngine Win32 Window Class", GetModuleHandle(nullptr));
+			THROW_EXCEPTION(WindowException, _W(BOOST_CURRENT_FUNCTION), L"Could not create window");
 		}
 
 		ShowWindow(m_hWnd, SW_SHOW);
@@ -75,7 +75,7 @@ void CWin32Window::Initialize()
 	}
 	else
 	{
-		THROW_EXCEPTION(InvalidOperationException, BOOST_CURRENT_FUNCTION, "Window is already initialized");
+		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"Window is already initialized");
 	}
 }
 
@@ -87,7 +87,7 @@ void CWin32Window::Destroy()
 	}
 	else
 	{
-		THROW_EXCEPTION(InvalidOperationException, BOOST_CURRENT_FUNCTION, "Window is already destroyed");
+		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"Window is already destroyed");
 	}
 }
 

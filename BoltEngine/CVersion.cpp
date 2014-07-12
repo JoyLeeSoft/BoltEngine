@@ -35,11 +35,11 @@ BOLTENGINE_NAMESPACE_BEGIN(Utility)
 
 using namespace Exception;
 
-std::vector<string> SplitString(const string &str, const string &token)
+std::vector<wstring> Splitwstring(const wstring &str, const wstring &token)
 {
-	boost::tokenizer<boost::char_separator<Char>, string::const_iterator, string>
-		temp(str, boost::char_separator<Char>(token.c_str()));
-	return std::vector<string>(temp.begin(), temp.end());
+	boost::tokenizer<boost::char_separator<WChar>, wstring::const_iterator, wstring>
+		temp(str, boost::char_separator<WChar>(token.c_str()));
+	return std::vector<wstring>(temp.begin(), temp.end());
 }
 
 CVersion::CVersion(Int major, Int minor, Int build)
@@ -49,13 +49,13 @@ CVersion::CVersion(Int major, Int minor, Int build)
 	m_Build = build;
 }
 
-CVersion::CVersion(const string &version_str)
+CVersion::CVersion(const wstring &version_str)
 {
 	Int n = count(version_str.begin(), version_str.end(), '.');
 	
 	if (n == 2)
 	{
-		auto token = SplitString(version_str, ".");
+		auto token = Splitwstring(version_str, L".");
 
 		try
 		{
@@ -65,15 +65,15 @@ CVersion::CVersion(const string &version_str)
 		}
 		catch (std::invalid_argument &)
 		{
-			THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION,
-				"Argument 'version_str' is not available");
+			THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION),
+				L"Argument 'version_str' is not available");
 		}
 
 		return;
 	}
 
-	THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION,
-		"Argument 'version_str' is not available");
+	THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION),
+		L"Argument 'version_str' is not available");
 }
 
 Int CVersion::GetMajor() const { return m_Major; }
@@ -117,9 +117,9 @@ Bool CVersion::operator !=(const CVersion &rhs)
 	return !(*this == rhs);
 }
 
-CVersion::operator const string() const
+CVersion::operator const wstring() const
 {
-	return std::to_string(m_Major) + '.' + std::to_string(m_Minor) + '.' + std::to_string(m_Build);
+	return std::to_wstring(m_Major) + L'.' + std::to_wstring(m_Minor) + L'.' + std::to_wstring(m_Build);
 }
 
 BOLTENGINE_NAMESPACE_END()

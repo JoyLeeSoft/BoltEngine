@@ -43,21 +43,21 @@ class BOLTENGINE_API CException
 {
 protected:
 	EExceptionCode m_ExceptionCode;
-	string m_FunctionName;
-	string m_Description;
+	wstring m_FunctionName;
+	wstring m_Description;
 
 private:
-	static const vector<const string> m_ExceptionNames;
+	static const vector<const wstring> m_ExceptionNames;
 
 public:
-	CException(EExceptionCode code, const string &func_name, const string &desc);
+	CException(EExceptionCode code, const wstring &func_name, const wstring &desc);
 	CException(CException &other);
 	~CException() throw();
 
 	virtual Int GetCode() const throw();
-	virtual const string &GetName() const throw();
-	virtual const string &GetFunctionName() const throw();
-	virtual const string &GetDescription() const throw();
+	virtual const wstring &GetName() const throw();
+	virtual const wstring &GetFunctionName() const throw();
+	virtual const wstring &GetDescription() const throw();
 
 	CException &operator =(const CException &rhs);
 };
@@ -67,7 +67,7 @@ public:
 	class BOLTENGINE_API name : public CException\
 	{\
 	public:\
-		name(EExceptionCode code, const string &func_name, const string &desc) : CException(code, func_name, desc)\
+		name(EExceptionCode code, const wstring &func_name, const wstring &desc) : CException(code, func_name, desc)\
 		{\
 		}\
 	};

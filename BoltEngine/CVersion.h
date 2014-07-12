@@ -42,7 +42,7 @@ private:
 public:
 	CVersion(Int major, Int minor, Int build);
 
-	CVersion(const string &version_str);
+	CVersion(const wstring &version_str);
 
 	Int GetMajor() const;
 
@@ -62,7 +62,7 @@ public:
 
 	Bool operator !=(const CVersion &rhs);
 
-	operator const string() const;
+	operator const wstring() const;
 };
 
 BOLTENGINE_NAMESPACE_END()

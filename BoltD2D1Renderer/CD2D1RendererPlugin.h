@@ -38,7 +38,7 @@ using namespace Renderer;
 class BOLTPLUGIN_API CD2D1RendererPlugin : public IRendererPlugin
 {
 public:
-	CD2D1RendererPlugin(const string &name, const CVersion &version);
+	CD2D1RendererPlugin(const wstring &name, const CVersion &version);
 	virtual ~CD2D1RendererPlugin();
 
 private:

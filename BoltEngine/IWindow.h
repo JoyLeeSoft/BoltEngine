@@ -35,11 +35,11 @@ BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 class BOLTENGINE_API IWindow
 {
 public:
-	IWindow(const string &title);
+	IWindow(const wstring &title);
 	virtual ~IWindow();
 
 protected:
-	string m_Name;
+	wstring m_Name;
 
 public:
 	virtual void Initialize() = 0;
@@ -48,7 +48,7 @@ public:
 	virtual void Begin() = 0;
 	virtual void End() = 0;
 
-	const string &GetName() const;
+	const wstring &GetName() const;
 };
 
 BOLTENGINE_NAMESPACE_END()

@@ -37,7 +37,7 @@ BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 class BOLTPLUGIN_API CWin32Window : public IWindow
 {
 public:
-	CWin32Window(const string &title);
+	CWin32Window(const wstring &title);
 	virtual ~CWin32Window();
 
 private:

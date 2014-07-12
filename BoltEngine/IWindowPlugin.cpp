@@ -27,7 +27,7 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-IWindowPlugin::IWindowPlugin(const string &name, const string &description, 
+IWindowPlugin::IWindowPlugin(const wstring &name, const wstring &description, 
 	const CVersion &version) : IPlugin(name, description, version)
 {
 

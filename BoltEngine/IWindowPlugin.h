@@ -38,10 +38,10 @@ using namespace Renderer;
 class BOLTENGINE_API IWindowPlugin : public IPlugin
 {
 protected:
-	IWindowPlugin(const string &name, const string &description, const CVersion &version);
+	IWindowPlugin(const wstring &name, const wstring &description, const CVersion &version);
 
 public:
-	virtual IWindow *Create(const string &title) = 0;
+	virtual IWindow *Create(const wstring &title) = 0;
 };
 
 BOLTENGINE_NAMESPACE_END()

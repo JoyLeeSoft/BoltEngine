@@ -60,9 +60,9 @@ public:
 	void DeleteWindowFactoryPlugin(IWindowPlugin *plugin);
 
 public:
-	void SetWindowFactoryPlugin(const string &name);
+	void SetWindowFactoryPlugin(const wstring &name);
 
-	IWindow *Create(const string &title);
+	IWindow *Create(const wstring &title);
 
 public:
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
