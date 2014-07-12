@@ -23,9 +23,12 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "CD2D1RendererPlugin.h"
+#include "../BoltEngine/CException.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+
+using namespace Exception;
 
 CD2D1RendererPlugin::CD2D1RendererPlugin(const string &name, const CVersion &version) : IRendererPlugin(name, version),
 	m_Renderer(nullptr)
@@ -45,7 +48,15 @@ EPluginKind CD2D1RendererPlugin::GetKind() const
 
 bool CD2D1RendererPlugin::Install()
 {
-	m_Renderer = new CD2D1Renderer();
+	try
+	{
+		m_Renderer = new CD2D1Renderer();
+	}
+	catch (CException &e)
+	{
+		return false;
+	}
+
 	return true;
 }
 

@@ -34,8 +34,6 @@
 
 #include "CException.h"
 
-#include "CDynamicLib.h"
-
-#include "CPluginManager.h"
+#include "CBoltEngine.h"
 
 #endif

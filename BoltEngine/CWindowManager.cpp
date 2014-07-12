@@ -22,42 +22,77 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#pragma comment(lib, "../Debug/BoltEngine")
-#else
-#pragma comment(lib, "../Release/BoltEngine")
-#endif
+#include <boost/current_function.hpp>
 
-#pragma comment(lib, "d2d1")
-#endif
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
-#include "CD2D1RendererPlugin.h"
+#include "CWindowManager.h"
+#include "CException.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+BOLTENGINE_NAMESPACE_BEGIN(Manager)
 
-using namespace Plugin;
+using namespace Exception;
 
-CD2D1RendererPlugin *g_Plugin;
-
-extern "C" BOLTPLUGIN_API void OnLibLoad()
+CWindowManager::CWindowManager() : m_FactoryPlugin(nullptr)
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
+
 }
 
-extern "C" BOLTPLUGIN_API void OnLibUnload()
+CWindowManager::~CWindowManager()
 {
-	SAFE_DELETE(g_Plugin);
+
 }
 
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
+void CWindowManager::InsertWindowFactoryPlugin(IWindowPlugin *plugin)
 {
-	return g_Plugin;
+	m_FactoryPlugins.push_back(plugin);
 }
+
+void CWindowManager::DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
+{
+	if (m_FactoryPlugin == plugin)
+		m_FactoryPlugin = nullptr;
+
+	m_FactoryPlugins.remove(plugin);
+}
+
+void CWindowManager::SetWindowFactoryPlugin(const string &name)
+{
+	auto it = find_if(m_FactoryPlugins.begin(), m_FactoryPlugins.end(), [name](IWindowPlugin *plugin)
+	{
+		return plugin->GetName() == name;
+	});
+
+	if (it != m_FactoryPlugins.end())
+	{
+		m_FactoryPlugin = *it;
+	} 
+	else
+	{
+		THROW_EXCEPTION(ArgumentException, BOOST_CURRENT_FUNCTION, "Could not found plugin \"" + name + "\"");
+	}
+}
+
+IWindow *CWindowManager::Create(const string &title)
+{
+	if (m_FactoryPlugin == nullptr)
+		THROW_EXCEPTION(InvalidOperationException, BOOST_CURRENT_FUNCTION, "No active factory plugins");
+
+	return m_FactoryPlugin->Create(title);
+}
+
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+LRESULT CALLBACK CWindowManager::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	switch (iMessage) 
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+
+	return DefWindowProc(hWnd, iMessage, wParam, lParam);
+}
+#endif
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()

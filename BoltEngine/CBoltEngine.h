@@ -22,42 +22,36 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#pragma comment(lib, "../Debug/BoltEngine")
-#else
-#pragma comment(lib, "../Release/BoltEngine")
-#endif
+#ifndef CBoltEngine_h_
+#define CBoltEngine_h_
 
-#pragma comment(lib, "d2d1")
-#endif
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
-#include "CD2D1RendererPlugin.h"
+#include "BoltConfigurationMacros.h"
+#include "BoltUtilityMacros.h"
+#include "CPluginManager.h"
+#include "CWindowManager.h"
+#include "ISingleton.h"
+#include "IWindow.h"
+#include "IRenderer.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
-using namespace Plugin;
+using namespace Utility;
+using namespace Manager;
+using namespace Renderer;
 
-CD2D1RendererPlugin *g_Plugin;
-
-extern "C" BOLTPLUGIN_API void OnLibLoad()
+class BOLTENGINE_API CBoltEngine : public ISingleton<CBoltEngine>
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
-}
+public:
+	CBoltEngine();
+	~CBoltEngine();
 
-extern "C" BOLTPLUGIN_API void OnLibUnload()
-{
-	SAFE_DELETE(g_Plugin);
-}
+private:
 
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
-{
-	return g_Plugin;
-}
+public:
+	CPluginManager *GetPluginManager();
+	CWindowManager *GetWindowManager();
+};
 
 BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+
+#endif

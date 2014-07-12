@@ -22,15 +22,47 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <boost/current_function.hpp>
+
 #include "../BoltEngine/BoltUtilityMacros.h"
 #include "CD2D1Renderer.h"
-
-#include <stdio.h>
+#include "../BoltEngine/CException.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
+using namespace Exception;
 
+CD2D1Renderer::CD2D1Renderer() : m_Factory(nullptr)
+{
+
+}
+
+CD2D1Renderer::~CD2D1Renderer()
+{
+
+}
+
+void CD2D1Renderer::Initialize()
+{
+	if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_Factory)))
+		THROW_EXCEPTION(RendererException, BOOST_CURRENT_FUNCTION, "Could not create Direct 2D factory");
+}
+
+void CD2D1Renderer::Destroy()
+{
+	SAFE_RELEASE(m_Factory);
+}
+
+void CD2D1Renderer::BeginDraw()
+{
+
+}
+
+void CD2D1Renderer::EndDraw()
+{
+
+}
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()

@@ -27,9 +27,8 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-using namespace Renderer;
-
-IRendererPlugin::IRendererPlugin(const string &name, const CVersion &version) : IPlugin(name, version)
+IRendererPlugin::IRendererPlugin(const string &name, const string &description, 
+	const CVersion &version) : IPlugin(name, description, version)
 {
 
 }

@@ -22,42 +22,36 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#pragma comment(lib, "../Debug/BoltEngine")
-#else
-#pragma comment(lib, "../Release/BoltEngine")
-#endif
+#ifndef IWindow_h_
+#define IWindow_h_
 
-#pragma comment(lib, "d2d1")
-#endif
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
-#include "CD2D1RendererPlugin.h"
+#include "BoltConfigurationMacros.h"
+#include "BoltUtilityMacros.h"
+#include "Type.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
-using namespace Plugin;
-
-CD2D1RendererPlugin *g_Plugin;
-
-extern "C" BOLTPLUGIN_API void OnLibLoad()
+class BOLTENGINE_API IWindow
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
-}
+public:
+	IWindow(const string &title);
+	virtual ~IWindow();
 
-extern "C" BOLTPLUGIN_API void OnLibUnload()
-{
-	SAFE_DELETE(g_Plugin);
-}
+protected:
+	string m_Name;
 
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
-{
-	return g_Plugin;
-}
+public:
+	virtual void Initialize() = 0;
+	virtual void Destroy() = 0;
+
+	virtual void Begin() = 0;
+	virtual void End() = 0;
+
+	const string &GetName() const;
+};
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
+
+#endif

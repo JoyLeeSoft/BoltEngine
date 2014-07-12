@@ -27,7 +27,8 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-IPlugin::IPlugin(const string &name, const CVersion &version) : m_Name(name), m_Version(version)
+IPlugin::IPlugin(const string &name, const string &description,
+	const CVersion &version) : m_Name(name), m_Description(description), m_Version(version)
 {
 
 }
@@ -35,6 +36,11 @@ IPlugin::IPlugin(const string &name, const CVersion &version) : m_Name(name), m_
 const string &IPlugin::GetName() const
 {
 	return m_Name;
+}
+
+const string &IPlugin::GetDescription() const
+{
+	return m_Description;
 }
 
 const CVersion &IPlugin::GetVersion() const

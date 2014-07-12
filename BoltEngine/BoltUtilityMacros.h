@@ -28,7 +28,7 @@
 #define BOLTENGINE_NAMESPACE_BEGIN(name) namespace name {
 #define BOLTENGINE_NAMESPACE_END() }
 
-#define SAFE_RELEASE(p) if (p) { p->Release(); p = 0; }
+#define SAFE_RELEASE(p) if (p) { p->Release(); }
 #define SAFE_DELETE(p) if (p) { delete p; p = 0; }
 
 #define CHANGE_MEMBER_BEGIN(rhs) { auto &other = rhs;

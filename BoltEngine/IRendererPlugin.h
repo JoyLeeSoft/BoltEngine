@@ -38,7 +38,7 @@ using namespace Renderer;
 class BOLTENGINE_API IRendererPlugin : public IPlugin
 {
 protected:
-	IRendererPlugin(const string &name, const CVersion &version);
+	IRendererPlugin(const string &name, const string &description, const CVersion &version);
 
 public:
 	virtual IRenderer *GetRenderer() = 0;

@@ -22,27 +22,30 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#ifndef CPluginManager_h_
+#define CPluginManager_h_
+
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "ISingleton.h"
 #include "Type.h"
+#include "CDynamicLib.h"
+#include "IPlugin.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+BOLTENGINE_NAMESPACE_BEGIN(Manager)
 
+using namespace Plugin;
 using namespace Utility;
 
-class CDynamicLib;
-class IPlugin;
-
-class BOLTENGINE_API CPluginManager : public ISingleton<CPluginManager>
+class BOLTENGINE_API CPluginManager : public ISingleton < CPluginManager >
 {
 public:
 	CPluginManager();
 	~CPluginManager();
 
 private:
-	struct SPluginStruct 
+	struct SPluginStruct
 	{
 	public:
 		CDynamicLib *m_PluginLib;
@@ -63,3 +66,5 @@ private:
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
+
+#endif

@@ -22,41 +22,15 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#pragma comment(lib, "../Debug/BoltEngine")
-#else
-#pragma comment(lib, "../Release/BoltEngine")
-#endif
-
-#pragma comment(lib, "d2d1")
-#endif
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
-#include "CD2D1RendererPlugin.h"
+#include "IWindowPlugin.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-using namespace Plugin;
-
-CD2D1RendererPlugin *g_Plugin;
-
-extern "C" BOLTPLUGIN_API void OnLibLoad()
+IWindowPlugin::IWindowPlugin(const string &name, const string &description, 
+	const CVersion &version) : IPlugin(name, description, version)
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
-}
 
-extern "C" BOLTPLUGIN_API void OnLibUnload()
-{
-	SAFE_DELETE(g_Plugin);
-}
-
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
-{
-	return g_Plugin;
 }
 
 BOLTENGINE_NAMESPACE_END()

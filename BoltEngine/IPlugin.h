@@ -32,25 +32,21 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
-enum EPluginKind
-{
-	Renderer,
-};
-
 using namespace Utility;
 
 class BOLTENGINE_API IPlugin
 {
 protected:
-	IPlugin(const string &name, const CVersion &version);
+	IPlugin(const string &name, const string &description, const CVersion &version);
 
 protected:
 	const string m_Name;
+	const string m_Description;
 	const CVersion m_Version;
 
 public:
 	const string &GetName() const;
-	virtual EPluginKind GetKind() const = 0;
+	const string &GetDescription() const;
 	const CVersion &GetVersion() const;
 
 	virtual bool Install() = 0;

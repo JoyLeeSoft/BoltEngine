@@ -31,9 +31,24 @@
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#undef CreateWindow
+#endif
+
+class IWindow;
+
 class BOLTENGINE_API IRenderer
 {
+protected:
+	IRenderer() { }
+	virtual ~IRenderer() { }
+
 public:
+	virtual void Initialize() = 0;
+	virtual void Destroy() = 0;
+
+	virtual void BeginDraw() = 0;
+	virtual void EndDraw() = 0;
 };
 
 BOLTENGINE_NAMESPACE_END()

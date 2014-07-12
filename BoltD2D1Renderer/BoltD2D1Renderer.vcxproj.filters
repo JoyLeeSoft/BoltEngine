@@ -12,9 +12,6 @@
     <ClInclude Include="CD2D1Renderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="BoltD2D1RendererMain.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="CD2D1RendererPlugin.h">
       <Filter>Main</Filter>
     </ClInclude>

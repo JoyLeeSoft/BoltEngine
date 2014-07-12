@@ -22,42 +22,38 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#pragma comment(lib, "../Debug/BoltEngine")
-#else
-#pragma comment(lib, "../Release/BoltEngine")
-#endif
+#ifndef CWin32Window_h_
+#define CWin32Window_h_
 
-#pragma comment(lib, "d2d1")
-#endif
+#include <windows.h>
 
 #include "../BoltEngine/BoltConfigurationMacros.h"
 #include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
-#include "CD2D1RendererPlugin.h"
+#include "../BoltEngine/IWindow.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
 BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
-using namespace Plugin;
-
-CD2D1RendererPlugin *g_Plugin;
-
-extern "C" BOLTPLUGIN_API void OnLibLoad()
+class BOLTPLUGIN_API CWin32Window : public IWindow
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
-}
+public:
+	CWin32Window(const string &title);
+	virtual ~CWin32Window();
 
-extern "C" BOLTPLUGIN_API void OnLibUnload()
-{
-	SAFE_DELETE(g_Plugin);
-}
+private:
+	bool m_IsInitialized;
+	HWND m_hWnd;
+	bool m_Loop;
 
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
-{
-	return g_Plugin;
-}
+public:
+	virtual void Initialize();
+	virtual void Destroy();
+
+	virtual void Begin();
+	virtual void End();
+};
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
+
+#endif

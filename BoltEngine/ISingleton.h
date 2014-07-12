@@ -37,7 +37,7 @@ private:
 	static T *m_Instance;
 
 public:
-	static T &GetInstance()
+	static T &Get()
 	{
 		if (m_Instance == nullptr)
 			m_Instance = new T;
@@ -45,17 +45,12 @@ public:
 		return *m_Instance;
 	}
 
-	static T *GetPointer()
+	static T *GetPtr()
 	{
-		return &(GetInstance());
+		return &(Get());
 	}
 
-	static const T &GetConstInstance()
-	{
-		return GetInstance();
-	}
-
-	static void DeleteInstance()
+	static void Delete()
 	{
 		SAFE_DELETE(m_Instance);
 	}

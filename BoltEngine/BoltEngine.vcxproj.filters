@@ -29,14 +29,26 @@
     <ClInclude Include="CVersion.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="CPluginManager.h">
-      <Filter>Plugin</Filter>
-    </ClInclude>
     <ClInclude Include="IRendererPlugin.h">
       <Filter>Plugin</Filter>
     </ClInclude>
     <ClInclude Include="IRenderer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="IWindow.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoltEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="IWindowPlugin.h">
+      <Filter>Plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="CWindowManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CPluginManager.h">
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +67,9 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{e29a6513-11fa-4ac4-9c17-6dfd23afec07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{11b01f9b-0242-4f98-b7d0-6e33049b2798}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ExceptionCodes.enum">
@@ -71,14 +86,26 @@
     <ClCompile Include="CVersion.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="CPluginManager.cpp">
-      <Filter>Plugin</Filter>
-    </ClCompile>
     <ClCompile Include="IPlugin.cpp">
       <Filter>Plugin</Filter>
     </ClCompile>
+    <ClCompile Include="CBoltEngine.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
     <ClCompile Include="IRendererPlugin.cpp">
       <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="IWindowPlugin.cpp">
+      <Filter>Plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="IWindow.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindowManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CPluginManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -22,21 +22,53 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltD2D1RendererMain_h_
-#define BoltD2D1RendererMain_h_
+#ifndef CWindowManager_h_
+#define CWindowManager_h_
 
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#include <windows.h>
+#endif
+
+#include "BoltConfigurationMacros.h"
+#include "BoltUtilityMacros.h"
+#include "Type.h"
+#include "ISingleton.h"
+#include "IWindow.h"
+#include "IWindowPlugin.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+BOLTENGINE_NAMESPACE_BEGIN(Manager)
 
+using namespace Renderer;
+using namespace Utility;
 using namespace Plugin;
 
-extern "C" BOLTPLUGIN_API void OnLibLoad();
-extern "C" BOLTPLUGIN_API void OnLibUnload();
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin();
+class BOLTENGINE_API CWindowManager : public ISingleton<CWindowManager>
+{
+public:
+	CWindowManager();
+	~CWindowManager();
+
+private:
+	typedef list<IWindowPlugin *> WindowFactoryPluginList;
+	WindowFactoryPluginList m_FactoryPlugins;
+
+	IWindowPlugin *m_FactoryPlugin;
+
+public:
+	void InsertWindowFactoryPlugin(IWindowPlugin *plugin);
+	void DeleteWindowFactoryPlugin(IWindowPlugin *plugin);
+
+public:
+	void SetWindowFactoryPlugin(const string &name);
+
+	IWindow *Create(const string &title);
+
+public:
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+#endif
+};
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()

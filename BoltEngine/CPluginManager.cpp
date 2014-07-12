@@ -29,10 +29,12 @@
 #include "CException.h"
 #include "IPlugin.h"
 #include "IRenderer.h"
+#include "CWindowManager.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+BOLTENGINE_NAMESPACE_BEGIN(Manager)
 
+using namespace Plugin;
 using namespace Renderer;
 using namespace Exception;
 
@@ -85,15 +87,6 @@ void CPluginManager::LoadPlugin(const string &name)
 			SAFE_DELETE(plugin_lib);
 
 			THROW_EXCEPTION(SystemException, BOOST_CURRENT_FUNCTION, "Could not install plugin");
-		}
-
-		switch (plugin->GetKind())
-		{
-		case EPluginKind::Renderer:
-			break;
-
-		default:
-			break;
 		}
 
 		m_Plugins[name] = { plugin_lib, plugin };

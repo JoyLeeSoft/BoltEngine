@@ -25,6 +25,8 @@
 #ifndef CD2D1Renderer_h_
 #define CD2D1Renderer_h_
 
+#include <d2d1.h>
+
 #include "../BoltEngine/BoltConfigurationMacros.h"
 #include "../BoltEngine/BoltUtilityMacros.h"
 #include "../BoltEngine/IRenderer.h"
@@ -35,6 +37,20 @@ BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 class BOLTPLUGIN_API CD2D1Renderer : public IRenderer
 {
 public:
+	CD2D1Renderer();
+	virtual ~CD2D1Renderer();
+
+private:
+	ID2D1Factory *m_Factory;
+
+public:
+	virtual void Initialize();
+	virtual void Destroy();
+
+	//virtual IWindow *CreateWindow();
+
+	virtual void BeginDraw();
+	virtual void EndDraw();
 };
 
 BOLTENGINE_NAMESPACE_END()

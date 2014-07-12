@@ -22,42 +22,31 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#pragma comment(lib, "../Debug/BoltEngine")
-#else
-#pragma comment(lib, "../Release/BoltEngine")
-#endif
-
-#pragma comment(lib, "d2d1")
-#endif
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IPlugin.h"
-#include "CD2D1RendererPlugin.h"
+#include "CBoltEngine.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
-using namespace Plugin;
-
-CD2D1RendererPlugin *g_Plugin;
-
-extern "C" BOLTPLUGIN_API void OnLibLoad()
+CBoltEngine::CBoltEngine()
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
+	// Initalize singleton classes.
+	CPluginManager::Get();
+	CWindowManager::Get();
 }
 
-extern "C" BOLTPLUGIN_API void OnLibUnload()
+CBoltEngine::~CBoltEngine()
 {
-	SAFE_DELETE(g_Plugin);
+	CWindowManager::Delete();
+	CPluginManager::Delete();
 }
 
-extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
+CPluginManager *CBoltEngine::GetPluginManager()
 {
-	return g_Plugin;
+	return CPluginManager::GetPtr();
 }
 
-BOLTENGINE_NAMESPACE_END()
+CWindowManager *CBoltEngine::GetWindowManager()
+{
+	return CWindowManager::GetPtr();
+}
+
 BOLTENGINE_NAMESPACE_END()
