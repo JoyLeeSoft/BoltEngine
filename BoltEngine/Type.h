@@ -32,6 +32,7 @@
 #include <map>
 #include <memory>
 #include <algorithm>
+#include <functional>
 
 using namespace std;
 

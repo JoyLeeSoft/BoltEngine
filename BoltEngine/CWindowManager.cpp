@@ -83,11 +83,34 @@ IWindow *CWindowManager::Create(const wstring &title)
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
 LRESULT CALLBACK CWindowManager::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-	switch (iMessage) 
+	if (iMessage == WM_CREATE)
 	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(((LPCREATESTRUCT)lParam)->lpCreateParams));
 		return 0;
+	}
+
+	IWindow *window = (IWindow*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+	if (!window) 
+		return DefWindowProc(hWnd, iMessage, wParam, lParam);
+
+	switch (iMessage)
+	{
+	case WM_CLOSE:
+		{
+			IWindow::SClosingEventArgs arg = { window, true };
+			window->OnClosing(arg);
+			if (arg.Close == false)
+				return 0;
+		}
+		break;
+	case WM_DESTROY:
+		{
+			IWindow::SClosedEventArgs arg = { window};
+			window->OnClosed(arg);
+
+			PostQuitMessage(0);
+		}
+		break;
 	}
 
 	return DefWindowProc(hWnd, iMessage, wParam, lParam);

@@ -50,6 +50,9 @@
     <ClInclude Include="CPluginManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CEventHandler.h">
+      <Filter>Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -69,6 +72,9 @@
     </Filter>
     <Filter Include="Manager">
       <UniqueIdentifier>{11b01f9b-0242-4f98-b7d0-6e33049b2798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{d5427caf-a19c-496a-b93b-557ef5142ac9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

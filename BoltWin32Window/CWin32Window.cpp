@@ -63,7 +63,7 @@ void CWin32Window::Initialize()
 
 		m_hWnd = CreateWindowW(L"BoltEngine Win32 Window Class", m_Name.c_str(), WS_OVERLAPPEDWINDOW,
 			CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-			NULL, (HMENU)NULL, GetModuleHandle(nullptr), NULL);
+			NULL, (HMENU)NULL, GetModuleHandle(nullptr), this);
 		if (!m_hWnd)
 		{
 			UnregisterClassW(L"BoltEngine Win32 Window Class", GetModuleHandle(nullptr));

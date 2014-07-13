@@ -22,52 +22,67 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef IWindow_h_
-#define IWindow_h_
+#ifndef CEventHandler_h_
+#define CEventHandler_h_
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "Type.h"
-#include "CEventHandler.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+BOLTENGINE_NAMESPACE_BEGIN(Event)
 
-using namespace Event;
+struct SEventArgs 
+{
+};
 
-class BOLTENGINE_API IWindow
+template <typename EventArgs> class CEventHandler
 {
 public:
-	IWindow(const wstring &title);
-	virtual ~IWindow();
-
-protected:
-	wstring m_Name;
-	
-public:
-	struct SClosingEventArgs
-	{
-	public:
-		IWindow *Sender;
-		bool Close;
-	};
-	CEventHandler<SClosingEventArgs> OnClosing;
-
-	struct SClosedEventArgs 
-	{
-	public:
-		IWindow *Sender;
-	};
-	CEventHandler<SClosedEventArgs> OnClosed;
+	typedef function<void(EventArgs &)> EventFunction;
 
 public:
-	virtual void Initialize() = 0;
-	virtual void Destroy() = 0;
+	void operator +=(EventFunction func)
+	{
+		m_EventList.push_back(func);
+	}
 
-	virtual void Begin() = 0;
-	virtual void End() = 0;
+	/*void AddRemovable(EventFunction *func)
+	{
+		m_RemovableEventList.push_back(func);
+	}
 
-	const wstring &GetName() const;
+	void operator -=(EventFunction *func)
+	{
+		m_RemovableEventList.erase(remove(m_RemovableEventList.begin(), m_RemovableEventList.end(), 
+			func), m_RemovableEventList.end());
+	}
+
+	void operator -=(EventFunction func)
+	{
+		m_EventList.erase(remove(m_EventList.begin(), m_EventList.end(),
+			func), m_EventList.end());
+	}*/
+
+	void operator ()(EventArgs &e)
+	{
+		for (auto func : m_EventList)
+		{
+			func(e);
+		}
+
+		/*for (auto func : m_RemovableEventList)
+		{
+			func(e);
+		}*/
+	}
+
+private:
+	typedef vector<EventFunction> EventList;
+	EventList m_EventList;
+
+	/*typedef vector<EventFunction *> RemovableEventList;
+	RemovableEventList m_RemovableEventList;*/
 };
 
 BOLTENGINE_NAMESPACE_END()
