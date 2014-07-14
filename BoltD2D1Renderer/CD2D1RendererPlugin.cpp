@@ -23,6 +23,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "CD2D1RendererPlugin.h"
+#include "../BoltEngine/CBoltEngine.h"
 #include "../BoltEngine/CException.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
@@ -30,44 +31,34 @@ BOLTENGINE_NAMESPACE_BEGIN(Plugin)
 
 using namespace Exception;
 
-CD2D1RendererPlugin::CD2D1RendererPlugin(const wstring &name, const CVersion &version) : IRendererPlugin(name, version),
-	m_Renderer(nullptr)
+CD2D1RendererPlugin::CD2D1RendererPlugin(const wstring &name, const wstring &description, const CVersion &version) 
+	: IRendererPlugin(name, description, version)
 {
 	
 }
 
 CD2D1RendererPlugin::~CD2D1RendererPlugin()
 {
-	SAFE_DELETE(m_Renderer);
-}
 
-EPluginKind CD2D1RendererPlugin::GetKind() const
-{
-	return Renderer;
 }
 
 bool CD2D1RendererPlugin::Install()
 {
-	try
-	{
-		m_Renderer = new CD2D1Renderer();
-	}
-	catch (CException &e)
-	{
-		return false;
-	}
-
+	CBoltEngine::Get().GetRendererManager()->InsertFactoryPlugin(this);
 	return true;
 }
 
 void CD2D1RendererPlugin::Uninstall()
 {
-	SAFE_DELETE(m_Renderer);
+	CBoltEngine::Get().GetRendererManager()->DeleteFactoryPlugin(this);
 }
 
-IRenderer *CD2D1RendererPlugin::GetRenderer()
+IRenderer *CD2D1RendererPlugin::Create(IWindow *target_window)
 {
-	return m_Renderer;
+	CD2D1Renderer *renderer = new CD2D1Renderer(target_window);
+	renderer->Initialize();
+
+	return renderer;
 }
 
 BOLTENGINE_NAMESPACE_END()

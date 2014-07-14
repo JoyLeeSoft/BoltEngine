@@ -29,6 +29,7 @@
 #include "BoltUtilityMacros.h"
 #include "CPluginManager.h"
 #include "CWindowManager.h"
+#include "CRendererManager.h"
 #include "ISingleton.h"
 #include "IWindow.h"
 #include "IRenderer.h"
@@ -50,6 +51,7 @@ private:
 public:
 	CPluginManager *GetPluginManager();
 	CWindowManager *GetWindowManager();
+	CRendererManager *GetRendererManager();
 };
 
 BOLTENGINE_NAMESPACE_END()

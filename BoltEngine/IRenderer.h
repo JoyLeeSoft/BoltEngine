@@ -39,9 +39,9 @@ class IWindow;
 
 class BOLTENGINE_API IRenderer
 {
-protected:
-	IRenderer() { }
-	virtual ~IRenderer() { }
+public:
+	IRenderer();
+	virtual ~IRenderer();
 
 public:
 	virtual void Initialize() = 0;

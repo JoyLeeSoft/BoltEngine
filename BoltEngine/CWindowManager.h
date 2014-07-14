@@ -56,13 +56,13 @@ private:
 	IWindowPlugin *m_FactoryPlugin;
 
 public:
-	void InsertWindowFactoryPlugin(IWindowPlugin *plugin);
-	void DeleteWindowFactoryPlugin(IWindowPlugin *plugin);
+	void InsertFactoryPlugin(IWindowPlugin *plugin);
+	void DeleteFactoryPlugin(IWindowPlugin *plugin);
 
 public:
-	void SetWindowFactoryPlugin(const wstring &name);
+	void SetFactoryPlugin(const wstring &name);
 
-	IWindow *Create(const wstring &title);
+	IWindow *Create(const wstring &name, const IWindow::SCreationParams &param);
 
 public:
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32

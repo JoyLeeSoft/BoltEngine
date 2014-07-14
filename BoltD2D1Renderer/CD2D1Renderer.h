@@ -37,17 +37,17 @@ BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 class BOLTPLUGIN_API CD2D1Renderer : public IRenderer
 {
 public:
-	CD2D1Renderer();
+	CD2D1Renderer(IWindow *target_window);
 	virtual ~CD2D1Renderer();
 
 private:
+	IWindow *m_TargetWindow;
 	ID2D1Factory *m_Factory;
+	ID2D1HwndRenderTarget *m_RenderTarget;
 
 public:
 	virtual void Initialize();
 	virtual void Destroy();
-
-	//virtual IWindow *CreateWindow();
 
 	virtual void BeginDraw();
 	virtual void EndDraw();

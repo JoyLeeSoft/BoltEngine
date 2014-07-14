@@ -42,12 +42,12 @@ CWindowManager::~CWindowManager()
 
 }
 
-void CWindowManager::InsertWindowFactoryPlugin(IWindowPlugin *plugin)
+void CWindowManager::InsertFactoryPlugin(IWindowPlugin *plugin)
 {
 	m_FactoryPlugins.push_back(plugin);
 }
 
-void CWindowManager::DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
+void CWindowManager::DeleteFactoryPlugin(IWindowPlugin *plugin)
 {
 	if (m_FactoryPlugin == plugin)
 		m_FactoryPlugin = nullptr;
@@ -55,7 +55,7 @@ void CWindowManager::DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
 	m_FactoryPlugins.remove(plugin);
 }
 
-void CWindowManager::SetWindowFactoryPlugin(const wstring &name)
+void CWindowManager::SetFactoryPlugin(const wstring &name)
 {
 	auto it = find_if(m_FactoryPlugins.begin(), m_FactoryPlugins.end(), [name](IWindowPlugin *plugin)
 	{
@@ -72,12 +72,12 @@ void CWindowManager::SetWindowFactoryPlugin(const wstring &name)
 	}
 }
 
-IWindow *CWindowManager::Create(const wstring &title)
+IWindow *CWindowManager::Create(const wstring &name, const IWindow::SCreationParams &param)
 {
 	if (m_FactoryPlugin == nullptr)
 		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
-	return m_FactoryPlugin->Create(title);
+	return m_FactoryPlugin->Create(name, param);
 }
 
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32

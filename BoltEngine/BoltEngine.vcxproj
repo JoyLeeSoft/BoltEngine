@@ -90,6 +90,7 @@
     <ClInclude Include="CEventHandler.h" />
     <ClInclude Include="CException.h" />
     <ClInclude Include="CPluginManager.h" />
+    <ClInclude Include="CRendererManager.h" />
     <ClInclude Include="CVersion.h" />
     <ClInclude Include="CWindowManager.h" />
     <ClInclude Include="IPlugin.h" />
@@ -109,9 +110,11 @@
     <ClCompile Include="CDynamicLib.cpp" />
     <ClCompile Include="CException.cpp" />
     <ClCompile Include="CPluginManager.cpp" />
+    <ClCompile Include="CRendererManager.cpp" />
     <ClCompile Include="CVersion.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
     <ClCompile Include="IPlugin.cpp" />
+    <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="IRendererPlugin.cpp" />
     <ClCompile Include="IWindow.cpp" />
     <ClCompile Include="IWindowPlugin.cpp" />

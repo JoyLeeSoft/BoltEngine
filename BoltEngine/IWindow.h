@@ -38,11 +38,26 @@ using namespace Event;
 class BOLTENGINE_API IWindow
 {
 public:
-	IWindow(const wstring &title);
+	struct SCreationParams 
+	{
+	public:
+		int Left, Top;
+		unsigned int Width, Height;
+		wstring Tilte;
+		bool FullScreen;
+	};
+
+public:
+	IWindow(const wstring &name);
 	virtual ~IWindow();
 
 protected:
 	wstring m_Name;
+	SCreationParams m_CreationParams;
+
+public:
+	const wstring &GetName() const { return m_Name; }
+	const SCreationParams &GetCreationParams() const { return m_CreationParams; }
 	
 public:
 	struct SClosingEventArgs
@@ -60,14 +75,21 @@ public:
 	};
 	CEventHandler<SClosedEventArgs> OnClosed;
 
+	struct SIdleEventArgs
+	{
+	public:
+		IWindow *Sender;
+	};
+	CEventHandler<SIdleEventArgs> OnIdle;
+
 public:
-	virtual void Initialize() = 0;
+	virtual void Initialize(const SCreationParams &param) = 0;
 	virtual void Destroy() = 0;
+
+	virtual void *GetHandle() = 0;
 
 	virtual void Begin() = 0;
 	virtual void End() = 0;
-
-	const wstring &GetName() const;
 };
 
 BOLTENGINE_NAMESPACE_END()

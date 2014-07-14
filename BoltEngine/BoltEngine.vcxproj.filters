@@ -53,6 +53,9 @@
     <ClInclude Include="CEventHandler.h">
       <Filter>Event</Filter>
     </ClInclude>
+    <ClInclude Include="CRendererManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -112,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="CPluginManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CRendererManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

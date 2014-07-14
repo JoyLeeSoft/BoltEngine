@@ -46,7 +46,7 @@ CD2D1RendererPlugin *g_Plugin;
 
 extern "C" BOLTPLUGIN_API void OnLibLoad()
 {
-	g_Plugin = new CD2D1RendererPlugin("BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
+	g_Plugin = new CD2D1RendererPlugin(L"BoltD2D1Renderer", L"BoltEngine Direct 2D renderer plugin", CVersion(1, 0, 0));
 }
 
 extern "C" BOLTPLUGIN_API void OnLibUnload()

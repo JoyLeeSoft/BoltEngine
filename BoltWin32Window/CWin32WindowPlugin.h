@@ -42,7 +42,7 @@ public:
 	virtual bool Install();
 	virtual void Uninstall();
 
-	virtual IWindow *Create(const wstring &title);
+	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param);
 };
 
 BOLTENGINE_NAMESPACE_END()

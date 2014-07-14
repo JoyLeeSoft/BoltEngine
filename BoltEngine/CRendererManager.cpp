@@ -22,40 +22,63 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CWin32Window_h_
-#define CWin32Window_h_
+#include <boost/current_function.hpp>
 
-#include <windows.h>
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IWindow.h"
+#include "CRendererManager.h"
+#include "CException.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+BOLTENGINE_NAMESPACE_BEGIN(Manager)
 
-class BOLTPLUGIN_API CWin32Window : public IWindow
+using namespace Exception;
+
+CRendererManager::CRendererManager() : m_FactoryPlugin(nullptr)
 {
-public:
-	CWin32Window(const wstring &name);
-	virtual ~CWin32Window();
 
-private:
-	bool m_IsInitialized;
-	HWND m_hWnd;
-	bool m_Loop;
+}
 
-public:
-	virtual void Initialize(const IWindow::SCreationParams &param);
-	virtual void Destroy();
+CRendererManager::~CRendererManager()
+{
 
-	virtual void *GetHandle();
+}
 
-	virtual void Begin();
-	virtual void End();
-};
+void CRendererManager::InsertFactoryPlugin(IRendererPlugin *plugin)
+{
+	m_FactoryPlugins.push_back(plugin);
+}
+
+void CRendererManager::DeleteFactoryPlugin(IRendererPlugin *plugin)
+{
+	if (m_FactoryPlugin == plugin)
+		m_FactoryPlugin = nullptr;
+
+	m_FactoryPlugins.remove(plugin);
+}
+
+void CRendererManager::SetFactoryPlugin(const wstring &name)
+{
+	auto it = find_if(m_FactoryPlugins.begin(), m_FactoryPlugins.end(), [name](IRendererPlugin *plugin)
+	{
+		return plugin->GetName() == name;
+	});
+
+	if (it != m_FactoryPlugins.end())
+	{
+		m_FactoryPlugin = *it;
+	}
+	else
+	{
+		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin \"" + name + L"\"");
+	}
+}
+
+IRenderer *CRendererManager::Create(IWindow *target_window)
+{
+	if (m_FactoryPlugin == nullptr)
+		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
+
+	return m_FactoryPlugin->Create(target_window);
+}
 
 BOLTENGINE_NAMESPACE_END()
 BOLTENGINE_NAMESPACE_END()
-
-#endif

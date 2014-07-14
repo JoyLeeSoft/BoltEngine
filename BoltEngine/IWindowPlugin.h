@@ -41,7 +41,7 @@ protected:
 	IWindowPlugin(const wstring &name, const wstring &description, const CVersion &version);
 
 public:
-	virtual IWindow *Create(const wstring &title) = 0;
+	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param) = 0;
 };
 
 BOLTENGINE_NAMESPACE_END()

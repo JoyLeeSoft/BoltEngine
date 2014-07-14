@@ -33,7 +33,7 @@ BOLTENGINE_NAMESPACE_BEGIN(Renderer)
 
 using namespace Exception;
 
-CWin32Window::CWin32Window(const wstring &title) : IWindow(title), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
+CWin32Window::CWin32Window(const wstring &name) : IWindow(name), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
 {
 
 }
@@ -43,8 +43,10 @@ CWin32Window::~CWin32Window()
 	Destroy();
 }
 
-void CWin32Window::Initialize()
+void CWin32Window::Initialize(const IWindow::SCreationParams &param)
 {
+	m_CreationParams = param;
+
 	if (!m_IsInitialized)
 	{
 		WNDCLASSW WndClass;
@@ -61,8 +63,13 @@ void CWin32Window::Initialize()
 		if (RegisterClassW(&WndClass) == 0)
 			THROW_EXCEPTION(WindowException, _W(BOOST_CURRENT_FUNCTION), L"Could not register window class");
 
-		m_hWnd = CreateWindowW(L"BoltEngine Win32 Window Class", m_Name.c_str(), WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+		DWORD dwStyle = WS_OVERLAPPEDWINDOW;
+
+		if (param.FullScreen)
+			dwStyle |= WS_EX_TOPMOST;
+
+		m_hWnd = CreateWindowW(L"BoltEngine Win32 Window Class", param.Tilte.c_str(), dwStyle,
+			param.Left, param.Top, param.Width, param.Height,
 			NULL, (HMENU)NULL, GetModuleHandle(nullptr), this);
 		if (!m_hWnd)
 		{
@@ -91,6 +98,11 @@ void CWin32Window::Destroy()
 	}
 }
 
+void *CWin32Window::GetHandle()
+{
+	return (void *)m_hWnd;
+}
+
 void CWin32Window::Begin()
 {
 	MSG msg;
@@ -111,7 +123,7 @@ void CWin32Window::Begin()
 		}
 		else
 		{
-			
+			OnIdle(SIdleEventArgs{ this });
 		}
 
 		Sleep(1);

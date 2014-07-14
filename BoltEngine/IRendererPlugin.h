@@ -41,7 +41,7 @@ protected:
 	IRendererPlugin(const wstring &name, const wstring &description, const CVersion &version);
 
 public:
-	virtual IRenderer *GetRenderer() = 0;
+	virtual IRenderer *Create(IWindow *target_window) = 0;
 };
 
 BOLTENGINE_NAMESPACE_END()

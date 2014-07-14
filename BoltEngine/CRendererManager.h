@@ -22,37 +22,40 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CWin32Window_h_
-#define CWin32Window_h_
+#ifndef CRendererManager_h_
+#define CRendererManager_h_
 
-#include <windows.h>
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IWindow.h"
+#include "BoltConfigurationMacros.h"
+#include "BoltUtilityMacros.h"
+#include "Type.h"
+#include "ISingleton.h"
+#include "IRendererPlugin.h"
 
 BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+BOLTENGINE_NAMESPACE_BEGIN(Manager)
 
-class BOLTPLUGIN_API CWin32Window : public IWindow
+using namespace Plugin;
+
+class BOLTENGINE_API CRendererManager : public ISingleton<CRendererManager>
 {
 public:
-	CWin32Window(const wstring &name);
-	virtual ~CWin32Window();
+	CRendererManager();
+	~CRendererManager();
 
 private:
-	bool m_IsInitialized;
-	HWND m_hWnd;
-	bool m_Loop;
+	typedef list<IRendererPlugin *> RendererFactoryPluginList;
+	RendererFactoryPluginList m_FactoryPlugins;
+
+	IRendererPlugin *m_FactoryPlugin;
 
 public:
-	virtual void Initialize(const IWindow::SCreationParams &param);
-	virtual void Destroy();
+	void InsertFactoryPlugin(IRendererPlugin *plugin);
+	void DeleteFactoryPlugin(IRendererPlugin *plugin);
 
-	virtual void *GetHandle();
+public:
+	void SetFactoryPlugin(const wstring &name);
 
-	virtual void Begin();
-	virtual void End();
+	IRenderer *Create(IWindow *target_window);
 };
 
 BOLTENGINE_NAMESPACE_END()

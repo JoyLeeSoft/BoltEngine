@@ -31,12 +31,14 @@ CBoltEngine::CBoltEngine()
 	// Initalize singleton classes.
 	CPluginManager::Get();
 	CWindowManager::Get();
+	CRendererManager::Get();
 }
 
 CBoltEngine::~CBoltEngine()
 {
-	CWindowManager::Delete();
 	CPluginManager::Delete();
+	CRendererManager::Delete();
+	CWindowManager::Delete();
 }
 
 CPluginManager *CBoltEngine::GetPluginManager()
@@ -47,6 +49,11 @@ CPluginManager *CBoltEngine::GetPluginManager()
 CWindowManager *CBoltEngine::GetWindowManager()
 {
 	return CWindowManager::GetPtr();
+}
+
+CRendererManager *CBoltEngine::GetRendererManager()
+{
+	return CRendererManager::GetPtr();
 }
 
 BOLTENGINE_NAMESPACE_END()
