@@ -24,8 +24,10 @@
 
 #include "IWindow.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 IWindow::IWindow(const wstring &name) : m_Name(name)
 {
@@ -37,5 +39,5 @@ IWindow::~IWindow()
 
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

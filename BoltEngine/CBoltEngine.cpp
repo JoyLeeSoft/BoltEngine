@@ -24,7 +24,8 @@
 
 #include "CBoltEngine.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+namespace BoltEngine
+{
 
 CBoltEngine::CBoltEngine()
 {
@@ -56,4 +57,4 @@ CRendererManager *CBoltEngine::GetRendererManager()
 	return CRendererManager::GetPtr();
 }
 
-BOLTENGINE_NAMESPACE_END()
+}

@@ -24,8 +24,10 @@
 
 #include "IRendererPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 IRendererPlugin::IRendererPlugin(const wstring &name, const wstring &description, 
 	const CVersion &version) : IPlugin(name, description, version)
@@ -33,5 +35,5 @@ IRendererPlugin::IRendererPlugin(const wstring &name, const wstring &description
 
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

@@ -28,8 +28,10 @@
 #include "BoltUtilityMacros.h"
 #include "BoltConfigurationMacros.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Utility)
+namespace BoltEngine
+{
+namespace Utility
+{
 
 class IUnCopyable
 {
@@ -42,7 +44,7 @@ private:
 	IUnCopyable &operator =(const IUnCopyable &);
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

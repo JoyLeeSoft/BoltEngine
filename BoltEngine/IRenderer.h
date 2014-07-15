@@ -28,8 +28,10 @@
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
 #undef CreateWindow
@@ -51,7 +53,7 @@ public:
 	virtual void EndDraw() = 0;
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

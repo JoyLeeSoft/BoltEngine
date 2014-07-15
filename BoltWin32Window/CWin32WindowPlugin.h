@@ -29,8 +29,10 @@
 #include "../BoltEngine/BoltUtilityMacros.h"
 #include "../BoltEngine/IWindowPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 class BOLTPLUGIN_API CWin32WindowPlugin : public IWindowPlugin
 {
@@ -45,7 +47,7 @@ public:
 	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param);
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

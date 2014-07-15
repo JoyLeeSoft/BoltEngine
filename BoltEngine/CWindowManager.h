@@ -36,8 +36,10 @@
 #include "IWindow.h"
 #include "IWindowPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Manager)
+namespace BoltEngine
+{
+namespace Manager
+{
 
 using namespace Renderer;
 using namespace Utility;
@@ -45,7 +47,9 @@ using namespace Plugin;
 
 class BOLTENGINE_API CWindowManager : public ISingleton<CWindowManager>
 {
-public:
+	SET_SINGLETON_THIS_CLASS(CWindowManager);
+
+private:
 	CWindowManager();
 	~CWindowManager();
 
@@ -70,7 +74,7 @@ public:
 #endif
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

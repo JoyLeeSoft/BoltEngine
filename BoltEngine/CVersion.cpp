@@ -30,8 +30,10 @@
 #include "CVersion.h"
 #include "CException.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Utility)
+namespace BoltEngine
+{
+namespace Utility
+{
 
 using namespace Exception;
 
@@ -122,5 +124,5 @@ CVersion::operator const wstring() const
 	return std::to_wstring(m_Major) + L'.' + std::to_wstring(m_Minor) + L'.' + std::to_wstring(m_Build);
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

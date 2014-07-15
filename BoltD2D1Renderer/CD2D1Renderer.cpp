@@ -30,8 +30,10 @@
 
 #include "CD2D1Renderer.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 using namespace Exception;
 
@@ -80,5 +82,5 @@ void CD2D1Renderer::EndDraw()
 	m_RenderTarget->EndDraw();
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

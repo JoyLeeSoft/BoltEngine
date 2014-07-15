@@ -27,8 +27,10 @@
 #include "CWin32WindowPlugin.h"
 #include "CWin32Window.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 using namespace Exception;
 using namespace Renderer;
@@ -63,5 +65,5 @@ IWindow *CWin32WindowPlugin::Create(const wstring &name, const IWindow::SCreatio
 	return window;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

@@ -24,8 +24,10 @@
 
 #include "IPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 IPlugin::IPlugin(const wstring &name, const wstring &description,
 	const CVersion &version) : m_Name(name), m_Description(description), m_Version(version)
@@ -48,5 +50,5 @@ const CVersion &IPlugin::GetVersion() const
 	return m_Version;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

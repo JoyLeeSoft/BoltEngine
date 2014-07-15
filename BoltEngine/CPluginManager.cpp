@@ -31,8 +31,10 @@
 #include "IRenderer.h"
 #include "CWindowManager.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Manager)
+namespace BoltEngine
+{
+namespace Manager
+{
 
 using namespace Plugin;
 using namespace Renderer;
@@ -54,7 +56,14 @@ CPluginManager::~CPluginManager()
 {
 	for (auto it = m_Plugins.begin(); it != m_Plugins.end(); it++)
 	{
-		_ShutdownPlugin(it);
+		try
+		{
+			_ShutdownPlugin(it);
+		}
+		catch (...)
+		{
+			OutputDebugStringW(L"some f*** error...\n");
+		}
 	}
 
 	m_Plugins.clear();
@@ -136,5 +145,5 @@ void CPluginManager::_ShutdownPlugin(PluginMap::iterator &it)
 	delete plugin_lib;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

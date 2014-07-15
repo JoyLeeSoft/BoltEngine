@@ -28,8 +28,10 @@
 #include "../BoltEngine/CWindowManager.h"
 #include "../BoltEngine/CException.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 using namespace Exception;
 
@@ -135,5 +137,5 @@ void CWin32Window::End()
 	m_Loop = false;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

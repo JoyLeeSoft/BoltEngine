@@ -34,7 +34,8 @@
 #include "IWindow.h"
 #include "IRenderer.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+namespace BoltEngine
+{
 
 using namespace Utility;
 using namespace Manager;
@@ -42,7 +43,9 @@ using namespace Renderer;
 
 class BOLTENGINE_API CBoltEngine : public ISingleton<CBoltEngine>
 {
-public:
+	SET_SINGLETON_THIS_CLASS(CBoltEngine);
+
+private:
 	CBoltEngine();
 	~CBoltEngine();
 
@@ -54,6 +57,6 @@ public:
 	CRendererManager *GetRendererManager();
 };
 
-BOLTENGINE_NAMESPACE_END()
+}
 
 #endif

@@ -30,8 +30,10 @@
 #include "IPlugin.h"
 #include "IWindow.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 using namespace Renderer;
 
@@ -44,7 +46,7 @@ public:
 	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param) = 0;
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

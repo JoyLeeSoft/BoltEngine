@@ -30,8 +30,10 @@
 #include "Type.h"
 #include "CEventHandler.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 using namespace Event;
 
@@ -92,7 +94,7 @@ public:
 	virtual void End() = 0;
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

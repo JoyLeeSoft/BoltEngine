@@ -37,8 +37,10 @@
 #include "../BoltEngine/IPlugin.h"
 #include "CD2D1RendererPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 using namespace Plugin;
 
@@ -51,7 +53,7 @@ extern "C" BOLTPLUGIN_API void OnLibLoad()
 
 extern "C" BOLTPLUGIN_API void OnLibUnload()
 {
-	SAFE_DELETE(g_Plugin);
+	delete g_Plugin;
 }
 
 extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
@@ -59,5 +61,5 @@ extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
 	return g_Plugin;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

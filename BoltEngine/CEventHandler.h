@@ -29,8 +29,10 @@
 #include "BoltUtilityMacros.h"
 #include "Type.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Event)
+namespace BoltEngine
+{
+namespace Event
+{
 
 struct SEventArgs 
 {
@@ -85,7 +87,7 @@ private:
 	RemovableEventList m_RemovableEventList;*/
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

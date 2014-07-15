@@ -25,8 +25,10 @@
 #include "CException.h"
 #include "BoltUtilityMacros.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Exception)
+namespace BoltEngine
+{
+namespace Exception
+{
 
 const vector<const wstring> CException::m_ExceptionNames =
 {
@@ -86,5 +88,5 @@ CException &CException::operator =(const CException &rhs)
 	return *this;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

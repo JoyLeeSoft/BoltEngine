@@ -29,8 +29,10 @@
 #include "BoltUtilityMacros.h"
 #include "Type.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Exception)
+namespace BoltEngine
+{
+namespace Exception
+{
 
 enum EExceptionCode : Int
 {
@@ -82,7 +84,7 @@ public:
 	throw C##error_code(error_code, func_name, desc)
 #endif
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

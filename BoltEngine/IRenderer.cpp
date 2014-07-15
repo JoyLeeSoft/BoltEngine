@@ -22,49 +22,23 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CDynamicLib_h_
-#define CDynamicLib_h_
-
-#include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
-
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-#include <windows.h>
-#define DYNAMIC_LIB_HANDLE HMODULE
-#define DYNAMIC_LIB_LOAD(name) LoadLibraryExW(name, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)
-#define DYNAMIC_LIB_GETSYMBOL(module, name) GetProcAddress(module, name)
-#define DYNAMIC_LIB_FREE(module) FreeLibrary(module)
-#endif
+#include "IRenderer.h"
 
 namespace BoltEngine
 {
-namespace Plugin
+namespace Renderer
 {
 
-class BOLTENGINE_API CDynamicLib
+IRenderer::IRenderer()
 {
-public:
-	CDynamicLib(const wstring &name);
-	virtual ~CDynamicLib();
 
-private:
-	DYNAMIC_LIB_HANDLE m_LibHandle;
-	const wstring m_LibName;
+}
 
-	Bool m_IsLoaded;
+IRenderer::~IRenderer()
+{
 
-public:
-	void Load();
-	void Unload();
-
-	Bool IsLoaded() const;
-	const wstring &GetName() const;
-
-	void *GetSymbol(const wstring &name) const;
-};
+}
 
 }
 }
-
-#endif

@@ -31,8 +31,10 @@
 #include "../BoltEngine/BoltUtilityMacros.h"
 #include "../BoltEngine/IWindow.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 class BOLTPLUGIN_API CWin32Window : public IWindow
 {
@@ -55,7 +57,7 @@ public:
 	virtual void End();
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

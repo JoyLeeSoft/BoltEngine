@@ -26,8 +26,10 @@
 #include "../BoltEngine/CBoltEngine.h"
 #include "../BoltEngine/CException.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 using namespace Exception;
 
@@ -61,5 +63,5 @@ IRenderer *CD2D1RendererPlugin::Create(IWindow *target_window)
 	return renderer;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

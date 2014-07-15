@@ -31,14 +31,18 @@
 #include "ISingleton.h"
 #include "IRendererPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Manager)
+namespace BoltEngine
+{
+namespace Manager
+{
 
 using namespace Plugin;
 
 class BOLTENGINE_API CRendererManager : public ISingleton<CRendererManager>
 {
-public:
+	SET_SINGLETON_THIS_CLASS(CRendererManager);
+
+private:
 	CRendererManager();
 	~CRendererManager();
 
@@ -58,7 +62,7 @@ public:
 	IRenderer *Create(IWindow *target_window);
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

@@ -28,8 +28,10 @@
 #include "CDynamicLib.h"
 #include "CException.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 using namespace Exception;
 
@@ -90,5 +92,5 @@ void *CDynamicLib::GetSymbol(const wstring &name) const
 	return (void *)DYNAMIC_LIB_GETSYMBOL(m_LibHandle, temp.c_str());
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

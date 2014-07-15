@@ -32,15 +32,19 @@
 #include "CDynamicLib.h"
 #include "IPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Manager)
+namespace BoltEngine
+{
+namespace Manager
+{
 
 using namespace Plugin;
 using namespace Utility;
 
 class BOLTENGINE_API CPluginManager : public ISingleton < CPluginManager >
 {
-public:
+	SET_SINGLETON_THIS_CLASS(CPluginManager);
+
+private:
 	CPluginManager();
 	~CPluginManager();
 
@@ -64,7 +68,7 @@ private:
 	void _ShutdownPlugin(PluginMap::iterator &it);
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

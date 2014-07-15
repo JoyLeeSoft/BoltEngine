@@ -39,7 +39,8 @@ using namespace std;
 #include "BoltUtilityMacros.h"
 #include "BoltConfigurationMacros.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
+namespace BoltEngine
+{
 
 typedef
 #if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
@@ -80,6 +81,6 @@ typedef bool Bool;
 typedef char Char;
 typedef wchar_t WChar;
 
-BOLTENGINE_NAMESPACE_END()
+}
 
 #endif

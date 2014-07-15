@@ -35,8 +35,10 @@
 #include "../BoltEngine/IPlugin.h"
 #include "CWin32WindowPlugin.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 using namespace Plugin;
 
@@ -57,5 +59,5 @@ extern "C" BOLTPLUGIN_API IPlugin *GetPlugin()
 	return g_Plugin;
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

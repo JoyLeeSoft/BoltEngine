@@ -31,8 +31,10 @@
 #include "../BoltEngine/BoltUtilityMacros.h"
 #include "../BoltEngine/IRenderer.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Renderer)
+namespace BoltEngine
+{
+namespace Renderer
+{
 
 class BOLTPLUGIN_API CD2D1Renderer : public IRenderer
 {
@@ -53,7 +55,7 @@ public:
 	virtual void EndDraw();
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

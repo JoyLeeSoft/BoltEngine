@@ -29,8 +29,10 @@
 #include "BoltUtilityMacros.h"
 #include "Type.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Utility)
+namespace BoltEngine
+{
+namespace Utility
+{
 
 class BOLTENGINE_API CVersion
 {
@@ -65,7 +67,7 @@ public:
 	operator const wstring() const;
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

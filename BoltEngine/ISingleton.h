@@ -28,10 +28,14 @@
 #include "BoltUtilityMacros.h"
 #include "IUnCopyable.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Utility)
+namespace BoltEngine
+{
+namespace Utility
+{
 
-template <typename T> class ISingleton : public IUnCopyable
+#define SET_SINGLETON_THIS_CLASS(type) friend class ISingleton<type>
+
+template <typename T> class ISingleton : private IUnCopyable
 {
 private:
 	static T *m_Instance;
@@ -58,7 +62,7 @@ public:
 
 template <typename T> T *ISingleton<T>::m_Instance = nullptr;
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

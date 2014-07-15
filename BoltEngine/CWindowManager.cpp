@@ -27,8 +27,10 @@
 #include "CWindowManager.h"
 #include "CException.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Manager)
+namespace BoltEngine
+{
+namespace Manager
+{
 
 using namespace Exception;
 
@@ -117,5 +119,5 @@ LRESULT CALLBACK CWindowManager::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam
 }
 #endif
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

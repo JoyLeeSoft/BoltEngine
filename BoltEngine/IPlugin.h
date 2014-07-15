@@ -29,8 +29,10 @@
 #include "BoltUtilityMacros.h"
 #include "CVersion.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Plugin)
+namespace BoltEngine
+{
+namespace Plugin
+{
 
 using namespace Utility;
 
@@ -53,7 +55,7 @@ public:
 	virtual void Uninstall() = 0;
 };
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}
 
 #endif

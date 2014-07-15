@@ -27,8 +27,10 @@
 #include "CRendererManager.h"
 #include "CException.h"
 
-BOLTENGINE_NAMESPACE_BEGIN(BoltEngine)
-BOLTENGINE_NAMESPACE_BEGIN(Manager)
+namespace BoltEngine
+{
+namespace Manager
+{
 
 using namespace Exception;
 
@@ -80,5 +82,5 @@ IRenderer *CRendererManager::Create(IWindow *target_window)
 	return m_FactoryPlugin->Create(target_window);
 }
 
-BOLTENGINE_NAMESPACE_END()
-BOLTENGINE_NAMESPACE_END()
+}
+}

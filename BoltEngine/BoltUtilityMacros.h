@@ -25,11 +25,7 @@
 #ifndef BoltUtilityMacros_h_
 #define BoltUtilityMacros_h_
 
-#define BOLTENGINE_NAMESPACE_BEGIN(name) namespace name {
-#define BOLTENGINE_NAMESPACE_END() }
-
 #define SAFE_RELEASE(p) if (p) { p->Release(); }
-#define SAFE_DELETE(p) if (p) { delete p; p = 0; }
 
 #define CHANGE_MEMBER_BEGIN(rhs) { auto &other = rhs;
 #define CHANGE_MEMBER(name) name = rhs.name;
