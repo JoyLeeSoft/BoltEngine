@@ -39,5 +39,45 @@ IWindow::~IWindow()
 
 }
 
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+LRESULT CALLBACK IWindow::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+{
+	if (iMessage == WM_CREATE)
+	{
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(((LPCREATESTRUCT)lParam)->lpCreateParams));
+		return 0;
+	}
+
+	IWindow *window = (IWindow*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+	if (!window)
+		return DefWindowProc(hWnd, iMessage, wParam, lParam);
+
+	switch (iMessage)
+	{
+	case WM_CLOSE:
+		{
+			IWindow::SClosingEventArgs arg;
+			arg.Sender = window;
+			arg.Close = true;
+			window->OnClosing(arg);
+			if (arg.Close == false)
+				return 0;
+		}
+		break;
+	case WM_DESTROY:
+		{
+			IWindow::SClosedEventArgs arg;
+			arg.Sender = window;
+			window->OnClosed(arg);
+
+			PostQuitMessage(0);
+		}
+		break;
+	}
+
+	return DefWindowProc(hWnd, iMessage, wParam, lParam);
+}
+#endif
+
 }
 }

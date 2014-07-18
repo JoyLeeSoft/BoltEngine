@@ -27,11 +27,14 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
+#include "CColor.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
+
+using namespace Utility;
 
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
 #undef CreateWindow
@@ -49,7 +52,7 @@ public:
 	virtual void Initialize() = 0;
 	virtual void Destroy() = 0;
 
-	virtual void BeginDraw() = 0;
+	virtual void BeginDraw(const CColor &color) = 0;
 	virtual void EndDraw() = 0;
 };
 

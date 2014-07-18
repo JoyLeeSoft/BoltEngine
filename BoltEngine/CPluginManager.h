@@ -28,7 +28,7 @@
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "ISingleton.h"
-#include "Type.h"
+#include "STL.h"
 #include "CDynamicLib.h"
 #include "IPlugin.h"
 
@@ -40,7 +40,7 @@ namespace Manager
 using namespace Plugin;
 using namespace Utility;
 
-class BOLTENGINE_API CPluginManager : public ISingleton < CPluginManager >
+class BOLTENGINE_API CPluginManager : public ISingleton<CPluginManager>
 {
 	SET_SINGLETON_THIS_CLASS(CPluginManager);
 
@@ -57,7 +57,6 @@ private:
 	};
 
 	typedef map<wstring, SPluginStruct> PluginMap;
-
 	PluginMap m_Plugins;
 
 public:

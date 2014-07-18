@@ -27,23 +27,27 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 
 namespace BoltEngine
 {
 namespace Exception
 {
 
-enum EExceptionCode : Int
+enum EExceptionCode : int
 {
 #define e(name) name##Exception,
 #include "ExceptionCodes.enum"
 #undef e
 };
 
+/**
+ * @author Lee
+ * @brief A BoltEngine exception class
+ */
 class BOLTENGINE_API CException
 {
-protected:
+private:
 	EExceptionCode m_ExceptionCode;
 	wstring m_FunctionName;
 	wstring m_Description;
@@ -52,15 +56,58 @@ private:
 	static const vector<const wstring> m_ExceptionNames;
 
 public:
+	/**
+	 * @brief Constructor.
+	 * @param code : An exception code
+	 * @param func_name : A name of the function where the exception occurred
+	 * @param desc : A description
+	 */
 	CException(EExceptionCode code, const wstring &func_name, const wstring &desc);
-	CException(CException &other);
-	~CException() throw();
 
-	virtual Int GetCode() const throw();
+	/**
+	 * @brief Copy constructor.
+	 * @param other : An exception class to copy
+	 */
+	CException(CException &other);
+
+	/**
+	 * @brief Getting error code
+	 * @return An error code
+	 * @code int error_code = e.GetCode();
+	 * @endcode
+	 */
+	virtual int GetCode() const throw();
+
+	/**
+	 * @brief Getting error name
+	 * @return An error name
+	 * @code std::wstring error_name = e.GetName();
+	 * @endcode
+	 */
 	virtual const wstring &GetName() const throw();
+
+	/**
+	 * @brief Getting function name
+	 * @return A function name
+	 * @code std::wstring func_name = e.GetFunctionName();
+	 * @endcode
+	 */
 	virtual const wstring &GetFunctionName() const throw();
+
+	/**
+	 * @brief Getting description
+	 * @return A description
+	 * @code std::wstring desc = e.GetDescription();
+	 * @endcode
+	 */
 	virtual const wstring &GetDescription() const throw();
 
+	/**
+	 * @brief Copying operator
+	 * @return This instance
+	 * @code CException e = other;
+	 * @endcode
+	 */
 	CException &operator =(const CException &rhs);
 };
 
@@ -79,6 +126,12 @@ public:
 #include "ExceptionCodes.enum"
 #undef e
 
+/**
+ * @author
+ * @brief Throw an exception class
+ * @code THROW_EXCEPTION(ExceptionCode, L"Function name", L"Description");
+ * @endcode
+ */
 #ifndef THROW_EXCEPTION
 #define THROW_EXCEPTION(error_code, func_name, desc) \
 	throw C##error_code(error_code, func_name, desc)

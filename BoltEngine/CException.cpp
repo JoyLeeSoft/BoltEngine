@@ -52,12 +52,7 @@ CException::CException(CException &rhs)
 	CHANGE_MEMBER_END()
 }
 
-CException::~CException() throw()
-{
-
-}
-
-Int CException::GetCode() const throw()
+int CException::GetCode() const throw()
 {
 	return m_ExceptionCode;
 }

@@ -25,13 +25,9 @@
 #ifndef CWindowManager_h_
 #define CWindowManager_h_
 
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-#include <windows.h>
-#endif
-
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 #include "ISingleton.h"
 #include "IWindow.h"
 #include "IWindowPlugin.h"
@@ -67,11 +63,6 @@ public:
 	void SetFactoryPlugin(const wstring &name);
 
 	IWindow *Create(const wstring &name, const IWindow::SCreationParams &param);
-
-public:
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-	static LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
-#endif
 };
 
 }

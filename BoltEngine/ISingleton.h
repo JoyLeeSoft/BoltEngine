@@ -33,14 +33,31 @@ namespace BoltEngine
 namespace Utility
 {
 
+/**
+ * @author Lee
+ * @brief Need to implementation singleton
+ */
 #define SET_SINGLETON_THIS_CLASS(type) friend class ISingleton<type>
 
+
+/**
+ * @author Lee
+ * @brief A class for singleton
+ * @code class Foo : public ISingleton<Foo>
+ * @endcode
+ */
 template <typename T> class ISingleton : private IUnCopyable
 {
 private:
 	static T *m_Instance;
 
 public:
+	/**
+	 * @brief Getting an instance
+	 * @return Reference of the instance
+	 * @code Foo &foo = Foo::Get();
+	 * @endcode 
+	 */
 	static T &Get()
 	{
 		if (m_Instance == nullptr)
@@ -49,11 +66,22 @@ public:
 		return *m_Instance;
 	}
 
+	/**
+	 * @brief Getting an instance pointer
+	 * @return Pointer of the instance
+	 * @code Foo *foo_ptr = Foo::GetPtr();
+	 * @endcode
+	 */
 	static T *GetPtr()
 	{
 		return &(Get());
 	}
 
+	/**
+	 * @brief Delete an instance
+	 * @code Foo::Delete();
+	 * @endcode
+	 */
 	static void Delete()
 	{
 		delete m_Instance;

@@ -55,6 +55,8 @@ public:
 
 	virtual void Begin();
 	virtual void End();
+
+	virtual void SetCaption(const wstring &caption);
 };
 
 }

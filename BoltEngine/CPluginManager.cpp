@@ -62,7 +62,7 @@ CPluginManager::~CPluginManager()
 		}
 		catch (...)
 		{
-			OutputDebugStringW(L"some f*** error...\n");
+			//OutputDebugStringW(L"some f*** error...\n");
 		}
 	}
 

@@ -33,6 +33,12 @@ namespace BoltEngine
 namespace Utility
 {
 
+/**
+ * @author Lee
+ * @brief A class does not allow copying
+ * @code class Foo : private IUnCopyable
+ * @endcode
+ */
 class IUnCopyable
 {
 protected:

@@ -27,7 +27,7 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 
 namespace BoltEngine
 {
@@ -36,6 +36,8 @@ namespace Event
 
 struct SEventArgs 
 {
+public:
+	void *Sender;
 };
 
 template <typename EventArgs> class CEventHandler

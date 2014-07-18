@@ -27,8 +27,8 @@
 
 #define SAFE_RELEASE(p) if (p) { p->Release(); }
 
-#define CHANGE_MEMBER_BEGIN(rhs) { auto &other = rhs;
-#define CHANGE_MEMBER(name) name = rhs.name;
+#define CHANGE_MEMBER_BEGIN(rhs) { auto &_ = rhs;
+#define CHANGE_MEMBER(name) name = _.name;
 #define CHANGE_MEMBER_END() }
 
 #define __W(x) L##x

@@ -27,43 +27,129 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 
 namespace BoltEngine
 {
 namespace Utility
 {
 
+/**
+ * @author Lee
+ * @brief A simple version class
+ */
 class BOLTENGINE_API CVersion
 {
 private:
-	Int m_Major;
-	Int m_Minor;
-	Int m_Build;
+	int m_Major;
+	int m_Minor;
+	int m_Build;
 
 public:
-	CVersion(Int major, Int minor, Int build);
+	/**
+	 * @brief Constructor
+	 * @param major : A major version
+	 * @param minor : A minor version
+	 * @param build : A build number
+	 * @code CVersion version(1, 0, 0);
+	 * @endcode
+	 */
+	CVersion(int major, int minor, int build);
 
+	/**
+	 * @brief Constructor to convert from string
+	 * @param version_str : A string for expression version value
+	 * @code CVersion version(L"1.0.0");
+	 * @endcode
+	 * @throws CArgumentException : If the version_str is not available
+	 */
 	CVersion(const wstring &version_str);
 
-	Int GetMajor() const;
+	/**
+	 * @brief Getting major version
+	 * @return A major version
+	 * @code int major_version = version.GetMajor();
+	 * @endcode
+	 */
+	int GetMajor() const;
 
-	Int GetMinor() const;
+	/**
+	 * @brief Getting minor version
+	 * @return A minor version
+	 * @code int minor_version = version.GetMinor();
+	 * @endcode
+	 */
+	int GetMinor() const;
 
-	Int GetBuild() const;
+	/**
+	 * @brief Getting build number
+	 * @return A build number
+	 * @code int build_number = version.GetBuild();
+	 * @endcode
+	 */
+	int GetBuild() const;
 
-	Bool operator <(const CVersion &rhs);
+	/**
+	 * @brief Comparison two versions
+	 * @return If the second version is high, function returns true\n
+	 * If the second version is low or same, function returns false
+	 * @code bool second_is_high = ver1 < ver2;
+	 * @endcode
+	 */
+	bool operator <(const CVersion &rhs);
 
-	Bool operator <=(const CVersion &rhs);
+	/**
+	 * @brief Comparison two versions
+	 * @return If the second version is high or same, function returns true\n
+	 * If the second version is low, function returns false
+	 * @code bool second_is_high_or_same = ver1 <= ver2;
+	 * @endcode
+	 */
+	bool operator <=(const CVersion &rhs);
 
-	Bool operator >(const CVersion &rhs);
+	/**
+	 * @brief Comparison two versions
+	 * @return If the second version is low, function returns true\n
+	 * If the second version is same or high, function returns false
+	 * @code bool second_low = ver1 > ver2;
+	 * @endcode
+	 */
+	bool operator >(const CVersion &rhs);
 
-	Bool operator >=(const CVersion &rhs);
 
-	Bool operator ==(const CVersion &rhs);
+	/**
+	 * @brief Comparison two versions
+	 * @return If the second version is low or same, function returns true\n
+	 * If the second version is high, function returns false
+	 * @code bool second_is_low_or_same = ver1 >= ver2;
+	 * @endcode
+	 */
+	bool operator >=(const CVersion &rhs);
 
-	Bool operator !=(const CVersion &rhs);
+	/**
+	 * @brief Comparison two versions
+	 * @return If two versions are same, function returns true\n
+	 * If they are not same, function returns false
+	 * @code bool two_version_are_same = ver1 == ver2;
+	 * @endcode
+	 */
+	bool operator ==(const CVersion &rhs);
 
+	/**
+	 * @brief Comparison two versions
+	 * @return If two versions are not same, function returns true,\n
+	 * If they are same, function returns false
+	 * @code bool two_version_are_not_same = ver1 != ver2;
+	 * @endcode
+	 */
+	bool operator !=(const CVersion &rhs);
+
+	/**
+	 * @brief Convert to string
+	 * @return Converted version string
+	 * @code std::wstring version_string = static_cast<std::wstring>(version);
+	 * @endcode
+	 */
 	operator const wstring() const;
 };
 

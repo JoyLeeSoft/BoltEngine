@@ -58,7 +58,7 @@ void CWin32Window::Initialize(const IWindow::SCreationParams &param)
 		WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 		WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 		WndClass.hInstance = GetModuleHandle(nullptr);
-		WndClass.lpfnWndProc = (WNDPROC)Manager::CWindowManager::WndProc;
+		WndClass.lpfnWndProc = (WNDPROC)IWindow::WndProc;
 		WndClass.lpszClassName = L"BoltEngine Win32 Window Class";
 		WndClass.lpszMenuName = NULL;
 		WndClass.style = CS_HREDRAW | CS_VREDRAW;
@@ -125,7 +125,9 @@ void CWin32Window::Begin()
 		}
 		else
 		{
-			OnIdle(SIdleEventArgs{ this });
+			SIdleEventArgs arg;
+			arg.Sender = this;
+			OnIdle(arg);
 		}
 
 		Sleep(1);
@@ -135,6 +137,11 @@ void CWin32Window::Begin()
 void CWin32Window::End()
 {
 	m_Loop = false;
+}
+
+void CWin32Window::SetCaption(const wstring &caption)
+{
+	SetWindowTextW(m_hWnd, caption.c_str());
 }
 
 }

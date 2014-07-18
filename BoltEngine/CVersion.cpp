@@ -37,14 +37,14 @@ namespace Utility
 
 using namespace Exception;
 
-std::vector<wstring> Splitwstring(const wstring &str, const wstring &token)
+std::vector<wstring> SplitString(const wstring &str, const wstring &token)
 {
-	boost::tokenizer<boost::char_separator<WChar>, wstring::const_iterator, wstring>
-		temp(str, boost::char_separator<WChar>(token.c_str()));
+	boost::tokenizer<boost::char_separator<wchar_t>, wstring::const_iterator, wstring>
+		temp(str, boost::char_separator<wchar_t>(token.c_str()));
 	return std::vector<wstring>(temp.begin(), temp.end());
 }
 
-CVersion::CVersion(Int major, Int minor, Int build)
+CVersion::CVersion(int major, int minor, int build)
 {
 	m_Major = major;
 	m_Minor = minor;
@@ -53,11 +53,11 @@ CVersion::CVersion(Int major, Int minor, Int build)
 
 CVersion::CVersion(const wstring &version_str)
 {
-	Int n = count(version_str.begin(), version_str.end(), '.');
+	int n = count(version_str.begin(), version_str.end(), '.');
 	
 	if (n == 2)
 	{
-		auto token = Splitwstring(version_str, L".");
+		auto token = SplitString(version_str, L".");
 
 		try
 		{
@@ -67,24 +67,22 @@ CVersion::CVersion(const wstring &version_str)
 		}
 		catch (std::invalid_argument &)
 		{
-			THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION),
-				L"Argument 'version_str' is not available");
+			THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Argument 'version_str' is not available");
 		}
 
 		return;
 	}
 
-	THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION),
-		L"Argument 'version_str' is not available");
+	THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Argument 'version_str' is not available");
 }
 
-Int CVersion::GetMajor() const { return m_Major; }
+int CVersion::GetMajor() const { return m_Major; }
 
-Int CVersion::GetMinor() const { return m_Minor; }
+int CVersion::GetMinor() const { return m_Minor; }
 
-Int CVersion::GetBuild() const { return m_Build; }
+int CVersion::GetBuild() const { return m_Build; }
 
-Bool CVersion::operator <(const CVersion &rhs)
+bool CVersion::operator <(const CVersion &rhs)
 {
 	if (m_Major < rhs.m_Major)
 		if (m_Minor < rhs.m_Minor)
@@ -94,27 +92,27 @@ Bool CVersion::operator <(const CVersion &rhs)
 	return false;
 }
 
-Bool CVersion::operator <=(const CVersion &rhs)
+bool CVersion::operator <=(const CVersion &rhs)
 {
 	return (*this == rhs) || (*this < rhs);
 }
 
-Bool CVersion::operator >(const CVersion &rhs)
+bool CVersion::operator >(const CVersion &rhs)
 {
 	return !(*this <= rhs);
 }
 
-Bool CVersion::operator >=(const CVersion &rhs)
+bool CVersion::operator >=(const CVersion &rhs)
 {
 	return !(*this < rhs);
 }
 
-Bool CVersion::operator ==(const CVersion &rhs)
+bool CVersion::operator ==(const CVersion &rhs)
 {
 	return (m_Major == rhs.m_Major) && (m_Minor == rhs.m_Minor) && (m_Build == rhs.m_Build);
 }
 
-Bool CVersion::operator !=(const CVersion &rhs)
+bool CVersion::operator !=(const CVersion &rhs)
 {
 	return !(*this == rhs);
 }

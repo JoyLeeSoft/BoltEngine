@@ -22,8 +22,8 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef Type_h_
-#define Type_h_
+#ifndef STL_h_
+#define STL_h_
 
 /* Standard C++ header includes */
 #include <string>
@@ -35,52 +35,5 @@
 #include <functional>
 
 using namespace std;
-
-#include "BoltUtilityMacros.h"
-#include "BoltConfigurationMacros.h"
-
-namespace BoltEngine
-{
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int32
-#endif
-Int;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int16
-#endif
-Short;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int8
-#endif
-Byte;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int32
-#endif
-Int;
-
-typedef
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-__int64
-#endif
-Long;
-
-typedef float Float;
-
-typedef double Double;
-
-typedef bool Bool;
-
-typedef char Char;
-typedef wchar_t WChar;
-
-}
 
 #endif

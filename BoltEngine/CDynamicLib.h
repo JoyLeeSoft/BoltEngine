@@ -27,7 +27,7 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 
 #if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
 #include <windows.h>
@@ -52,13 +52,13 @@ private:
 	DYNAMIC_LIB_HANDLE m_LibHandle;
 	const wstring m_LibName;
 
-	Bool m_IsLoaded;
+	bool m_IsLoaded;
 
 public:
 	void Load();
 	void Unload();
 
-	Bool IsLoaded() const;
+	bool IsLoaded() const;
 	const wstring &GetName() const;
 
 	void *GetSymbol(const wstring &name) const;

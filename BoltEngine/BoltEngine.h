@@ -27,13 +27,77 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-
 #include "IUnCopyable.h"
 #include "ISingleton.h"
 #include "CVersion.h"
-
 #include "CException.h"
-
+#include "IPlugin.h"
+#include "IRendererPlugin.h"
+#include "IWindowPlugin.h"
+#include "IWindow.h"
+#include "IRenderer.h"
+#include "CColor.h"
 #include "CBoltEngine.h"
+
+/**
+ * @author Lee
+ * @brief A main namespace of the BoltEngine
+ */
+namespace BoltEngine
+{
+	/**
+	 * @author Lee
+	 * @brief A namespace for utility classes of the BoltEngine
+	 */
+	namespace Utility
+	{
+
+	}
+
+	/**
+	 * @author Lee
+	 * @brief A namespace for manager classes of the BoltEngine
+	 */
+	namespace Manager
+	{
+
+	}
+
+	/**
+	 * @author Lee
+	 * @brief A namespace for exception classes of the BoltEngine
+	 */
+	namespace Exception
+	{
+
+	}
+
+	/**
+	 * @author Lee
+	 * @brief A namespace for plugin classes and interfaces of the BoltEngine
+	 */
+	namespace Plugin
+	{
+
+	}
+
+	/**
+	 * @author Lee
+	 * @brief A namespace for renderer classes and window classes of the BoltEngine
+	 */
+	namespace Renderer
+	{
+
+	}
+
+	/**
+	 * @author Lee
+	 * @brief A namespace for event handlers of the BoltEngine.
+	 */
+	namespace Event
+	{
+
+	}
+}
 
 #endif

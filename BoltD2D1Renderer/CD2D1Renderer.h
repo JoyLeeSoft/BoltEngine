@@ -51,7 +51,7 @@ public:
 	virtual void Initialize();
 	virtual void Destroy();
 
-	virtual void BeginDraw();
+	virtual void BeginDraw(const CColor &color);
 	virtual void EndDraw();
 };
 

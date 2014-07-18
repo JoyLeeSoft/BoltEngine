@@ -25,9 +25,13 @@
 #ifndef IWindow_h_
 #define IWindow_h_
 
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#include <windows.h>
+#endif
+
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 #include "CEventHandler.h"
 
 namespace BoltEngine
@@ -62,25 +66,22 @@ public:
 	const SCreationParams &GetCreationParams() const { return m_CreationParams; }
 	
 public:
-	struct SClosingEventArgs
+	struct SClosingEventArgs : public SEventArgs
 	{
 	public:
-		IWindow *Sender;
 		bool Close;
 	};
 	CEventHandler<SClosingEventArgs> OnClosing;
 
-	struct SClosedEventArgs 
+	struct SClosedEventArgs : public SEventArgs
 	{
-	public:
-		IWindow *Sender;
+
 	};
 	CEventHandler<SClosedEventArgs> OnClosed;
 
-	struct SIdleEventArgs
+	struct SIdleEventArgs : SEventArgs
 	{
-	public:
-		IWindow *Sender;
+
 	};
 	CEventHandler<SIdleEventArgs> OnIdle;
 
@@ -92,6 +93,13 @@ public:
 
 	virtual void Begin() = 0;
 	virtual void End() = 0;
+
+	virtual void SetCaption(const wstring &caption) = 0;
+
+public:
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+#endif
 };
 
 }

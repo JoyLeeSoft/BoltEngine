@@ -46,13 +46,13 @@ CD2D1RendererPlugin::~CD2D1RendererPlugin()
 
 bool CD2D1RendererPlugin::Install()
 {
-	CBoltEngine::Get().GetRendererManager()->InsertFactoryPlugin(this);
+	CBoltEngine::Get().GetRendererManager().InsertFactoryPlugin(this);
 	return true;
 }
 
 void CD2D1RendererPlugin::Uninstall()
 {
-	CBoltEngine::Get().GetRendererManager()->DeleteFactoryPlugin(this);
+	CBoltEngine::Get().GetRendererManager().DeleteFactoryPlugin(this);
 }
 
 IRenderer *CD2D1RendererPlugin::Create(IWindow *target_window)

@@ -42,19 +42,45 @@ CBoltEngine::~CBoltEngine()
 	CWindowManager::Delete();
 }
 
-CPluginManager *CBoltEngine::GetPluginManager()
+CPluginManager &CBoltEngine::GetPluginManager()
 {
-	return CPluginManager::GetPtr();
+	return CPluginManager::Get();
 }
 
-CWindowManager *CBoltEngine::GetWindowManager()
+CWindowManager &CBoltEngine::GetWindowManager()
 {
-	return CWindowManager::GetPtr();
+	return CWindowManager::Get();
 }
 
-CRendererManager *CBoltEngine::GetRendererManager()
+CRendererManager &CBoltEngine::GetRendererManager()
 {
-	return CRendererManager::GetPtr();
+	return CRendererManager::Get();
+}
+
+unsigned int CBoltEngine::GetFPS() const
+{
+	static int PreTick;
+	static int NowTick = GetTickCount();
+	static float FrameTime, Tick = 0;
+	static int Count = 0;
+	static int FPS = 0;
+
+	PreTick = NowTick;
+	NowTick = GetTickCount();
+
+	FrameTime = (NowTick - PreTick) * 0.001f;
+	Tick += FrameTime;
+
+	Count++;
+
+	if (Tick >= 1.0f)
+	{
+		Tick -= 1.0f;
+		FPS = Count;
+		Count = 0;
+	}
+
+	return FPS;
 }
 
 }

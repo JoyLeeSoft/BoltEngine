@@ -58,7 +58,7 @@ void CD2D1Renderer::Initialize()
 	D2D1_SIZE_U size = D2D1::SizeU(param.Width, param.Height);
 
 	if (FAILED(m_Factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(), D2D1::HwndRenderTargetProperties((HWND)
-		m_TargetWindow->GetHandle(), size), &m_RenderTarget)))
+		m_TargetWindow->GetHandle(), size, D2D1_PRESENT_OPTIONS_IMMEDIATELY), &m_RenderTarget)))
 	{
 		SAFE_RELEASE(m_Factory);
 		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create render target");
@@ -71,10 +71,14 @@ void CD2D1Renderer::Destroy()
 	SAFE_RELEASE(m_Factory);
 }
 
-void CD2D1Renderer::BeginDraw()
+void CD2D1Renderer::BeginDraw(const CColor &color)
 {
 	m_RenderTarget->BeginDraw();
-	m_RenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Blue));
+
+	float arr[4];
+	color.ToFloat4(arr);
+
+	m_RenderTarget->Clear(D2D1::ColorF(arr[0], arr[1], arr[2], arr[3]));
 }
 
 void CD2D1Renderer::EndDraw()

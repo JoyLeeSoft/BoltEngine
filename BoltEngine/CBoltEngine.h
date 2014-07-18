@@ -41,6 +41,10 @@ using namespace Utility;
 using namespace Manager;
 using namespace Renderer;
 
+/**
+ * @author Lee
+ * @brief A main class of the BoltEngine
+ */
 class BOLTENGINE_API CBoltEngine : public ISingleton<CBoltEngine>
 {
 	SET_SINGLETON_THIS_CLASS(CBoltEngine);
@@ -49,12 +53,32 @@ private:
 	CBoltEngine();
 	~CBoltEngine();
 
-private:
-
 public:
-	CPluginManager *GetPluginManager();
-	CWindowManager *GetWindowManager();
-	CRendererManager *GetRendererManager();
+	/**
+	 * @brief Getting plugin manager
+	 * @return Instance of the plugin manager
+	 * @code CPluginManager &plugin_manager = engine.GetPluginManager();
+	 * @endcode
+	 */
+	CPluginManager &GetPluginManager();
+
+	/**
+	 * @brief Getting window manager
+	 * @return Instance of the window manager
+	 * @code CWindowManager &window_manager = engine.GetWindowManager();
+	 * @endcode
+	 */
+	CWindowManager &GetWindowManager();
+
+	/**
+	 * @brief Getting renderer manager
+	 * @return Instance of the renderer manager
+	 * @code CRendererManager &renderer_manager = engine.GetRendererManager();
+	 * @endcode
+	 */
+	CRendererManager &GetRendererManager();
+
+	unsigned int GetFPS() const;
 };
 
 }

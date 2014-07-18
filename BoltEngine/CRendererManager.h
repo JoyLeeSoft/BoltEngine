@@ -27,7 +27,7 @@
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "Type.h"
+#include "STL.h"
 #include "ISingleton.h"
 #include "IRendererPlugin.h"
 
