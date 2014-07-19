@@ -22,8 +22,8 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "../BoltEngine/CException.h"
 #include "../BoltEngine/CBoltEngine.h"
+#include "../BoltEngine/CException.h"
 #include "CWin32WindowPlugin.h"
 #include "CWin32Window.h"
 
@@ -48,13 +48,13 @@ CWin32WindowPlugin::~CWin32WindowPlugin()
 
 bool CWin32WindowPlugin::Install()
 {
-	CBoltEngine::Get().GetWindowManager().InsertFactoryPlugin(this);
+	CBoltEngine::Get().GetPluginManager()._InsertWindowFactoryPlugin(this);
 	return true;
 }
 
 void CWin32WindowPlugin::Uninstall()
 {
-	CBoltEngine::Get().GetWindowManager().DeleteFactoryPlugin(this);
+	CBoltEngine::Get().GetPluginManager()._DeleteWindowFactoryPlugin(this);
 }
 
 IWindow *CWin32WindowPlugin::Create(const wstring &name, const IWindow::SCreationParams &param)

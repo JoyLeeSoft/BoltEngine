@@ -29,7 +29,6 @@ namespace BoltEngine
 
 CBoltEngine::CBoltEngine()
 {
-	// Initalize singleton classes.
 	CPluginManager::Get();
 	CWindowManager::Get();
 	CRendererManager::Get();
@@ -37,9 +36,9 @@ CBoltEngine::CBoltEngine()
 
 CBoltEngine::~CBoltEngine()
 {
-	CPluginManager::Delete();
 	CRendererManager::Delete();
 	CWindowManager::Delete();
+	CPluginManager::Delete();
 }
 
 CPluginManager &CBoltEngine::GetPluginManager()
@@ -81,6 +80,16 @@ unsigned int CBoltEngine::GetFPS() const
 	}
 
 	return FPS;
+}
+
+IWindow *CBoltEngine::CreateWindow(const wstring &name, const IWindow::SCreationParams &param)
+{
+	return GetPluginManager()._CreateWindow(name, param);
+}
+
+IRenderer *CBoltEngine::CreateRenderer(IWindow *target_window)
+{
+	return GetPluginManager()._CreateRenderer(target_window);
 }
 
 }

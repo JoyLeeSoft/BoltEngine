@@ -41,28 +41,23 @@ using namespace Renderer;
 using namespace Utility;
 using namespace Plugin;
 
+class CPluginManager;
+
 class BOLTENGINE_API CWindowManager : public ISingleton<CWindowManager>
 {
 	SET_SINGLETON_THIS_CLASS(CWindowManager);
+
+	friend class CPluginManager;
 
 private:
 	CWindowManager();
 	~CWindowManager();
 
 private:
-	typedef list<IWindowPlugin *> WindowFactoryPluginList;
-	WindowFactoryPluginList m_FactoryPlugins;
+	typedef vector<IWindow *> WindowList;
+	WindowList m_WindowList;
 
-	IWindowPlugin *m_FactoryPlugin;
-
-public:
-	void InsertFactoryPlugin(IWindowPlugin *plugin);
-	void DeleteFactoryPlugin(IWindowPlugin *plugin);
-
-public:
-	void SetFactoryPlugin(const wstring &name);
-
-	IWindow *Create(const wstring &name, const IWindow::SCreationParams &param);
+	void _InsertWindow(IWindow *window);
 };
 
 }

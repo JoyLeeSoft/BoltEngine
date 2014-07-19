@@ -79,6 +79,9 @@ public:
 	CRendererManager &GetRendererManager();
 
 	unsigned int GetFPS() const;
+
+	IWindow *CreateWindow(const wstring &name, const IWindow::SCreationParams &param);
+	IRenderer *CreateRenderer(IWindow *target_window);
 };
 
 }

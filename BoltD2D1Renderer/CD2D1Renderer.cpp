@@ -74,11 +74,7 @@ void CD2D1Renderer::Destroy()
 void CD2D1Renderer::BeginDraw(const CColor &color)
 {
 	m_RenderTarget->BeginDraw();
-
-	float arr[4];
-	color.ToFloat4(arr);
-
-	m_RenderTarget->Clear(D2D1::ColorF(arr[0], arr[1], arr[2], arr[3]));
+	m_RenderTarget->Clear(D2D1::ColorF(color.ToRGB()));
 }
 
 void CD2D1Renderer::EndDraw()

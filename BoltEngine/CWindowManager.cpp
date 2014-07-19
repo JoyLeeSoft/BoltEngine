@@ -34,52 +34,29 @@ namespace Manager
 
 using namespace Exception;
 
-CWindowManager::CWindowManager() : m_FactoryPlugin(nullptr)
+CWindowManager::CWindowManager()
 {
 
 }
 
 CWindowManager::~CWindowManager()
 {
-
-}
-
-void CWindowManager::InsertFactoryPlugin(IWindowPlugin *plugin)
-{
-	m_FactoryPlugins.push_back(plugin);
-}
-
-void CWindowManager::DeleteFactoryPlugin(IWindowPlugin *plugin)
-{
-	if (m_FactoryPlugin == plugin)
-		m_FactoryPlugin = nullptr;
-
-	m_FactoryPlugins.remove(plugin);
-}
-
-void CWindowManager::SetFactoryPlugin(const wstring &name)
-{
-	auto it = find_if(m_FactoryPlugins.begin(), m_FactoryPlugins.end(), [name](IWindowPlugin *plugin)
+	for (auto window : m_WindowList)
 	{
-		return plugin->GetName() == name;
-	});
+		try
+		{
+			delete window;
+		}
+		catch (...)
+		{
 
-	if (it != m_FactoryPlugins.end())
-	{
-		m_FactoryPlugin = *it;
-	} 
-	else
-	{
-		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin \"" + name + L"\"");
+		}
 	}
 }
 
-IWindow *CWindowManager::Create(const wstring &name, const IWindow::SCreationParams &param)
+void CWindowManager::_InsertWindow(IWindow *window)
 {
-	if (m_FactoryPlugin == nullptr)
-		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
-
-	return m_FactoryPlugin->Create(name, param);
+	m_WindowList.push_back(window);
 }
 
 }

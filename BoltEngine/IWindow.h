@@ -73,16 +73,10 @@ public:
 	};
 	CEventHandler<SClosingEventArgs> OnClosing;
 
-	struct SClosedEventArgs : public SEventArgs
-	{
-
-	};
+	struct SClosedEventArgs : public SEventArgs { };
 	CEventHandler<SClosedEventArgs> OnClosed;
 
-	struct SIdleEventArgs : SEventArgs
-	{
-
-	};
+	struct SIdleEventArgs : SEventArgs { };
 	CEventHandler<SIdleEventArgs> OnIdle;
 
 public:

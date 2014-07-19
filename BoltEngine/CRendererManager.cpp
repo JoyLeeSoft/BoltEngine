@@ -34,52 +34,29 @@ namespace Manager
 
 using namespace Exception;
 
-CRendererManager::CRendererManager() : m_FactoryPlugin(nullptr)
+CRendererManager::CRendererManager()
 {
 
 }
 
 CRendererManager::~CRendererManager()
 {
-
-}
-
-void CRendererManager::InsertFactoryPlugin(IRendererPlugin *plugin)
-{
-	m_FactoryPlugins.push_back(plugin);
-}
-
-void CRendererManager::DeleteFactoryPlugin(IRendererPlugin *plugin)
-{
-	if (m_FactoryPlugin == plugin)
-		m_FactoryPlugin = nullptr;
-
-	m_FactoryPlugins.remove(plugin);
-}
-
-void CRendererManager::SetFactoryPlugin(const wstring &name)
-{
-	auto it = find_if(m_FactoryPlugins.begin(), m_FactoryPlugins.end(), [name](IRendererPlugin *plugin)
+	for (auto renderer: m_RendererList)
 	{
-		return plugin->GetName() == name;
-	});
+		try
+		{
+			delete renderer;
+		}
+		catch (...)
+		{
 
-	if (it != m_FactoryPlugins.end())
-	{
-		m_FactoryPlugin = *it;
-	}
-	else
-	{
-		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin \"" + name + L"\"");
+		}
 	}
 }
 
-IRenderer *CRendererManager::Create(IWindow *target_window)
+void CRendererManager::_InsertRenderer(IRenderer *renderer)
 {
-	if (m_FactoryPlugin == nullptr)
-		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
-
-	return m_FactoryPlugin->Create(target_window);
+	m_RendererList.push_back(renderer);
 }
 
 }

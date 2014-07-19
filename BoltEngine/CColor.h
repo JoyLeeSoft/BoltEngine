@@ -26,14 +26,13 @@
 #define CColor_h_
 
 #include "BoltConfigurationMacros.h"
-#include "BoltUtilityMacros.h"
 
 namespace BoltEngine
 {
 namespace Utility
 {
 
-class CColor
+class BOLTENGINE_API CColor
 {
 public:
 	enum EColorKind : unsigned int
@@ -180,68 +179,29 @@ public:
 		YellowGreen = 0x9ACD3200,
 	};
 
-private:
-	static const unsigned int RedShift = 24;
-	static const unsigned int GreenShift = 16;
-	static const unsigned int BlueShift = 8;
-	static const unsigned int AlphaShift = 0;
-	static const unsigned int RedMask = 0xff << RedShift;
-	static const unsigned int GreenMask = 0xff << GreenShift;
-	static const unsigned int BlueMask = 0xff << BlueShift;
-	static const unsigned int AlphaMask = 0xff << AlphaShift;
-
 public:
 	typedef unsigned int ColorType;
 
 public:
-	CColor(ColorType red = 255, ColorType green = 255, ColorType blue = 255, ColorType alpha = 0) 
-		: m_Red(red), m_Green(green), m_Blue(blue), m_Alpha(alpha) { }
+	CColor(ColorType red = 255, ColorType green = 255, ColorType blue = 255, ColorType alpha = 0);
 
-	CColor(const CColor &other)
-	{
-		CHANGE_MEMBER_BEGIN(other)
-			CHANGE_MEMBER(m_Alpha)
-			CHANGE_MEMBER(m_Red)
-			CHANGE_MEMBER(m_Green)
-			CHANGE_MEMBER(m_Blue)
-		CHANGE_MEMBER_END()
-	}
+	CColor(const CColor &other);
 
-	CColor(EColorKind hex_color)
-	{
-		m_Red = ((hex_color & RedMask) >> RedShift);
-		m_Green = ((hex_color & GreenMask) >> GreenShift);
-		m_Blue = ((hex_color & BlueMask) >> BlueShift);
-		m_Alpha = ((hex_color & AlphaMask) >> AlphaShift);
-	}
+	CColor(EColorKind hex_color);
 
 private:
 	ColorType m_Red, m_Green, m_Blue, m_Alpha;
 
 public:
-	ColorType GetRed() const { return m_Red; }
-	ColorType GetGreen() const { return m_Green; }
-	ColorType GetBlue() const { return m_Blue; }
-	ColorType GetAlpha() const { return m_Alpha; }
+	ColorType GetRed() const;
+	ColorType GetGreen() const;
+	ColorType GetBlue() const;
+	ColorType GetAlpha() const;
 
-	unsigned int ToHex() const
-	{
-		unsigned a = (((m_Red & 0xff) << RedShift) | 
-			((m_Green & 0xff) << GreenShift) | 
-			((m_Blue & 0xff) << BlueShift) | 
-			(m_Alpha & AlphaShift));
-		return a;
-	}
+	unsigned int ToRGBA() const;
+	unsigned int ToRGB() const;
 
-	void ToFloat4(float arr[4]) const
-	{
-		unsigned int hex = ToHex();
-
-		arr[0] = static_cast<float>((hex & RedMask) >> RedShift) / 255.f;
-		arr[1] = static_cast<float>((hex & GreenMask) >> GreenShift) / 255.f;
-		arr[2] = static_cast<float>((hex & BlueMask) >> BlueShift) / 255.f;
-		arr[3] = static_cast<float>((hex & AlphaMask) >> AlphaShift) / 255.f;
-	}
+	void ToFloatRGBA(float arr[4]) const;
 };
 
 }

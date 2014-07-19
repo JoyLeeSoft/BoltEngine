@@ -31,9 +31,17 @@
 #include "STL.h"
 #include "CDynamicLib.h"
 #include "IPlugin.h"
+#include "IWindowPlugin.h"
+#include "IRendererPlugin.h"
+
+#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#undef CreateWindow
+#endif
 
 namespace BoltEngine
 {
+class CBoltEngine;
+
 namespace Manager
 {
 
@@ -43,6 +51,8 @@ using namespace Utility;
 class BOLTENGINE_API CPluginManager : public ISingleton<CPluginManager>
 {
 	SET_SINGLETON_THIS_CLASS(CPluginManager);
+
+	friend class CBoltEngine;
 
 private:
 	CPluginManager();
@@ -59,11 +69,31 @@ private:
 	typedef map<wstring, SPluginStruct> PluginMap;
 	PluginMap m_Plugins;
 
+	typedef list<IWindowPlugin *> WindowFactoryPluginList;
+	typedef list<IRendererPlugin *> RendererFactoryPluginList;
+
+	WindowFactoryPluginList m_WindowFactoryPlugins;
+	IWindowPlugin *m_WindowFactoryPlugin;
+	RendererFactoryPluginList m_RendererFactoryPlugins;
+	IRendererPlugin *m_RendererFactoryPlugin;
+
 public:
 	void LoadPlugin(const wstring &name);
 	void UnloadPlugin(const wstring &name);
 
+	void SetWindowFactoryPlugin(const wstring &name);
+	void SetRendererFactoryPlugin(const wstring &name);
+
+public:
+	void _InsertWindowFactoryPlugin(IWindowPlugin *plugin);
+	void _DeleteWindowFactoryPlugin(IWindowPlugin *plugin);
+	void _InsertRendererFactoryPlugin(IRendererPlugin *plugin);
+	void _DeleteRendererFactoryPlugin(IRendererPlugin *plugin);
+
 private:
+	IWindow *_CreateWindow(const wstring &name, const IWindow::SCreationParams &param);
+	IRenderer *_CreateRenderer(IWindow *target_window);
+
 	void _ShutdownPlugin(PluginMap::iterator &it);
 };
 

@@ -44,11 +44,11 @@ LRESULT CALLBACK IWindow::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARA
 {
 	if (iMessage == WM_CREATE)
 	{
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)(((LPCREATESTRUCT)lParam)->lpCreateParams));
+		SetWindowLongPtrW(hWnd, GWLP_USERDATA, (LONG)(((LPCREATESTRUCT)lParam)->lpCreateParams));
 		return 0;
 	}
 
-	IWindow *window = (IWindow*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+	IWindow *window = (IWindow*)GetWindowLongPtrW(hWnd, GWLP_USERDATA);
 	if (!window)
 		return DefWindowProc(hWnd, iMessage, wParam, lParam);
 

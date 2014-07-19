@@ -42,7 +42,14 @@ CDynamicLib::CDynamicLib(const wstring &name) : m_IsLoaded(false), m_LibName(nam
 
 CDynamicLib::~CDynamicLib()
 {
-	Unload();
+	try
+	{
+		Unload();
+	}
+	catch (...)
+	{
+		// log
+	}
 }
 
 void CDynamicLib::Load()

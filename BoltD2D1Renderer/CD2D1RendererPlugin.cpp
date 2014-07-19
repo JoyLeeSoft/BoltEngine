@@ -22,9 +22,10 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "CD2D1RendererPlugin.h"
 #include "../BoltEngine/CBoltEngine.h"
 #include "../BoltEngine/CException.h"
+#include "CD2D1RendererPlugin.h"
+#include "CD2D1Renderer.h"
 
 namespace BoltEngine
 {
@@ -46,13 +47,13 @@ CD2D1RendererPlugin::~CD2D1RendererPlugin()
 
 bool CD2D1RendererPlugin::Install()
 {
-	CBoltEngine::Get().GetRendererManager().InsertFactoryPlugin(this);
+	CBoltEngine::Get().GetPluginManager()._InsertRendererFactoryPlugin(this);
 	return true;
 }
 
 void CD2D1RendererPlugin::Uninstall()
 {
-	CBoltEngine::Get().GetRendererManager().DeleteFactoryPlugin(this);
+	CBoltEngine::Get().GetPluginManager()._DeleteRendererFactoryPlugin(this);
 }
 
 IRenderer *CD2D1RendererPlugin::Create(IWindow *target_window)

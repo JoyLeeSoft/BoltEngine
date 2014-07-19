@@ -30,6 +30,7 @@
 #include "IPlugin.h"
 #include "IRenderer.h"
 #include "CWindowManager.h"
+#include "CRendererManager.h"
 
 namespace BoltEngine
 {
@@ -128,6 +129,88 @@ void CPluginManager::UnloadPlugin(const wstring &name)
 	{
 		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found Plugin \"" + name + L"\"");
 	}
+}
+
+void CPluginManager::SetWindowFactoryPlugin(const wstring &name)
+{
+	auto it = find_if(m_WindowFactoryPlugins.begin(), m_WindowFactoryPlugins.end(), [name](IWindowPlugin *plugin)
+	{
+		return plugin->GetName() == name;
+	});
+
+	if (it != m_WindowFactoryPlugins.end())
+	{
+		m_WindowFactoryPlugin = *it;
+	}
+	else
+	{
+		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin \"" + name + L"\"");
+	}
+}
+
+void CPluginManager::SetRendererFactoryPlugin(const wstring &name)
+{
+	auto it = find_if(m_RendererFactoryPlugins.begin(), m_RendererFactoryPlugins.end(), [name](IRendererPlugin *plugin)
+	{
+		return plugin->GetName() == name;
+	});
+
+	if (it != m_RendererFactoryPlugins.end())
+	{
+		m_RendererFactoryPlugin = *it;
+	}
+	else
+	{
+		THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not found plugin \"" + name + L"\"");
+	}
+}
+
+IWindow *CPluginManager::_CreateWindow(const wstring &name, const IWindow::SCreationParams &param)
+{
+	if (m_WindowFactoryPlugin == nullptr)
+		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
+
+	IWindow *window = m_WindowFactoryPlugin->Create(name, param);
+	CWindowManager::Get()._InsertWindow(window);
+
+	return window;
+}
+
+IRenderer *CPluginManager::_CreateRenderer(IWindow *target_window)
+{
+	if (m_RendererFactoryPlugin == nullptr)
+		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
+
+	IRenderer *renderer = m_RendererFactoryPlugin->Create(target_window);
+	CRendererManager::Get()._InsertRenderer(renderer);
+
+	return renderer;
+}
+
+void CPluginManager::_InsertWindowFactoryPlugin(IWindowPlugin *plugin)
+{
+	m_WindowFactoryPlugins.push_back(plugin);
+}
+
+void CPluginManager::_DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
+{
+	if (m_WindowFactoryPlugin == plugin)
+		m_WindowFactoryPlugin = nullptr;
+
+	m_WindowFactoryPlugins.remove(plugin);
+}
+
+void CPluginManager::_InsertRendererFactoryPlugin(IRendererPlugin *plugin)
+{
+	m_RendererFactoryPlugins.push_back(plugin);
+}
+
+void CPluginManager::_DeleteRendererFactoryPlugin(IRendererPlugin *plugin)
+{
+	if (m_RendererFactoryPlugin == plugin)
+		m_RendererFactoryPlugin = nullptr;
+
+	m_RendererFactoryPlugins.remove(plugin);
 }
 
 void CPluginManager::_ShutdownPlugin(PluginMap::iterator &it)

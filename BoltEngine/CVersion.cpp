@@ -76,13 +76,22 @@ CVersion::CVersion(const wstring &version_str)
 	THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Argument 'version_str' is not available");
 }
 
-int CVersion::GetMajor() const { return m_Major; }
+int CVersion::GetMajor() const 
+{
+	return m_Major; 
+}
 
-int CVersion::GetMinor() const { return m_Minor; }
+int CVersion::GetMinor() const 
+{
+	return m_Minor; 
+}
 
-int CVersion::GetBuild() const { return m_Build; }
+int CVersion::GetBuild() const 
+{
+	return m_Build; 
+}
 
-bool CVersion::operator <(const CVersion &rhs)
+bool CVersion::operator <(const CVersion &rhs) const
 {
 	if (m_Major < rhs.m_Major)
 		if (m_Minor < rhs.m_Minor)
@@ -92,27 +101,27 @@ bool CVersion::operator <(const CVersion &rhs)
 	return false;
 }
 
-bool CVersion::operator <=(const CVersion &rhs)
+bool CVersion::operator <=(const CVersion &rhs) const
 {
 	return (*this == rhs) || (*this < rhs);
 }
 
-bool CVersion::operator >(const CVersion &rhs)
+bool CVersion::operator >(const CVersion &rhs) const
 {
 	return !(*this <= rhs);
 }
 
-bool CVersion::operator >=(const CVersion &rhs)
+bool CVersion::operator >=(const CVersion &rhs) const
 {
 	return !(*this < rhs);
 }
 
-bool CVersion::operator ==(const CVersion &rhs)
+bool CVersion::operator ==(const CVersion &rhs) const
 {
 	return (m_Major == rhs.m_Major) && (m_Minor == rhs.m_Minor) && (m_Build == rhs.m_Build);
 }
 
-bool CVersion::operator !=(const CVersion &rhs)
+bool CVersion::operator !=(const CVersion &rhs) const
 {
 	return !(*this == rhs);
 }

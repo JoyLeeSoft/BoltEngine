@@ -96,7 +96,7 @@ public:
 	 * @code bool second_is_high = ver1 < ver2;
 	 * @endcode
 	 */
-	bool operator <(const CVersion &rhs);
+	bool operator <(const CVersion &rhs) const;
 
 	/**
 	 * @brief Comparison two versions
@@ -105,7 +105,7 @@ public:
 	 * @code bool second_is_high_or_same = ver1 <= ver2;
 	 * @endcode
 	 */
-	bool operator <=(const CVersion &rhs);
+	bool operator <=(const CVersion &rhs) const;
 
 	/**
 	 * @brief Comparison two versions
@@ -114,7 +114,7 @@ public:
 	 * @code bool second_low = ver1 > ver2;
 	 * @endcode
 	 */
-	bool operator >(const CVersion &rhs);
+	bool operator >(const CVersion &rhs) const;
 
 
 	/**
@@ -124,7 +124,7 @@ public:
 	 * @code bool second_is_low_or_same = ver1 >= ver2;
 	 * @endcode
 	 */
-	bool operator >=(const CVersion &rhs);
+	bool operator >=(const CVersion &rhs) const;
 
 	/**
 	 * @brief Comparison two versions
@@ -133,7 +133,7 @@ public:
 	 * @code bool two_version_are_same = ver1 == ver2;
 	 * @endcode
 	 */
-	bool operator ==(const CVersion &rhs);
+	bool operator ==(const CVersion &rhs) const;
 
 	/**
 	 * @brief Comparison two versions
@@ -142,7 +142,7 @@ public:
 	 * @code bool two_version_are_not_same = ver1 != ver2;
 	 * @endcode
 	 */
-	bool operator !=(const CVersion &rhs);
+	bool operator !=(const CVersion &rhs) const;
 
 	/**
 	 * @brief Convert to string

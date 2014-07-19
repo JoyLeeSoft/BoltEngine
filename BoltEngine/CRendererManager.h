@@ -38,28 +38,23 @@ namespace Manager
 
 using namespace Plugin;
 
+class CPluginManager;
+
 class BOLTENGINE_API CRendererManager : public ISingleton<CRendererManager>
 {
 	SET_SINGLETON_THIS_CLASS(CRendererManager);
+
+	friend class CPluginManager;
 
 private:
 	CRendererManager();
 	~CRendererManager();
 
 private:
-	typedef list<IRendererPlugin *> RendererFactoryPluginList;
-	RendererFactoryPluginList m_FactoryPlugins;
+	typedef vector<IRenderer *> RendererList;
+	RendererList m_RendererList;
 
-	IRendererPlugin *m_FactoryPlugin;
-
-public:
-	void InsertFactoryPlugin(IRendererPlugin *plugin);
-	void DeleteFactoryPlugin(IRendererPlugin *plugin);
-
-public:
-	void SetFactoryPlugin(const wstring &name);
-
-	IRenderer *Create(IWindow *target_window);
+	void _InsertRenderer(IRenderer *renderer);
 };
 
 }
