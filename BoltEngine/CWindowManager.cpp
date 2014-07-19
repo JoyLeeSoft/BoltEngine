@@ -41,22 +41,7 @@ CWindowManager::CWindowManager()
 
 CWindowManager::~CWindowManager()
 {
-	for (auto window : m_WindowList)
-	{
-		try
-		{
-			delete window;
-		}
-		catch (...)
-		{
-
-		}
-	}
-}
-
-void CWindowManager::_InsertWindow(IWindow *window)
-{
-	m_WindowList.push_back(window);
+	
 }
 
 }

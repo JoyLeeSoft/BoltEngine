@@ -94,6 +94,7 @@
     <ClInclude Include="CDynamicLib.h" />
     <ClInclude Include="CEventHandler.h" />
     <ClInclude Include="CException.h" />
+    <ClInclude Include="CManagerBase.h" />
     <ClInclude Include="CPluginManager.h" />
     <ClInclude Include="CRendererManager.h" />
     <ClInclude Include="CVersion.h" />

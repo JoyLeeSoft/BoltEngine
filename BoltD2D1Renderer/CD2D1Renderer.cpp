@@ -37,8 +37,8 @@ namespace Renderer
 
 using namespace Exception;
 
-CD2D1Renderer::CD2D1Renderer(IWindow *target_window) : m_Factory(nullptr), m_RenderTarget(nullptr), 
-	m_TargetWindow(target_window)
+CD2D1Renderer::CD2D1Renderer(const wstring &name, IWindow *target_window) : IRenderer(name), m_Factory(nullptr), 
+	m_RenderTarget(nullptr), m_TargetWindow(target_window)
 {
 
 }

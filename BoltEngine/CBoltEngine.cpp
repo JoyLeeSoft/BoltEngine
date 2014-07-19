@@ -87,9 +87,9 @@ IWindow *CBoltEngine::CreateWindow(const wstring &name, const IWindow::SCreation
 	return GetPluginManager()._CreateWindow(name, param);
 }
 
-IRenderer *CBoltEngine::CreateRenderer(IWindow *target_window)
+IRenderer *CBoltEngine::CreateRenderer(const wstring &name, IWindow *target_window)
 {
-	return GetPluginManager()._CreateRenderer(target_window);
+	return GetPluginManager()._CreateRenderer(name, target_window);
 }
 
 }

@@ -81,7 +81,7 @@ public:
 	unsigned int GetFPS() const;
 
 	IWindow *CreateWindow(const wstring &name, const IWindow::SCreationParams &param);
-	IRenderer *CreateRenderer(IWindow *target_window);
+	IRenderer *CreateRenderer(const wstring &name, IWindow *target_window);
 };
 
 }

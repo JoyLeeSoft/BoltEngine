@@ -22,32 +22,55 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CRendererManager_h_
-#define CRendererManager_h_
+#ifndef CManagerBase_h_
+#define CManagerBase_h_
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "STL.h"
-#include "ISingleton.h"
-#include "IRendererPlugin.h"
-#include "CManagerBase.h"
 
 namespace BoltEngine
 {
 namespace Manager
 {
 
-using namespace Plugin;
-
 class CPluginManager;
 
-class BOLTENGINE_API CRendererManager : public CManagerBase<IRenderer>, public ISingleton<CRendererManager>
+template <typename T> class CManagerBase
 {
-	SET_SINGLETON_THIS_CLASS(CRendererManager);
+	friend class CPluginManager;
+
+protected:
+	CManagerBase()
+	{
+
+	}
+
+	virtual ~CManagerBase()
+	{
+		for (auto element : m_ElementList)
+		{
+			try
+			{
+				delete element;
+			}
+			catch (...)
+			{
+
+			}
+		}
+
+		m_ElementList.clear();
+	}
 
 private:
-	CRendererManager();
-	virtual ~CRendererManager();
+	typedef vector<T *> ElementList;
+	ElementList m_ElementList;
+
+private:
+	void _InsertElement(T *element)
+	{
+		m_ElementList.push_back(element);
+	}
 };
 
 }

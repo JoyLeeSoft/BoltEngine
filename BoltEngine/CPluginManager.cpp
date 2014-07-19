@@ -171,18 +171,18 @@ IWindow *CPluginManager::_CreateWindow(const wstring &name, const IWindow::SCrea
 		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
 	IWindow *window = m_WindowFactoryPlugin->Create(name, param);
-	CWindowManager::Get()._InsertWindow(window);
+	CWindowManager::Get()._InsertElement(window);
 
 	return window;
 }
 
-IRenderer *CPluginManager::_CreateRenderer(IWindow *target_window)
+IRenderer *CPluginManager::_CreateRenderer(const wstring &name, IWindow *target_window)
 {
 	if (m_RendererFactoryPlugin == nullptr)
 		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
-	IRenderer *renderer = m_RendererFactoryPlugin->Create(target_window);
-	CRendererManager::Get()._InsertRenderer(renderer);
+	IRenderer *renderer = m_RendererFactoryPlugin->Create(name, target_window);
+	CRendererManager::Get()._InsertElement(renderer);
 
 	return renderer;
 }

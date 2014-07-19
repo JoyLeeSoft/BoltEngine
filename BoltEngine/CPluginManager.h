@@ -92,7 +92,7 @@ public:
 
 private:
 	IWindow *_CreateWindow(const wstring &name, const IWindow::SCreationParams &param);
-	IRenderer *_CreateRenderer(IWindow *target_window);
+	IRenderer *_CreateRenderer(const wstring &name, IWindow *target_window);
 
 	void _ShutdownPlugin(PluginMap::iterator &it);
 };

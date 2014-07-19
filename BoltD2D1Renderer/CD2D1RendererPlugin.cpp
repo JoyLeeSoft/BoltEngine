@@ -56,9 +56,9 @@ void CD2D1RendererPlugin::Uninstall()
 	CBoltEngine::Get().GetPluginManager()._DeleteRendererFactoryPlugin(this);
 }
 
-IRenderer *CD2D1RendererPlugin::Create(IWindow *target_window)
+IRenderer *CD2D1RendererPlugin::Create(const wstring &name, IWindow *target_window)
 {
-	CD2D1Renderer *renderer = new CD2D1Renderer(target_window);
+	CD2D1Renderer *renderer = new CD2D1Renderer(name, target_window);
 	renderer->Initialize();
 
 	return renderer;

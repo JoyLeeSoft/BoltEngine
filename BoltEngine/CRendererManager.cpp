@@ -41,22 +41,7 @@ CRendererManager::CRendererManager()
 
 CRendererManager::~CRendererManager()
 {
-	for (auto renderer: m_RendererList)
-	{
-		try
-		{
-			delete renderer;
-		}
-		catch (...)
-		{
 
-		}
-	}
-}
-
-void CRendererManager::_InsertRenderer(IRenderer *renderer)
-{
-	m_RendererList.push_back(renderer);
 }
 
 }

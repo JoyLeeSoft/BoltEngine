@@ -47,7 +47,7 @@ public:
 	virtual bool Install();
 	virtual void Uninstall();
 
-	virtual IRenderer *Create(IWindow *target_window);
+	virtual IRenderer *Create(const wstring &name, IWindow *target_window);
 };
 
 }

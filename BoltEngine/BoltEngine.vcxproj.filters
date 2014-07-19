@@ -59,6 +59,9 @@
     <ClInclude Include="CColor.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="CManagerBase.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

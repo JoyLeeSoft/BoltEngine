@@ -43,7 +43,7 @@ protected:
 	IRendererPlugin(const wstring &name, const wstring &description, const CVersion &version);
 
 public:
-	virtual IRenderer *Create(IWindow *target_window) = 0;
+	virtual IRenderer *Create(const wstring &name, IWindow *target_window) = 0;
 };
 
 }

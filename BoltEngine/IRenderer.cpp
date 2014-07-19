@@ -24,13 +24,14 @@
 
 #include "BoltUtilityMacros.h"
 #include "IRenderer.h"
+#include "STL.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
 
-IRenderer::IRenderer()
+IRenderer::IRenderer(const wstring &name) : m_Name(name)
 {
 
 }

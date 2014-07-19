@@ -39,7 +39,7 @@ namespace Renderer
 class BOLTPLUGIN_API CD2D1Renderer : public IRenderer
 {
 public:
-	CD2D1Renderer(IWindow *target_window);
+	CD2D1Renderer(const wstring &name, IWindow *target_window);
 	virtual ~CD2D1Renderer();
 
 private:

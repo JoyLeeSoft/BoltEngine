@@ -31,6 +31,7 @@
 #include "ISingleton.h"
 #include "IWindow.h"
 #include "IWindowPlugin.h"
+#include "CManagerBase.h"
 
 namespace BoltEngine
 {
@@ -41,23 +42,13 @@ using namespace Renderer;
 using namespace Utility;
 using namespace Plugin;
 
-class CPluginManager;
-
-class BOLTENGINE_API CWindowManager : public ISingleton<CWindowManager>
+class BOLTENGINE_API CWindowManager : public CManagerBase<IWindow>, public ISingleton<CWindowManager>
 {
 	SET_SINGLETON_THIS_CLASS(CWindowManager);
 
-	friend class CPluginManager;
-
 private:
 	CWindowManager();
-	~CWindowManager();
-
-private:
-	typedef vector<IWindow *> WindowList;
-	WindowList m_WindowList;
-
-	void _InsertWindow(IWindow *window);
+	virtual ~CWindowManager();
 };
 
 }

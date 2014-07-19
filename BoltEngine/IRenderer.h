@@ -28,6 +28,7 @@
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "CColor.h"
+#include "STL.h"
 
 namespace BoltEngine
 {
@@ -45,8 +46,14 @@ class IWindow;
 class BOLTENGINE_API IRenderer
 {
 public:
-	IRenderer();
+	IRenderer(const wstring &name);
 	virtual ~IRenderer();
+
+protected:
+	wstring m_Name;
+
+public:
+	const wstring &GetName() const { return m_Name; }
 
 public:
 	virtual void Initialize() = 0;
