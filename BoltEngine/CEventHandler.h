@@ -44,6 +44,16 @@ template <typename EventArgs> class CEventHandler
 {
 public:
 	typedef function<void(EventArgs &)> EventFunction;
+	typedef void(*EventFunctionPtr)(EventArgs &);
+
+private:
+	typedef vector<EventFunction> EventList;
+	EventList m_EventList;
+
+	typedef vector<EventFunctionPtr> RemovableEventList;
+	RemovableEventList m_RemovableEventList;
+
+
 
 public:
 	void operator +=(EventFunction func)
@@ -51,22 +61,16 @@ public:
 		m_EventList.push_back(func);
 	}
 
-	/*void AddRemovable(EventFunction *func)
+	void AddRemovable(EventFunctionPtr func)
 	{
 		m_RemovableEventList.push_back(func);
 	}
 
-	void operator -=(EventFunction *func)
+	void operator -=(EventFunctionPtr func)
 	{
 		m_RemovableEventList.erase(remove(m_RemovableEventList.begin(), m_RemovableEventList.end(), 
 			func), m_RemovableEventList.end());
 	}
-
-	void operator -=(EventFunction func)
-	{
-		m_EventList.erase(remove(m_EventList.begin(), m_EventList.end(),
-			func), m_EventList.end());
-	}*/
 
 	void operator ()(EventArgs &e)
 	{
@@ -75,18 +79,11 @@ public:
 			func(e);
 		}
 
-		/*for (auto func : m_RemovableEventList)
+		for (auto func : m_RemovableEventList)
 		{
 			func(e);
-		}*/
+		}
 	}
-
-private:
-	typedef vector<EventFunction> EventList;
-	EventList m_EventList;
-
-	/*typedef vector<EventFunction *> RemovableEventList;
-	RemovableEventList m_RemovableEventList;*/
 };
 
 }

@@ -33,12 +33,15 @@
 #include "BoltUtilityMacros.h"
 #include "STL.h"
 #include "CEventHandler.h"
+#include "IScene.h"
+#include "CSceneManager.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
 
+using namespace Manager;
 using namespace Event;
 
 class BOLTENGINE_API IWindow
@@ -51,6 +54,7 @@ public:
 		unsigned int Width, Height;
 		wstring Tilte;
 		bool FullScreen;
+		IScene *Scene;
 	};
 
 public:
@@ -60,6 +64,7 @@ public:
 protected:
 	wstring m_Name;
 	SCreationParams m_CreationParams;
+	CSceneManager *m_SceneManager;
 
 public:
 	const wstring &GetName() const { return m_Name; }
@@ -87,6 +92,9 @@ public:
 
 	virtual void Begin() = 0;
 	virtual void End() = 0;
+
+	virtual void Update() = 0;
+	virtual void Render() = 0;
 
 	virtual void SetCaption(const wstring &caption) = 0;
 

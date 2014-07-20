@@ -22,75 +22,34 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CManagerBase_h_
-#define CManagerBase_h_
-
-#include <boost/current_function.hpp>
+#ifndef CSceneManager_h_
+#define CSceneManager_h_
 
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
-#include "CException.h"
+#include "IScene.h"
 
 namespace BoltEngine
 {
 namespace Manager
 {
 
-using namespace Exception;
+using namespace Renderer;
 
-class CPluginManager;
-
-template <typename T> class CManagerBase
+class BOLTENGINE_API CSceneManager
 {
-	friend class CPluginManager;
-
-protected:
-	CManagerBase()
-	{
-
-	}
-
-	virtual ~CManagerBase()
-	{
-		for (auto element : m_ElementList)
-		{
-			try
-			{
-				delete element;
-			}
-			catch (...)
-			{
-
-			}
-		}
-
-		m_ElementList.clear();
-	}
+public:
+	CSceneManager();
+	~CSceneManager();
 
 private:
-	typedef vector<T *> ElementList;
-	ElementList m_ElementList;
-
-private:
-	void _insert_element(T *element)
-	{
-		m_ElementList.push_back(element);
-	}
+	IScene *m_Scene;
 
 public:
-	T *GetByName(const wstring &name)
-	{
-		auto it = find_if(m_ElementList.begin(), m_ElementList.end(), [name](T *element)
-		{
-			return element->GetName() == name;
-		});
+	void ChangeScene(IScene *new_scene);
 
-		if (it != m_ElementList.end())
-			return *it;
-		else
-			THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not find element \"" +
-				name + L"\"");
-	}
+	void Update();
+	void Render();
 };
 
 }

@@ -59,7 +59,7 @@ CPluginManager::~CPluginManager()
 	{
 		try
 		{
-			_ShutdownPlugin(it);
+			_shutdown_plugin(it);
 		}
 		catch (...)
 		{
@@ -122,7 +122,7 @@ void CPluginManager::UnloadPlugin(const wstring &name)
 
 	if (it != m_Plugins.end())
 	{
-		_ShutdownPlugin(it);
+		_shutdown_plugin(it);
 		m_Plugins.erase(it);
 	}
 	else
@@ -165,34 +165,34 @@ void CPluginManager::SetRendererFactoryPlugin(const wstring &name)
 	}
 }
 
-IWindow *CPluginManager::_CreateWindow(const wstring &name, const IWindow::SCreationParams &param)
+IWindow *CPluginManager::_create_window(const wstring &name, const IWindow::SCreationParams &param)
 {
 	if (m_WindowFactoryPlugin == nullptr)
 		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
 	IWindow *window = m_WindowFactoryPlugin->Create(name, param);
-	CWindowManager::Get()._InsertElement(window);
+	CWindowManager::Get()._insert_element(window);
 
 	return window;
 }
 
-IRenderer *CPluginManager::_CreateRenderer(const wstring &name, IWindow *target_window)
+IRenderer *CPluginManager::_create_renderer(const wstring &name, IWindow *target_window)
 {
 	if (m_RendererFactoryPlugin == nullptr)
 		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
 	IRenderer *renderer = m_RendererFactoryPlugin->Create(name, target_window);
-	CRendererManager::Get()._InsertElement(renderer);
+	CRendererManager::Get()._insert_element(renderer);
 
 	return renderer;
 }
 
-void CPluginManager::_InsertWindowFactoryPlugin(IWindowPlugin *plugin)
+void CPluginManager::InsertWindowFactoryPlugin(IWindowPlugin *plugin)
 {
 	m_WindowFactoryPlugins.push_back(plugin);
 }
 
-void CPluginManager::_DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
+void CPluginManager::DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
 {
 	if (m_WindowFactoryPlugin == plugin)
 		m_WindowFactoryPlugin = nullptr;
@@ -200,12 +200,12 @@ void CPluginManager::_DeleteWindowFactoryPlugin(IWindowPlugin *plugin)
 	m_WindowFactoryPlugins.remove(plugin);
 }
 
-void CPluginManager::_InsertRendererFactoryPlugin(IRendererPlugin *plugin)
+void CPluginManager::InsertRendererFactoryPlugin(IRendererPlugin *plugin)
 {
 	m_RendererFactoryPlugins.push_back(plugin);
 }
 
-void CPluginManager::_DeleteRendererFactoryPlugin(IRendererPlugin *plugin)
+void CPluginManager::DeleteRendererFactoryPlugin(IRendererPlugin *plugin)
 {
 	if (m_RendererFactoryPlugin == plugin)
 		m_RendererFactoryPlugin = nullptr;
@@ -213,7 +213,7 @@ void CPluginManager::_DeleteRendererFactoryPlugin(IRendererPlugin *plugin)
 	m_RendererFactoryPlugins.remove(plugin);
 }
 
-void CPluginManager::_ShutdownPlugin(PluginMap::iterator &it)
+void CPluginManager::_shutdown_plugin(PluginMap::iterator &it)
 {
 	it->second.m_Plugin->Uninstall();
 

@@ -22,13 +22,9 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CManagerBase_h_
-#define CManagerBase_h_
-
 #include <boost/current_function.hpp>
 
-#include "BoltConfigurationMacros.h"
-#include "BoltUtilityMacros.h"
+#include "CSceneManager.h"
 #include "CException.h"
 
 namespace BoltEngine
@@ -36,64 +32,48 @@ namespace BoltEngine
 namespace Manager
 {
 
-using namespace Exception;
+	using namespace Exception;
 
-class CPluginManager;
-
-template <typename T> class CManagerBase
-{
-	friend class CPluginManager;
-
-protected:
-	CManagerBase()
+	CSceneManager::CSceneManager() : m_Scene(nullptr)
 	{
 
 	}
 
-	virtual ~CManagerBase()
+	CSceneManager::~CSceneManager()
 	{
-		for (auto element : m_ElementList)
-		{
-			try
-			{
-				delete element;
-			}
-			catch (...)
-			{
+		ChangeScene(nullptr);
+	}
 
-			}
+	void CSceneManager::ChangeScene(IScene *new_scene)
+	{
+		if (m_Scene != nullptr)
+		{
+			m_Scene->OnDestroy();
+			delete m_Scene;
 		}
 
-		m_ElementList.clear();
-	}
+		m_Scene = new_scene;
 
-private:
-	typedef vector<T *> ElementList;
-	ElementList m_ElementList;
-
-private:
-	void _insert_element(T *element)
-	{
-		m_ElementList.push_back(element);
-	}
-
-public:
-	T *GetByName(const wstring &name)
-	{
-		auto it = find_if(m_ElementList.begin(), m_ElementList.end(), [name](T *element)
+		if (m_Scene != nullptr)
 		{
-			return element->GetName() == name;
-		});
-
-		if (it != m_ElementList.end())
-			return *it;
-		else
-			THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not find element \"" +
-				name + L"\"");
+			m_Scene->OnCreate();
+		}
 	}
-};
 
+	void CSceneManager::Update()
+	{
+		if (m_Scene == nullptr)
+			THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active scenes");
+
+		m_Scene->OnUpdate();
+	}
+
+	void CSceneManager::Render()
+	{
+		if (m_Scene == nullptr)
+			THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active scenes");
+
+		m_Scene->OnRender();
+	}
 }
 }
-
-#endif

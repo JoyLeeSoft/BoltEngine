@@ -62,6 +62,12 @@
     <ClInclude Include="CManagerBase.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -130,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="CColor.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -84,12 +84,12 @@ unsigned int CBoltEngine::GetFPS() const
 
 IWindow *CBoltEngine::CreateWindow(const wstring &name, const IWindow::SCreationParams &param)
 {
-	return GetPluginManager()._CreateWindow(name, param);
+	return GetPluginManager()._create_window(name, param);
 }
 
 IRenderer *CBoltEngine::CreateRenderer(const wstring &name, IWindow *target_window)
 {
-	return GetPluginManager()._CreateRenderer(name, target_window);
+	return GetPluginManager()._create_renderer(name, target_window);
 }
 
 }

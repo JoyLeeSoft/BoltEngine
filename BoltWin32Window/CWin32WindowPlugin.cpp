@@ -48,13 +48,13 @@ CWin32WindowPlugin::~CWin32WindowPlugin()
 
 bool CWin32WindowPlugin::Install()
 {
-	CBoltEngine::Get().GetPluginManager()._InsertWindowFactoryPlugin(this);
+	CBoltEngine::Get().GetPluginManager().InsertWindowFactoryPlugin(this);
 	return true;
 }
 
 void CWin32WindowPlugin::Uninstall()
 {
-	CBoltEngine::Get().GetPluginManager()._DeleteWindowFactoryPlugin(this);
+	CBoltEngine::Get().GetPluginManager().DeleteWindowFactoryPlugin(this);
 }
 
 IWindow *CWin32WindowPlugin::Create(const wstring &name, const IWindow::SCreationParams &param)

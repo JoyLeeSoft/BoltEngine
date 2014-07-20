@@ -37,11 +37,12 @@ using namespace Exception;
 
 CWin32Window::CWin32Window(const wstring &name) : IWindow(name), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
 {
-
+	m_SceneManager = new CSceneManager();
 }
 
 CWin32Window::~CWin32Window()
 {
+	delete m_SceneManager;
 	Destroy();
 }
 
@@ -80,6 +81,8 @@ void CWin32Window::Initialize(const IWindow::SCreationParams &param)
 		}
 
 		ShowWindow(m_hWnd, SW_SHOW);
+
+		m_SceneManager->ChangeScene(param.Scene);
 		m_IsInitialized = true;
 	}
 	else
@@ -137,6 +140,16 @@ void CWin32Window::Begin()
 void CWin32Window::End()
 {
 	m_Loop = false;
+}
+
+void CWin32Window::Update()
+{
+	m_SceneManager->Update();
+}
+
+void CWin32Window::Render()
+{
+	m_SceneManager->Render();
 }
 
 void CWin32Window::SetCaption(const wstring &caption)

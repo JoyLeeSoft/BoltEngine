@@ -97,8 +97,10 @@
     <ClInclude Include="CManagerBase.h" />
     <ClInclude Include="CPluginManager.h" />
     <ClInclude Include="CRendererManager.h" />
+    <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CVersion.h" />
     <ClInclude Include="CWindowManager.h" />
+    <ClInclude Include="IScene.h" />
     <ClInclude Include="IPlugin.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRendererPlugin.h" />
@@ -118,6 +120,7 @@
     <ClCompile Include="CException.cpp" />
     <ClCompile Include="CPluginManager.cpp" />
     <ClCompile Include="CRendererManager.cpp" />
+    <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CVersion.cpp" />
     <ClCompile Include="CWindowManager.cpp" />
     <ClCompile Include="IPlugin.cpp" />

@@ -53,7 +53,7 @@ class BOLTENGINE_API CPluginManager : public ISingleton<CPluginManager>
 	SET_SINGLETON_THIS_CLASS(CPluginManager);
 
 	friend class CBoltEngine;
-
+	
 private:
 	CPluginManager();
 	~CPluginManager();
@@ -85,16 +85,16 @@ public:
 	void SetRendererFactoryPlugin(const wstring &name);
 
 public:
-	void _InsertWindowFactoryPlugin(IWindowPlugin *plugin);
-	void _DeleteWindowFactoryPlugin(IWindowPlugin *plugin);
-	void _InsertRendererFactoryPlugin(IRendererPlugin *plugin);
-	void _DeleteRendererFactoryPlugin(IRendererPlugin *plugin);
+	void InsertWindowFactoryPlugin(IWindowPlugin *plugin);
+	void DeleteWindowFactoryPlugin(IWindowPlugin *plugin);
+	void InsertRendererFactoryPlugin(IRendererPlugin *plugin);
+	void DeleteRendererFactoryPlugin(IRendererPlugin *plugin);
 
 private:
-	IWindow *_CreateWindow(const wstring &name, const IWindow::SCreationParams &param);
-	IRenderer *_CreateRenderer(const wstring &name, IWindow *target_window);
+	IWindow *_create_window(const wstring &name, const IWindow::SCreationParams &param);
+	IRenderer *_create_renderer(const wstring &name, IWindow *target_window);
 
-	void _ShutdownPlugin(PluginMap::iterator &it);
+	void _shutdown_plugin(PluginMap::iterator &it);
 };
 
 }

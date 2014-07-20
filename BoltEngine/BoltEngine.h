@@ -37,6 +37,7 @@
 #include "IWindow.h"
 #include "IRenderer.h"
 #include "CColor.h"
+#include "IScene.h"
 #include "CBoltEngine.h"
 
 /**
