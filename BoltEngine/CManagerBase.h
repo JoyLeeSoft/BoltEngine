@@ -40,7 +40,7 @@ using namespace Exception;
 
 class CPluginManager;
 
-template <typename T> class CManagerBase
+template <typename T> class CManagerBase abstract
 {
 	friend class CPluginManager;
 

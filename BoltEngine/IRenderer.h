@@ -43,7 +43,7 @@ using namespace Utility;
 
 class IWindow;
 
-class BOLTENGINE_API IRenderer
+class BOLTENGINE_API IRenderer abstract
 {
 public:
 	IRenderer(const wstring &name);

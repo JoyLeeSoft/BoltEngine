@@ -37,13 +37,13 @@ namespace Plugin
 
 using namespace Renderer;
 
-class BOLTENGINE_API IWindowPlugin : public IPlugin
+class BOLTENGINE_API IWindowPlugin abstract : public IPlugin
 {
 protected:
 	IWindowPlugin(const wstring &name, const wstring &description, const CVersion &version);
 
 public:
-	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param) = 0;
+	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param, IScene *scene) = 0;
 };
 
 }

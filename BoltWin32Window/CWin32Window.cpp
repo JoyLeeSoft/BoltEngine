@@ -46,9 +46,10 @@ CWin32Window::~CWin32Window()
 	Destroy();
 }
 
-void CWin32Window::Initialize(const IWindow::SCreationParams &param)
+void CWin32Window::Initialize(const IWindow::SCreationParams &param, IScene *scene)
 {
 	m_CreationParams = param;
+	m_StartScene = scene;
 
 	if (!m_IsInitialized)
 	{
@@ -82,7 +83,6 @@ void CWin32Window::Initialize(const IWindow::SCreationParams &param)
 
 		ShowWindow(m_hWnd, SW_SHOW);
 
-		m_SceneManager->ChangeScene(param.Scene);
 		m_IsInitialized = true;
 	}
 	else
@@ -113,6 +113,8 @@ void CWin32Window::Begin()
 	MSG msg;
 
 	m_Loop = true;
+	m_SceneManager->ChangeScene(m_StartScene);
+
 	while (m_Loop)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))

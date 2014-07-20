@@ -36,7 +36,7 @@ namespace Plugin
 
 using namespace Utility;
 
-class BOLTENGINE_API IPlugin
+class BOLTENGINE_API IPlugin abstract
 {
 protected:
 	IPlugin(const wstring &name, const wstring &description, const CVersion &version);

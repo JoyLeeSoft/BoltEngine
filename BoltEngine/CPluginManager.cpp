@@ -165,12 +165,12 @@ void CPluginManager::SetRendererFactoryPlugin(const wstring &name)
 	}
 }
 
-IWindow *CPluginManager::_create_window(const wstring &name, const IWindow::SCreationParams &param)
+IWindow *CPluginManager::_create_window(const wstring &name, const IWindow::SCreationParams &param, IScene *scene)
 {
 	if (m_WindowFactoryPlugin == nullptr)
 		THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active factory plugins");
 
-	IWindow *window = m_WindowFactoryPlugin->Create(name, param);
+	IWindow *window = m_WindowFactoryPlugin->Create(name, param, scene);
 	CWindowManager::Get()._insert_element(window);
 
 	return window;

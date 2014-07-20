@@ -37,17 +37,17 @@ namespace Plugin
 
 using namespace Renderer;
 
-class BOLTPLUGIN_API CD2D1RendererPlugin : public IRendererPlugin
+class BOLTPLUGIN_API CD2D1RendererPlugin final : public IRendererPlugin
 {
 public:
 	CD2D1RendererPlugin(const wstring &name, const wstring &description, const CVersion &version);
 	virtual ~CD2D1RendererPlugin();
 
 public:
-	virtual bool Install();
-	virtual void Uninstall();
+	virtual bool Install() override;
+	virtual void Uninstall() override;
 
-	virtual IRenderer *Create(const wstring &name, IWindow *target_window);
+	virtual IRenderer *Create(const wstring &name, IWindow *target_window) override;
 };
 
 }

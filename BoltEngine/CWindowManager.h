@@ -42,7 +42,7 @@ using namespace Renderer;
 using namespace Utility;
 using namespace Plugin;
 
-class BOLTENGINE_API CWindowManager : public CManagerBase<IWindow>, public ISingleton<CWindowManager>
+class BOLTENGINE_API CWindowManager final : public CManagerBase<IWindow>, public ISingleton<CWindowManager>
 {
 	SET_SINGLETON_THIS_CLASS(CWindowManager);
 

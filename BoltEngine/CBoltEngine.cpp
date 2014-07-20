@@ -82,9 +82,9 @@ unsigned int CBoltEngine::GetFPS() const
 	return FPS;
 }
 
-IWindow *CBoltEngine::CreateWindow(const wstring &name, const IWindow::SCreationParams &param)
+IWindow *CBoltEngine::CreateWindow(const wstring &name, const IWindow::SCreationParams &param, IScene *scene)
 {
-	return GetPluginManager()._create_window(name, param);
+	return GetPluginManager()._create_window(name, param, scene);
 }
 
 IRenderer *CBoltEngine::CreateRenderer(const wstring &name, IWindow *target_window)

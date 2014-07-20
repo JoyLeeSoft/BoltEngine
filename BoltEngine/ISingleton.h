@@ -46,7 +46,7 @@ namespace Utility
  * @code class Foo : public ISingleton<Foo>
  * @endcode
  */
-template <typename T> class ISingleton : private IUnCopyable
+template <typename T> class ISingleton abstract : private IUnCopyable
 {
 private:
 	static T *m_Instance;

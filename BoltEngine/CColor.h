@@ -32,7 +32,7 @@ namespace BoltEngine
 namespace Utility
 {
 
-class BOLTENGINE_API CColor
+class BOLTENGINE_API CColor final
 {
 public:
 	enum EColorKind : unsigned int

@@ -34,17 +34,17 @@ namespace BoltEngine
 namespace Plugin
 {
 
-class BOLTPLUGIN_API CWin32WindowPlugin : public IWindowPlugin
+class BOLTPLUGIN_API CWin32WindowPlugin final : public IWindowPlugin
 {
 public:
 	CWin32WindowPlugin(const wstring &name, const wstring &description, const CVersion &version);
 	virtual ~CWin32WindowPlugin();
 
 public:
-	virtual bool Install();
-	virtual void Uninstall();
+	virtual bool Install() override;
+	virtual void Uninstall() override;
 
-	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param);
+	virtual IWindow *Create(const wstring &name, const IWindow::SCreationParams &param, IScene *scene) override;
 };
 
 }

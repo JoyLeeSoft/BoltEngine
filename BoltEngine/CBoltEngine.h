@@ -45,7 +45,7 @@ using namespace Renderer;
  * @author Lee
  * @brief A main class of the BoltEngine
  */
-class BOLTENGINE_API CBoltEngine : public ISingleton<CBoltEngine>
+class BOLTENGINE_API CBoltEngine final : public ISingleton<CBoltEngine>
 {
 	SET_SINGLETON_THIS_CLASS(CBoltEngine);
 
@@ -80,7 +80,7 @@ public:
 
 	unsigned int GetFPS() const;
 
-	IWindow *CreateWindow(const wstring &name, const IWindow::SCreationParams &param);
+	IWindow *CreateWindow(const wstring &name, const IWindow::SCreationParams &param, IScene *scene);
 	IRenderer *CreateRenderer(const wstring &name, IWindow *target_window);
 };
 

@@ -36,7 +36,7 @@ namespace Manager
 
 using namespace Renderer;
 
-class BOLTENGINE_API CSceneManager
+class BOLTENGINE_API CSceneManager final
 {
 public:
 	CSceneManager();

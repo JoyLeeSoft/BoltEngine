@@ -42,11 +42,11 @@ namespace BoltEngine
 namespace Plugin
 {
 
-class BOLTENGINE_API CDynamicLib
+class BOLTENGINE_API CDynamicLib final
 {
 public:
 	CDynamicLib(const wstring &name);
-	virtual ~CDynamicLib();
+	~CDynamicLib();
 
 private:
 	DYNAMIC_LIB_HANDLE m_LibHandle;

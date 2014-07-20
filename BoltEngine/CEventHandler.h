@@ -40,7 +40,7 @@ public:
 	void *Sender;
 };
 
-template <typename EventArgs> class CEventHandler
+template <typename EventArgs> class CEventHandler final
 {
 public:
 	typedef function<void(EventArgs &)> EventFunction;

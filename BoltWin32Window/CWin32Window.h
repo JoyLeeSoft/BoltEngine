@@ -36,7 +36,7 @@ namespace BoltEngine
 namespace Renderer
 {
 
-class BOLTPLUGIN_API CWin32Window : public IWindow
+class BOLTPLUGIN_API CWin32Window final : public IWindow
 {
 public:
 	CWin32Window(const wstring &name);
@@ -46,20 +46,21 @@ private:
 	bool m_IsInitialized;
 	HWND m_hWnd;
 	bool m_Loop;
+	IScene *m_StartScene;
 
 public:
-	virtual void Initialize(const IWindow::SCreationParams &param);
-	virtual void Destroy();
+	virtual void Initialize(const IWindow::SCreationParams &param, IScene *scene) override;
+	virtual void Destroy() override;
 
-	virtual void *GetHandle();
+	virtual void *GetHandle() override;
 
-	virtual void Begin();
-	virtual void End();
+	virtual void Begin() override;
+	virtual void End() override;
 
-	virtual void Update();
-	virtual void Render();
+	virtual void Update() override;
+	virtual void Render() override;
 
-	virtual void SetCaption(const wstring &caption);
+	virtual void SetCaption(const wstring &caption) override;
 };
 
 }

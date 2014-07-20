@@ -37,7 +37,7 @@ namespace Plugin
 
 using namespace Renderer;
 
-class BOLTENGINE_API IRendererPlugin : public IPlugin
+class BOLTENGINE_API IRendererPlugin abstract : public IPlugin
 {
 protected:
 	IRendererPlugin(const wstring &name, const wstring &description, const CVersion &version);

@@ -48,7 +48,7 @@ namespace Manager
 using namespace Plugin;
 using namespace Utility;
 
-class BOLTENGINE_API CPluginManager : public ISingleton<CPluginManager>
+class BOLTENGINE_API CPluginManager final : public ISingleton<CPluginManager>
 {
 	SET_SINGLETON_THIS_CLASS(CPluginManager);
 
@@ -91,7 +91,7 @@ public:
 	void DeleteRendererFactoryPlugin(IRendererPlugin *plugin);
 
 private:
-	IWindow *_create_window(const wstring &name, const IWindow::SCreationParams &param);
+	IWindow *_create_window(const wstring &name, const IWindow::SCreationParams &param, IScene *scene);
 	IRenderer *_create_renderer(const wstring &name, IWindow *target_window);
 
 	void _shutdown_plugin(PluginMap::iterator &it);

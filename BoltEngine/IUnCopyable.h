@@ -39,7 +39,7 @@ namespace Utility
  * @code class Foo : private IUnCopyable
  * @endcode
  */
-class IUnCopyable
+class IUnCopyable abstract
 {
 protected:
 	IUnCopyable() {}

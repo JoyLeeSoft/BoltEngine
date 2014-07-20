@@ -41,7 +41,7 @@ using namespace Plugin;
 
 class CPluginManager;
 
-class BOLTENGINE_API CRendererManager : public CManagerBase<IRenderer>, public ISingleton<CRendererManager>
+class BOLTENGINE_API CRendererManager final : public CManagerBase<IRenderer>, public ISingleton<CRendererManager>
 {
 	SET_SINGLETON_THIS_CLASS(CRendererManager);
 

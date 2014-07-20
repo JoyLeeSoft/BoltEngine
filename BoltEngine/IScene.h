@@ -30,7 +30,7 @@ namespace BoltEngine
 namespace Renderer
 {
 
-class IScene
+class IScene abstract
 {
 public:
 	virtual void OnCreate() = 0;

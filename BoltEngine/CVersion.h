@@ -38,7 +38,7 @@ namespace Utility
  * @author Lee
  * @brief A simple version class
  */
-class BOLTENGINE_API CVersion
+class BOLTENGINE_API CVersion final
 {
 private:
 	int m_Major;

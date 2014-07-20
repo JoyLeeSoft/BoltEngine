@@ -44,7 +44,7 @@ namespace Renderer
 using namespace Manager;
 using namespace Event;
 
-class BOLTENGINE_API IWindow
+class BOLTENGINE_API IWindow abstract
 {
 public:
 	struct SCreationParams 
@@ -54,7 +54,6 @@ public:
 		unsigned int Width, Height;
 		wstring Tilte;
 		bool FullScreen;
-		IScene *Scene;
 	};
 
 public:
@@ -85,7 +84,7 @@ public:
 	CEventHandler<SIdleEventArgs> OnIdle;
 
 public:
-	virtual void Initialize(const SCreationParams &param) = 0;
+	virtual void Initialize(const SCreationParams &param, IScene *scene) = 0;
 	virtual void Destroy() = 0;
 
 	virtual void *GetHandle() = 0;

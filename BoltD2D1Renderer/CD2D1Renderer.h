@@ -36,7 +36,7 @@ namespace BoltEngine
 namespace Renderer
 {
 
-class BOLTPLUGIN_API CD2D1Renderer : public IRenderer
+class BOLTPLUGIN_API CD2D1Renderer final : public IRenderer
 {
 public:
 	CD2D1Renderer(const wstring &name, IWindow *target_window);
@@ -48,11 +48,11 @@ private:
 	ID2D1HwndRenderTarget *m_RenderTarget;
 
 public:
-	virtual void Initialize();
-	virtual void Destroy();
+	virtual void Initialize() override;
+	virtual void Destroy() override;
 
-	virtual void BeginDraw(const CColor &color);
-	virtual void EndDraw();
+	virtual void BeginDraw(const CColor &color) override;
+	virtual void EndDraw() override;
 };
 
 }

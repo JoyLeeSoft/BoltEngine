@@ -57,10 +57,10 @@ void CWin32WindowPlugin::Uninstall()
 	CBoltEngine::Get().GetPluginManager().DeleteWindowFactoryPlugin(this);
 }
 
-IWindow *CWin32WindowPlugin::Create(const wstring &name, const IWindow::SCreationParams &param)
+IWindow *CWin32WindowPlugin::Create(const wstring &name, const IWindow::SCreationParams &param, IScene *scene)
 {
 	CWin32Window *window = new CWin32Window(name);
-	window->Initialize(param);
+	window->Initialize(param, scene);
 
 	return window;
 }
