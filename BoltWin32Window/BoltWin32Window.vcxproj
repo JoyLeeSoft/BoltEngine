@@ -18,6 +18,13 @@
   <ItemGroup>
     <ClInclude Include="CWin32Window.h" />
     <ClInclude Include="CWin32WindowPlugin.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BoltWin32Window.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="BoltEngineLogo.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3EFB7E33-87F8-43AE-9A0A-559189C473D3}</ProjectGuid>

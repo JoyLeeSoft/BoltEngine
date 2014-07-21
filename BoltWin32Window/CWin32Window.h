@@ -59,6 +59,7 @@ public:
 
 	virtual void Update() override;
 	virtual void Render() override;
+	virtual void ChangeScene(IScene *scene) override;
 
 	virtual void SetCaption(const wstring &caption) override;
 };

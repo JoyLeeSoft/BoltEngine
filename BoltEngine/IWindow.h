@@ -94,6 +94,7 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Render() = 0;
+	virtual void ChangeScene(IScene *scene) = 0;
 
 	virtual void SetCaption(const wstring &caption) = 0;
 

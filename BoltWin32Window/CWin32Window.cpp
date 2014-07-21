@@ -24,9 +24,21 @@
 
 #include <boost/current_function.hpp>
 
-#include "CWin32Window.h"
+#ifdef _MSC_VER
+#include "resource.h"
+#endif
+
+#include <Windows.h>
+#include <gdiplus.h>
+#pragma comment(lib, "gdiplus")
+
+#include "../BoltEngine/STL.h"
+#include "../BoltEngine/IScene.h"
+#include "../BoltEngine/CBoltEngine.h"
 #include "../BoltEngine/CWindowManager.h"
 #include "../BoltEngine/CException.h"
+
+#include "CWin32Window.h"
 
 namespace BoltEngine
 {
@@ -34,6 +46,107 @@ namespace Renderer
 {
 
 using namespace Exception;
+using namespace Renderer;
+
+class CLogoScene final : public IScene
+{
+public:
+	CLogoScene(const wstring &name, IScene *start_scene)
+	{
+		m_Name = name;
+		m_StartScene = start_scene;
+	}
+
+private:
+	IScene *m_StartScene;
+	HWND m_hWnd;
+	wstring m_Name;
+	ULONG_PTR m_GPToken;
+	unsigned int m_width, m_height;
+	Gdiplus::Image *m_Logo;
+	Gdiplus::Bitmap *m_MemoryBitmap;
+	Gdiplus::Graphics *m_MemoryGraphic;
+	HINSTANCE m_hInst;
+	float m_Alpha;
+	bool m_Up;
+	CWin32Window *window;
+	unsigned int m_W, m_Y;
+
+public:
+	virtual void OnCreate() override
+	{
+		window = (CWin32Window *)CBoltEngine::Get().GetWindowManager().GetByName(m_Name);
+		m_hWnd = (HWND)window->GetHandle();
+		m_width = window->GetCreationParams().Width;
+		m_height = window->GetCreationParams().Height;
+		m_hInst = GetModuleHandleW(L"BoltWin32Window");
+
+		Gdiplus::GdiplusStartupInput gpsi;
+		if (GdiplusStartup(&m_GPToken, &gpsi, NULL) != Gdiplus::Ok) {}
+
+		HRSRC hResource = FindResourceW(m_hInst, MAKEINTRESOURCEW(IDB_LOGO),
+			L"PNG");
+		if (!hResource) return;
+
+		DWORD imageSize = SizeofResource(m_hInst, hResource);
+		HGLOBAL hGlobal = LoadResource(m_hInst, hResource);
+		LPVOID pData = LockResource(hGlobal);
+
+		HGLOBAL hBuffer = GlobalAlloc(GMEM_MOVEABLE, imageSize);
+		LPVOID pBuffer = GlobalLock(hBuffer);
+		CopyMemory(pBuffer, pData, imageSize);
+		GlobalUnlock(hBuffer);
+
+		IStream *pStream;
+		HRESULT hr = CreateStreamOnHGlobal(hBuffer, TRUE, &pStream);
+		m_Logo = new Gdiplus::Image(pStream);
+		pStream->Release();
+
+		m_MemoryBitmap = new Gdiplus::Bitmap(m_width, m_height);
+		m_MemoryGraphic = new Gdiplus::Graphics(m_MemoryBitmap);
+
+		m_Alpha = 0.0f;
+		m_Up = true;
+
+		m_W = (m_width - m_Logo->GetWidth()) / 2;
+		m_Y = (m_height - m_Logo->GetHeight()) / 2;
+	}
+
+	virtual void OnDestroy() override
+	{
+		delete m_Logo;
+		delete m_MemoryGraphic;
+		delete m_MemoryBitmap;
+		Gdiplus::GdiplusShutdown(m_GPToken);
+	}
+
+	virtual void OnUpdate() override
+	{
+		m_Up ? m_Alpha += 0.01f : m_Alpha -= 0.01f;
+
+		if (m_Alpha > 1.00f) m_Up = false;
+		if (m_Alpha < 0.00f) window->ChangeScene(m_StartScene);
+	}
+	
+	virtual void OnRender() override
+	{
+		Gdiplus::Graphics G(m_hWnd);
+		Gdiplus::ImageAttributes imageAtt;
+		Gdiplus::ColorMatrix colorMatrix = 
+			{ 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, m_Alpha, 0.0f,
+			0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+		
+		imageAtt.SetColorMatrix(&colorMatrix, Gdiplus::ColorMatrixFlagsDefault,
+			Gdiplus::ColorAdjustTypeBitmap);
+		m_MemoryGraphic->FillRectangle(&Gdiplus::SolidBrush(Gdiplus::Color::Black), 0, 0, m_width, m_height);
+		m_MemoryGraphic->DrawImage(m_Logo, Gdiplus::Rect(m_W, m_Y, m_Logo->GetWidth(), m_Logo->GetHeight()),
+			0, 0, m_Logo->GetWidth(), m_Logo->GetHeight(), Gdiplus::UnitPixel, &imageAtt);
+		G.DrawImage(m_MemoryBitmap, 0, 0);
+	}
+};
 
 CWin32Window::CWin32Window(const wstring &name) : IWindow(name), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
 {
@@ -113,7 +226,7 @@ void CWin32Window::Begin()
 	MSG msg;
 
 	m_Loop = true;
-	m_SceneManager->ChangeScene(m_StartScene);
+	m_SceneManager->ChangeScene(new CLogoScene(m_Name, m_StartScene));
 
 	while (m_Loop)
 	{
@@ -152,6 +265,11 @@ void CWin32Window::Update()
 void CWin32Window::Render()
 {
 	m_SceneManager->Render();
+}
+
+void CWin32Window::ChangeScene(IScene *scene)
+{
+	m_SceneManager->ChangeScene(scene);
 }
 
 void CWin32Window::SetCaption(const wstring &caption)
