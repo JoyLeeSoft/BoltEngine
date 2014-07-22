@@ -1,0 +1,20 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="CManagerBase",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="BoltEngine::Manager\l::CRendererManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bolt_engine_1_1_manager_1_1_c_renderer_manager.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="BoltEngine::Manager\l::CWindowManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bolt_engine_1_1_manager_1_1_c_window_manager.html"];
+  Node4 [label="ISingleton",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="BoltEngine::CBoltEngine",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bolt_engine_1_1_c_bolt_engine.html",tooltip="A main class of the BoltEngine. "];
+  Node4 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="BoltEngine::Log::CLog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bolt_engine_1_1_log_1_1_c_log.html"];
+  Node4 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="BoltEngine::Manager\l::CPluginManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_bolt_engine_1_1_manager_1_1_c_plugin_manager.html"];
+  Node4 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}
