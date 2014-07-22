@@ -25,8 +25,6 @@
 #ifndef CManagerBase_h_
 #define CManagerBase_h_
 
-#include <boost/current_function.hpp>
-
 #include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "CException.h"
@@ -88,7 +86,9 @@ public:
 		if (it != m_ElementList.end())
 			return *it;
 		else
-			THROW_EXCEPTION(ArgumentException, _W(BOOST_CURRENT_FUNCTION), L"Could not find element \"" +
+			THROW_EXCEPTION(ArgumentException, 
+			L"void __thiscall BoltEngine::Manager::CManagerBase::GetByName(const wstring &name)",
+			L"Could not find element \"" +
 				name + L"\"");
 	}
 };

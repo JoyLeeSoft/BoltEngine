@@ -68,6 +68,9 @@
     <ClInclude Include="IScene.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="CLog.h">
+      <Filter>Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -91,10 +94,16 @@
     <Filter Include="Event">
       <UniqueIdentifier>{d5427caf-a19c-496a-b93b-557ef5142ac9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{484d3e76-0c41-4833-9b76-87d840af2d9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ExceptionCodes.enum">
       <Filter>Exception</Filter>
+    </None>
+    <None Include="LogCodes.enum">
+      <Filter>Log</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CLog.cpp">
+      <Filter>Log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -22,53 +22,60 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltConfigurationMacros_h_
-#define BoltConfigurationMacros_h_
+#include <boost/current_function.hpp>
 
-#ifdef BOLTENGINE_EXPORT
-#ifdef _MSC_VER
-#define BOLTENGINE_API __declspec(dllexport)
-#endif
-#else
-#ifdef _MSC_VER
-#define BOLTENGINE_API __declspec(dllimport)
-#endif
-#endif
+//#include "BoltConfigurationMacros.h"
+#include "BoltUtilityMacros.h"
+#include "ISingleton.h"
+#include "STL.h"
 
-#ifdef _MSC_VER
-#define BOLTPLUGIN_API __declspec(dllexport)
-#endif
+namespace BoltEngine
+{
+namespace Log
+{
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#define BOLTENGINE_DEBUGMODE 1
-#else 
-#define BOLTENGINE_DEBUGMODE 0
-#endif
-#else
-#endif
+using namespace Utility;
 
+enum ELogKind : unsigned int
+{
+#define e(x) x,
+#include "LogCodes.enum"
+#undef e
+};
 
-#define BOLTENGINE_PLATFORM_WIN32 0
-#define BOLTENGINE_PLATFORM_LINUX 1
-#define BOLTENGINE_PLATFORM_MAC 2
+struct SLog
+{
+public:
+	ELogKind Kind;
+	wstring File;
+	unsigned int Line;
+	wstring Func;
+	wstring Msg;
+};
 
-#ifndef BOLTENGINE_PLATFORM 
-#define BOLTENGINE_PLATFORM BOLTENGINE_PLATFORM_WIN32
-#endif
+class /*BOLTENGINE_API*/ CLog final : public ISingleton<CLog>
+{
+	SET_SINGLETON_THIS_CLASS(CLog);
 
+private:
+	CLog();
+	~CLog();
 
-#define BOLTENGINE_COMPILED_VISUALCPP 0
-#define BOLTENGINE_COMPILED_GCC 1
+private:
+	static const vector<const wstring> m_LogCodeNames;
 
-#ifndef BOLTENGINE_COMPILED
-#define BOLTENGINE_COMPILED BOLTENGINE_COMPILED_VISUALCPP
-#endif
+private:
+	typedef vector<SLog> LogList;
+	LogList m_LogList;
+	wostream *m_Stream;
 
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-#pragma warning(disable : 4996)
-#pragma warning(disable : 4251)
-#pragma warning(disable : 4275)
-#endif
+public:
+	void AddLog(ELogKind kind, const wstring &file, unsigned int line, const wstring &func, 
+		const wstring &msg);
+	void SetLogStream(wostream *stream);
+};
 
-#endif
+#define LOG(kind, msg) Log::CLog::Get().AddLog(kind, _W(__FILE__), __LINE__, _W(BOOST_CURRENT_FUNCTION), msg);
+
+}
+}

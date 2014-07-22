@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(BOOST_DIRECTORY);$(IncludePath)</IncludePath>
-    <LibraryPath>$(BOOST_STAGE_32);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(BOOST_STAGE_32)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -77,6 +77,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BOLTENGINE_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -94,6 +95,7 @@
     <ClInclude Include="CDynamicLib.h" />
     <ClInclude Include="CEventHandler.h" />
     <ClInclude Include="CException.h" />
+    <ClInclude Include="CLog.h" />
     <ClInclude Include="CManagerBase.h" />
     <ClInclude Include="CPluginManager.h" />
     <ClInclude Include="CRendererManager.h" />
@@ -112,12 +114,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ExceptionCodes.enum" />
+    <None Include="LogCodes.enum" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBoltEngine.cpp" />
     <ClCompile Include="CColor.cpp" />
     <ClCompile Include="CDynamicLib.cpp" />
     <ClCompile Include="CException.cpp" />
+    <ClCompile Include="CLog.cpp" />
     <ClCompile Include="CPluginManager.cpp" />
     <ClCompile Include="CRendererManager.cpp" />
     <ClCompile Include="CSceneManager.cpp" />

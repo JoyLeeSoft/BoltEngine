@@ -22,11 +22,10 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include <vector>
 #include <boost/tokenizer.hpp>
-#include <string>
-#include <stdexcept>
+#include <boost/current_function.hpp>
 
+#include "STL.h"
 #include "CVersion.h"
 #include "CException.h"
 

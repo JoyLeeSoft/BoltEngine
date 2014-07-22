@@ -31,6 +31,7 @@
 #include "IRenderer.h"
 #include "CWindowManager.h"
 #include "CRendererManager.h"
+#include "CLog.h"
 
 namespace BoltEngine
 {
@@ -40,6 +41,8 @@ namespace Manager
 using namespace Plugin;
 using namespace Renderer;
 using namespace Exception;
+using namespace Log;
+
 
 namespace
 {
@@ -109,6 +112,8 @@ void CPluginManager::LoadPlugin(const wstring &name)
 		}
 
 		m_Plugins[name] = { plugin_lib, plugin };
+		LOG(Information, L"Loaded plugin \"" + plugin->GetName() + L"\"\nVersion : " + (wstring)plugin->GetVersion() +
+			L"\nDescription : " + plugin->GetDescription());
 	} 
 	else
 	{

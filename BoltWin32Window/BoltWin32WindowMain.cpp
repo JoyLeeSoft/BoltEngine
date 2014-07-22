@@ -46,7 +46,7 @@ CWin32WindowPlugin *g_Plugin;
 
 extern "C" BOLTPLUGIN_API void OnLibLoad()
 {
-	g_Plugin = new CWin32WindowPlugin(L"BoltWin32Window", L"BoltEngine Win32 window plugin", CVersion(1, 0, 0));
+	g_Plugin = new CWin32WindowPlugin(L"BoltWin32Window.dll", L"BoltEngine Win32 window plugin", CVersion(1, 0, 0));
 }
 
 extern "C" BOLTPLUGIN_API void OnLibUnload()

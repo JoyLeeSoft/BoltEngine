@@ -54,13 +54,7 @@ CDynamicLib::~CDynamicLib()
 
 void CDynamicLib::Load()
 {
-	wstring name = m_LibName;
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
-	if (name.substr(name.length() - 4, 4) != L".dll")
-		name += L".dll";
-#endif
-
-	m_LibHandle = DYNAMIC_LIB_LOAD(name.c_str());
+	m_LibHandle = DYNAMIC_LIB_LOAD(m_LibName.c_str());
 
 	if (!m_LibHandle)
 		THROW_EXCEPTION(FileLoadException, _W(BOOST_CURRENT_FUNCTION),

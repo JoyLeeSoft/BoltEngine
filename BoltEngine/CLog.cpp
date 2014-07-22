@@ -22,53 +22,47 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltConfigurationMacros_h_
-#define BoltConfigurationMacros_h_
+#include <fstream>
+#include <time.h>
 
-#ifdef BOLTENGINE_EXPORT
-#ifdef _MSC_VER
-#define BOLTENGINE_API __declspec(dllexport)
-#endif
-#else
-#ifdef _MSC_VER
-#define BOLTENGINE_API __declspec(dllimport)
-#endif
-#endif
+#include "CLog.h"
 
-#ifdef _MSC_VER
-#define BOLTPLUGIN_API __declspec(dllexport)
-#endif
+namespace BoltEngine
+{
+namespace Log
+{
 
-#ifdef _MSC_VER
-#ifdef _DEBUG
-#define BOLTENGINE_DEBUGMODE 1
-#else 
-#define BOLTENGINE_DEBUGMODE 0
-#endif
-#else
-#endif
+const vector<const wstring> CLog::m_LogCodeNames =
+{
+#define e(x) L#x,
+#include "LogCodes.enum"
+#undef e
+};
 
+CLog::CLog()
+{
 
-#define BOLTENGINE_PLATFORM_WIN32 0
-#define BOLTENGINE_PLATFORM_LINUX 1
-#define BOLTENGINE_PLATFORM_MAC 2
+}
 
-#ifndef BOLTENGINE_PLATFORM 
-#define BOLTENGINE_PLATFORM BOLTENGINE_PLATFORM_WIN32
-#endif
+CLog::~CLog()
+{
 
+}
 
-#define BOLTENGINE_COMPILED_VISUALCPP 0
-#define BOLTENGINE_COMPILED_GCC 1
+void CLog::AddLog(ELogKind kind, const wstring &file, unsigned int line, const wstring &func, const wstring &msg)
+{
+	if (m_Stream == nullptr)
+		return;
 
-#ifndef BOLTENGINE_COMPILED
-#define BOLTENGINE_COMPILED BOLTENGINE_COMPILED_VISUALCPP
-#endif
+	wstring str = m_LogCodeNames[kind] + L":\nFile : " + file + L"\nLine : " + to_wstring(line) + L"\nFunction : "
+		+ func + L'\n' + msg + L"\n\n";
+	(*m_Stream)<<(str.c_str());
+}
 
-#if BOLTENGINE_COMPILED == BOLTENGINE_COMPILED_VISUALCPP
-#pragma warning(disable : 4996)
-#pragma warning(disable : 4251)
-#pragma warning(disable : 4275)
-#endif
+void CLog::SetLogStream(wostream *stream)
+{
+	m_Stream = stream;
+}
 
-#endif
+}
+}

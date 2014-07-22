@@ -122,7 +122,7 @@ public:
 
 	virtual void OnUpdate() override
 	{
-		m_Up ? m_Alpha += 0.01f : m_Alpha -= 0.01f;
+		m_Up ? m_Alpha += 0.03f : m_Alpha -= 0.03f;
 
 		if (m_Alpha > 1.00f) m_Up = false;
 		if (m_Alpha < 0.00f) window->ChangeScene(m_StartScene);

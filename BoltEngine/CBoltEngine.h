@@ -82,6 +82,8 @@ public:
 
 	IWindow *CreateWindow(const wstring &name, const IWindow::SCreationParams &param, IScene *scene);
 	IRenderer *CreateRenderer(const wstring &name, IWindow *target_window);
+
+	void SetLogStream(wostream *stream);
 };
 
 }

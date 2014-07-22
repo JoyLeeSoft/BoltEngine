@@ -22,16 +22,25 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <iostream>
+
 #include "CBoltEngine.h"
+#include "CLog.h"
 
 namespace BoltEngine
 {
 
+using namespace Log;
+
 CBoltEngine::CBoltEngine()
 {
+	CLog::Get();
+	SetLogStream(&wclog);
 	CPluginManager::Get();
 	CWindowManager::Get();
 	CRendererManager::Get();
+
+	//LOG(Information, L"Created engine");
 }
 
 CBoltEngine::~CBoltEngine()
@@ -39,6 +48,9 @@ CBoltEngine::~CBoltEngine()
 	CRendererManager::Delete();
 	CWindowManager::Delete();
 	CPluginManager::Delete();
+
+	LOG(Information, L"Destroyed engine");
+	CLog::Delete();
 }
 
 CPluginManager &CBoltEngine::GetPluginManager()
@@ -84,12 +96,19 @@ unsigned int CBoltEngine::GetFPS() const
 
 IWindow *CBoltEngine::CreateWindow(const wstring &name, const IWindow::SCreationParams &param, IScene *scene)
 {
+	LOG(Information, L"Created window");
 	return GetPluginManager()._create_window(name, param, scene);
 }
 
 IRenderer *CBoltEngine::CreateRenderer(const wstring &name, IWindow *target_window)
 {
+	LOG(Information, L"Created renderer");
 	return GetPluginManager()._create_renderer(name, target_window);
+}
+
+void CBoltEngine::SetLogStream(wostream *stream)
+{
+	CLog::Get().SetLogStream(stream);
 }
 
 }
