@@ -44,5 +44,6 @@ Plugins are enclosed. (BoltWin32Window / BoltD2D1Renderer)
 ### Troubleshooting
 
 No bugs found so far.
+
 If you find some new bugs, 
-Please, tell me by e-mail <[jhlcooky@gmail.com](jhlcooky@gmail.com)>
+Please, tell me by e-mail <jhlcooky@gmail.com>
