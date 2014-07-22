@@ -35,6 +35,7 @@ Renderer(s):
  - Bolt***Renderer plugin (*** is renderer name. ex: BoltD2D1Renderer)
  
 If you want to DirectX renderer plugin, you need to install DirectX SDK June 2010.
+
 If you want to OpenGL renderer plugin, you need to install OpenGL SDK.
  
 Plugins are enclosed. (BoltWin32Window / BoltD2D1Renderer)
