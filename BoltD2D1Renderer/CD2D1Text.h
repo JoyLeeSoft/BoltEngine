@@ -22,50 +22,34 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CD2D1Renderer_h_
-#define CD2D1Renderer_h_
+#ifndef CD2D1Text_h_
+#define CD2D1Text_h_
 
-#include <d2d1.h>
-#include <dwrite.h>
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IRenderer.h"
-#include "../BoltEngine/STL.h"
+#include "CD2D1Renderer.h"
+#include "../BoltEngine/IText.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
 
-class BOLTPLUGIN_API CD2D1Renderer final : public IRenderer
+class BOLTPLUGIN_API CD2D1Text final : public IText
 {
 public:
-	CD2D1Renderer(const wstring &name, IWindow *target_window);
-	virtual ~CD2D1Renderer();
+	CD2D1Text(CD2D1Renderer *renderer, const wstring &font, const CColor &color, 
+		ETextStyle style, unsigned int size);
+	~CD2D1Text();
 
 private:
-	IWindow *m_TargetWindow;
-	ID2D1Factory *m_Factory;
-	ID2D1HwndRenderTarget *m_RenderTarget;
-	IDWriteFactory *m_DWFactory;
-
-	typedef vector<IManageable *> ResourceList;
-	ResourceList m_Resources;
+	CD2D1Renderer *m_Renderer;
+	IDWriteTextFormat *m_Format;
+	ID2D1SolidColorBrush *m_Brush;
+	D2D1_SIZE_F m_RenderTargetSize;
 
 public:
-	ID2D1HwndRenderTarget *GetRenderTarget() { return m_RenderTarget; }
-	IDWriteFactory *GetDWriteFactory() { return m_DWFactory; }
+	virtual void SetColor(const CColor &color) override;
 
-public:
-	virtual void Initialize() override;
-	virtual void Destroy() override;
-
-	virtual void BeginDraw(const CColor &color) override;
-	virtual void EndDraw() override;
-
-	virtual IText *CreateText(const wstring &font, const CColor &color,
-		IText::ETextStyle style, unsigned int size) override;
+	virtual void Render(const wstring &str, int x, int y) override;
 };
 
 }

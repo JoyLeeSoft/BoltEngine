@@ -102,11 +102,13 @@
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CVersion.h" />
     <ClInclude Include="CWindowManager.h" />
+    <ClInclude Include="IManageable.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="IPlugin.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="IRendererPlugin.h" />
     <ClInclude Include="ISingleton.h" />
+    <ClInclude Include="IText.h" />
     <ClInclude Include="IUnCopyable.h" />
     <ClInclude Include="IWindow.h" />
     <ClInclude Include="IWindowPlugin.h" />

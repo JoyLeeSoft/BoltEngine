@@ -90,11 +90,13 @@
   <ItemGroup>
     <ClInclude Include="CD2D1Renderer.h" />
     <ClInclude Include="CD2D1RendererPlugin.h" />
+    <ClInclude Include="CD2D1Text.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoltD2D1RendererMain.cpp" />
     <ClCompile Include="CD2D1Renderer.cpp" />
     <ClCompile Include="CD2D1RendererPlugin.cpp" />
+    <ClCompile Include="CD2D1Text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,50 +22,34 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CD2D1Renderer_h_
-#define CD2D1Renderer_h_
+#ifndef IText_h_
+#define IText_h_
 
-#include <d2d1.h>
-#include <dwrite.h>
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IRenderer.h"
-#include "../BoltEngine/STL.h"
+#include "IRenderer.h"
+#include "CColor.h"
+#include "IManageable.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
 
-class BOLTPLUGIN_API CD2D1Renderer final : public IRenderer
+using namespace Utility;
+
+class BOLTENGINE_API IText abstract : public IManageable
 {
 public:
-	CD2D1Renderer(const wstring &name, IWindow *target_window);
-	virtual ~CD2D1Renderer();
-
-private:
-	IWindow *m_TargetWindow;
-	ID2D1Factory *m_Factory;
-	ID2D1HwndRenderTarget *m_RenderTarget;
-	IDWriteFactory *m_DWFactory;
-
-	typedef vector<IManageable *> ResourceList;
-	ResourceList m_Resources;
+	enum ETextStyle : unsigned int
+	{
+		Normal,
+		Oblique,
+		Italic,
+	};
 
 public:
-	ID2D1HwndRenderTarget *GetRenderTarget() { return m_RenderTarget; }
-	IDWriteFactory *GetDWriteFactory() { return m_DWFactory; }
+	virtual void SetColor(const CColor &color) = 0;
 
-public:
-	virtual void Initialize() override;
-	virtual void Destroy() override;
-
-	virtual void BeginDraw(const CColor &color) override;
-	virtual void EndDraw() override;
-
-	virtual IText *CreateText(const wstring &font, const CColor &color,
-		IText::ETextStyle style, unsigned int size) override;
+	virtual void Render(const wstring &str, int x, int y) = 0;
 };
 
 }

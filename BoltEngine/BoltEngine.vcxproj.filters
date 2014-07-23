@@ -71,6 +71,12 @@
     <ClInclude Include="CLog.h">
       <Filter>Log</Filter>
     </ClInclude>
+    <ClInclude Include="IText.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="IManageable.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

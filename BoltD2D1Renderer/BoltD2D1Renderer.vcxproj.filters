@@ -15,6 +15,9 @@
     <ClInclude Include="CD2D1RendererPlugin.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="CD2D1Text.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CD2D1Renderer.cpp">
@@ -25,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="CD2D1RendererPlugin.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CD2D1Text.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

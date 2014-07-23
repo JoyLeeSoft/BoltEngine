@@ -38,6 +38,7 @@
 #include "IRenderer.h"
 #include "CColor.h"
 #include "IScene.h"
+#include "IText.h"
 #include "CBoltEngine.h"
 
 /**

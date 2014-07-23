@@ -29,6 +29,7 @@
 #include "BoltUtilityMacros.h"
 #include "CColor.h"
 #include "STL.h"
+#include "IText.h"
 
 namespace BoltEngine
 {
@@ -61,6 +62,9 @@ public:
 
 	virtual void BeginDraw(const CColor &color) = 0;
 	virtual void EndDraw() = 0;
+
+	virtual IText *CreateText(const wstring &font, const CColor &color, 
+		IText::ETextStyle style, unsigned int size) = 0;
 };
 
 }

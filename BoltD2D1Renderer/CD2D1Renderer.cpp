@@ -29,6 +29,7 @@
 #include "../BoltEngine/IWindow.h"
 
 #include "CD2D1Renderer.h"
+#include "CD2D1Text.h"
 
 namespace BoltEngine
 {
@@ -45,13 +46,26 @@ CD2D1Renderer::CD2D1Renderer(const wstring &name, IWindow *target_window) : IRen
 
 CD2D1Renderer::~CD2D1Renderer()
 {
+	for (auto resource : m_Resources)
+	{
+		try
+		{
+			delete resource;
+		}
+		catch (...)
+		{
+
+		}
+	}
+	m_Resources.clear();
+
 	Destroy();
 }
 
 void CD2D1Renderer::Initialize()
 {
 	if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &m_Factory)))
-		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create Direct 2D factory");
+		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create Direct2D factory");
 
 	auto param = m_TargetWindow->GetCreationParams();
 
@@ -61,12 +75,20 @@ void CD2D1Renderer::Initialize()
 		m_TargetWindow->GetHandle(), size, D2D1_PRESENT_OPTIONS_IMMEDIATELY), &m_RenderTarget)))
 	{
 		SAFE_RELEASE(m_Factory);
-		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create render target");
+		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create Direct2D render target");
+	}
+
+	if (FAILED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(m_DWFactory), (IUnknown **)&m_DWFactory)))
+	{
+		SAFE_RELEASE(m_RenderTarget);
+		SAFE_RELEASE(m_Factory);
+		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create DirectWrite factory");
 	}
 }
 
 void CD2D1Renderer::Destroy()
 {
+	SAFE_RELEASE(m_DWFactory);
 	SAFE_RELEASE(m_RenderTarget);
 	SAFE_RELEASE(m_Factory);
 }
@@ -80,6 +102,14 @@ void CD2D1Renderer::BeginDraw(const CColor &color)
 void CD2D1Renderer::EndDraw()
 {
 	m_RenderTarget->EndDraw();
+}
+
+IText *CD2D1Renderer::CreateText(const wstring &font, const CColor &color, IText::ETextStyle style, unsigned int size)
+{
+	CD2D1Text *text = new CD2D1Text(this, font, color, style, size);
+	m_Resources.push_back(text);
+
+	return text;
 }
 
 }

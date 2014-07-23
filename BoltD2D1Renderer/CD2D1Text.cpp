@@ -22,53 +22,45 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CD2D1Renderer_h_
-#define CD2D1Renderer_h_
+#include <boost/current_function.hpp>
 
-#include <d2d1.h>
-#include <dwrite.h>
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IRenderer.h"
-#include "../BoltEngine/STL.h"
+#include "CD2D1Text.h"
+#include "../BoltEngine/CException.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
 
-class BOLTPLUGIN_API CD2D1Renderer final : public IRenderer
+using namespace Exception;
+
+CD2D1Text::CD2D1Text(CD2D1Renderer *renderer, const wstring &font, const CColor &color,
+	ETextStyle style, unsigned int size) : m_Renderer(renderer)
 {
-public:
-	CD2D1Renderer(const wstring &name, IWindow *target_window);
-	virtual ~CD2D1Renderer();
+	if (FAILED(renderer->GetDWriteFactory()->CreateTextFormat(font.c_str(), 0, DWRITE_FONT_WEIGHT_NORMAL,
+		(DWRITE_FONT_STYLE)style, DWRITE_FONT_STRETCH_NORMAL, (FLOAT)size, L"", &m_Format)))
+		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create DirectWrite text");
 
-private:
-	IWindow *m_TargetWindow;
-	ID2D1Factory *m_Factory;
-	ID2D1HwndRenderTarget *m_RenderTarget;
-	IDWriteFactory *m_DWFactory;
+	renderer->GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(color.ToRGB()), &m_Brush);
+	m_RenderTargetSize = renderer->GetRenderTarget()->GetSize();
+}
 
-	typedef vector<IManageable *> ResourceList;
-	ResourceList m_Resources;
+CD2D1Text::~CD2D1Text()
+{
+	SAFE_RELEASE(m_Brush);
+	SAFE_RELEASE(m_Format);
+}
 
-public:
-	ID2D1HwndRenderTarget *GetRenderTarget() { return m_RenderTarget; }
-	IDWriteFactory *GetDWriteFactory() { return m_DWFactory; }
+void CD2D1Text::SetColor(const CColor &color)
+{
+	m_Brush->SetColor(D2D1::ColorF(color.ToRGB()));
+}
 
-public:
-	virtual void Initialize() override;
-	virtual void Destroy() override;
-
-	virtual void BeginDraw(const CColor &color) override;
-	virtual void EndDraw() override;
-
-	virtual IText *CreateText(const wstring &font, const CColor &color,
-		IText::ETextStyle style, unsigned int size) override;
-};
+void CD2D1Text::Render(const wstring &str, int x, int y)
+{
+	m_Renderer->GetRenderTarget()->DrawTextA(str.c_str(), str.size(), m_Format,
+		D2D1::RectF((float)x, (float)y, m_RenderTargetSize.width, m_RenderTargetSize.height), m_Brush);
+}
 
 }
 }
-
-#endif

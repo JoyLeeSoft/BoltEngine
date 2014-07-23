@@ -30,6 +30,7 @@
 #endif
 
 #pragma comment(lib, "d2d1")
+#pragma comment(lib, "dwrite")
 #endif
 
 #include "../BoltEngine/BoltConfigurationMacros.h"

@@ -22,51 +22,21 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CD2D1Renderer_h_
-#define CD2D1Renderer_h_
-
-#include <d2d1.h>
-#include <dwrite.h>
-
-#include "../BoltEngine/BoltConfigurationMacros.h"
-#include "../BoltEngine/BoltUtilityMacros.h"
-#include "../BoltEngine/IRenderer.h"
-#include "../BoltEngine/STL.h"
+#ifndef IManageable_h_
+#define IManageable_h_
 
 namespace BoltEngine
 {
-namespace Renderer
+namespace Utility
 {
 
-class BOLTPLUGIN_API CD2D1Renderer final : public IRenderer
+
+class BOLTENGINE_API IManageable
 {
 public:
-	CD2D1Renderer(const wstring &name, IWindow *target_window);
-	virtual ~CD2D1Renderer();
-
-private:
-	IWindow *m_TargetWindow;
-	ID2D1Factory *m_Factory;
-	ID2D1HwndRenderTarget *m_RenderTarget;
-	IDWriteFactory *m_DWFactory;
-
-	typedef vector<IManageable *> ResourceList;
-	ResourceList m_Resources;
-
-public:
-	ID2D1HwndRenderTarget *GetRenderTarget() { return m_RenderTarget; }
-	IDWriteFactory *GetDWriteFactory() { return m_DWFactory; }
-
-public:
-	virtual void Initialize() override;
-	virtual void Destroy() override;
-
-	virtual void BeginDraw(const CColor &color) override;
-	virtual void EndDraw() override;
-
-	virtual IText *CreateText(const wstring &font, const CColor &color,
-		IText::ETextStyle style, unsigned int size) override;
+	virtual ~IManageable() { }
 };
+
 
 }
 }
