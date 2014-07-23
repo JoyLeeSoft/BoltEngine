@@ -148,6 +148,8 @@ public:
 	}
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 CWin32Window::CWin32Window(const wstring &name) : IWindow(name), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
 {
 	m_SceneManager = new CSceneManager();
@@ -243,9 +245,8 @@ void CWin32Window::Begin()
 		}
 		else
 		{
-			SIdleEventArgs arg;
-			arg.Sender = this;
-			OnIdle(arg);
+			Update();
+			Render();
 		}
 
 		Sleep(1);

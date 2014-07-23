@@ -80,9 +80,6 @@ public:
 	struct SClosedEventArgs : public SEventArgs { };
 	CEventHandler<SClosedEventArgs> OnClosed;
 
-	struct SIdleEventArgs : SEventArgs { };
-	CEventHandler<SIdleEventArgs> OnIdle;
-
 public:
 	virtual void Initialize(const SCreationParams &param, IScene *scene) = 0;
 	virtual void Destroy() = 0;

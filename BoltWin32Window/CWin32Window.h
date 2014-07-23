@@ -38,6 +38,8 @@ namespace Renderer
 
 class BOLTPLUGIN_API CWin32Window final : public IWindow
 {
+	friend class CLogoScene;
+
 public:
 	CWin32Window(const wstring &name);
 	virtual ~CWin32Window();
