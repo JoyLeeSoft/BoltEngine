@@ -79,6 +79,8 @@ CD2D1Texture::CD2D1Texture(CD2D1Renderer *renderer, const wstring &filename)
 			L"HRESULT code : " + BoltEngine::Exception::HResultToString(hr));
 
 	m_RenderTarget->CreateBitmapFromWicBitmap(converter, nullptr, &m_Bitmap);
+	m_Width = m_Bitmap->GetSize().width;
+	m_Height = m_Bitmap->GetSize().height;
 }
 
 CD2D1Texture::~CD2D1Texture()
@@ -90,8 +92,8 @@ CD2D1Texture::~CD2D1Texture()
 
 void CD2D1Texture::Render(unsigned int x, unsigned int y)
 {
-	m_RenderTarget->DrawBitmap(m_Bitmap, D2D1::RectF((float)x, (float)y, (float)m_Bitmap->GetSize().width,
-		(float)m_Bitmap->GetSize().height));
+	m_RenderTarget->DrawBitmap(m_Bitmap, D2D1::RectF((float)x, (float)y, ((float)x) + m_Width,
+		((float)y) + m_Height));
 }
 
 }

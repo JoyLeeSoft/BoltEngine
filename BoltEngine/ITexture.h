@@ -22,35 +22,22 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef CD2D1Texture_h_
-#define CD2D1Texture_h_
+#ifndef ITexture_h_
+#define ITexture_h_
 
-#include <d2d1.h>
-
-#include "../BoltEngine/ITexture.h"
-#include "../BoltEngine/STL.h"
-
-#include "CD2D1Renderer.h"
+#include "IManageable.h"
 
 namespace BoltEngine
 {
 namespace Renderer
 {
 
-class BOLTPLUGIN_API CD2D1Texture : public ITexture
+using namespace Utility;
+
+class BOLTENGINE_API ITexture abstract : public IManageable
 {
 public:
-	CD2D1Texture(CD2D1Renderer *renderer, const wstring &filename);
-	virtual ~CD2D1Texture();
-
-private:
-	ID2D1HwndRenderTarget *m_RenderTarget;
-	IWICImagingFactory *m_WICFactory;
-	ID2D1Bitmap *m_Bitmap;
-	float m_Width, m_Height;
-
-public:
-	virtual void Render(unsigned int x, unsigned int y) override;
+	virtual void Render(unsigned int x, unsigned int y) = 0;
 };
 
 }
