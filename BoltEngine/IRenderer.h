@@ -30,6 +30,7 @@
 #include "CColor.h"
 #include "STL.h"
 #include "IText.h"
+#include "ITexture.h"
 
 namespace BoltEngine
 {
@@ -38,7 +39,7 @@ namespace Renderer
 
 using namespace Utility;
 
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#ifdef BOLTENGINE_PLATFORM_WIN32
 #undef CreateWindow
 #endif
 
@@ -65,6 +66,7 @@ public:
 
 	virtual IText *CreateText(const wstring &font, const CColor &color, 
 		IText::ETextStyle style, unsigned int size) = 0;
+	virtual ITexture *CreateTexture(const wstring &filename) = 0;
 };
 
 }

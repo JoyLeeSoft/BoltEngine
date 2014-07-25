@@ -34,7 +34,7 @@
 #include "IWindowPlugin.h"
 #include "IRendererPlugin.h"
 
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#ifdef BOLTENGINE_PLATFORM_WIN32
 #undef CreateWindow
 #endif
 

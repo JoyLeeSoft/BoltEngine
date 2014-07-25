@@ -137,6 +137,10 @@ public:
 	throw C##error_code(error_code, func_name, desc)
 #endif
 
+#ifdef BOLTENGINE_PLATFORM_WIN32
+BOLTENGINE_API wstring HResultToString(unsigned int hr);
+#endif
+
 }
 }
 

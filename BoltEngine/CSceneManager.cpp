@@ -56,7 +56,7 @@ namespace Manager
 
 		if (m_Scene != nullptr)
 		{
-			m_Scene->OnCreate();
+			m_IsSceneCreated = m_Scene->OnCreate();
 		}
 	}
 
@@ -65,7 +65,8 @@ namespace Manager
 		if (m_Scene == nullptr)
 			THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active scenes");
 
-		m_Scene->OnUpdate();
+		if (m_IsSceneCreated)
+			m_Scene->OnUpdate();
 	}
 
 	void CSceneManager::Render()
@@ -73,7 +74,8 @@ namespace Manager
 		if (m_Scene == nullptr)
 			THROW_EXCEPTION(InvalidOperationException, _W(BOOST_CURRENT_FUNCTION), L"No active scenes");
 
-		m_Scene->OnRender();
+		if (m_IsSceneCreated)
+			m_Scene->OnRender();
 	}
 }
 }

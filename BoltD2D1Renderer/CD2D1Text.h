@@ -41,7 +41,8 @@ public:
 	~CD2D1Text();
 
 private:
-	CD2D1Renderer *m_Renderer;
+	ID2D1HwndRenderTarget *m_RenderTarget;
+	IDWriteFactory *m_DWFactory;
 	IDWriteTextFormat *m_Format;
 	ID2D1SolidColorBrush *m_Brush;
 	D2D1_SIZE_F m_RenderTargetSize;

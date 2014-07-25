@@ -33,7 +33,7 @@ namespace Renderer
 class IScene abstract
 {
 public:
-	virtual void OnCreate() = 0;
+	virtual bool OnCreate() = 0;
 	virtual void OnDestroy() = 0;
 	virtual void OnUpdate() = 0;
 	virtual void OnRender() = 0;

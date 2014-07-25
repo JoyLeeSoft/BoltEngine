@@ -44,6 +44,7 @@ public:
 
 private:
 	IScene *m_Scene;
+	bool m_IsSceneCreated;
 
 public:
 	void ChangeScene(IScene *new_scene);

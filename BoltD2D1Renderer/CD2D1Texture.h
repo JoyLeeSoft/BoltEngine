@@ -22,85 +22,37 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef BoltEngine_h_
-#define BoltEngine_h_
+#ifndef CD2D1Texture_h_
+#define CD2D1Texture_h_
 
-#include "BoltConfigurationMacros.h"
-#include "BoltUtilityMacros.h"
-#include "IUnCopyable.h"
-#include "ISingleton.h"
-#include "CVersion.h"
-#include "CException.h"
-#include "IPlugin.h"
-#include "IRendererPlugin.h"
-#include "IWindowPlugin.h"
-#include "IWindow.h"
-#include "IRenderer.h"
-#include "CColor.h"
-#include "IScene.h"
-#include "IText.h"
-#include "ITexture.h"
-#include "CBoltEngine.h"
+#include <d2d1.h>
 
-/**
- * @author Lee
- * @brief A main namespace of the BoltEngine
- */
+#include "../BoltEngine/ITexture.h"
+#include "../BoltEngine/STL.h"
+
+#include "CD2D1Renderer.h"
+
 namespace BoltEngine
 {
-	/**
-	 * @author Lee
-	 * @brief A namespace for utility classes of the BoltEngine
-	 */
-	namespace Utility
-	{
+namespace Renderer
+{
 
-	}
+class BOLTPLUGIN_API CD2D1Texture : public ITexture
+{
+public:
+	CD2D1Texture(CD2D1Renderer *renderer, const wstring &filename);
+	virtual ~CD2D1Texture();
 
-	/**
-	 * @author Lee
-	 * @brief A namespace for manager classes of the BoltEngine
-	 */
-	namespace Manager
-	{
+private:
+	ID2D1HwndRenderTarget *m_RenderTarget;
+	IWICImagingFactory *m_WICFactory;
+	ID2D1Bitmap *m_Bitmap;
 
-	}
+public:
+	virtual void Render(unsigned int x, unsigned int y) override;
+};
 
-	/**
-	 * @author Lee
-	 * @brief A namespace for exception classes of the BoltEngine
-	 */
-	namespace Exception
-	{
-
-	}
-
-	/**
-	 * @author Lee
-	 * @brief A namespace for plugin classes and interfaces of the BoltEngine
-	 */
-	namespace Plugin
-	{
-
-	}
-
-	/**
-	 * @author Lee
-	 * @brief A namespace for renderer classes and window classes of the BoltEngine
-	 */
-	namespace Renderer
-	{
-
-	}
-
-	/**
-	 * @author Lee
-	 * @brief A namespace for event handlers of the BoltEngine.
-	 */
-	namespace Event
-	{
-
-	}
+}
 }
 
 #endif

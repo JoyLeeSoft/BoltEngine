@@ -39,7 +39,7 @@ IWindow::~IWindow()
 
 }
 
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#ifdef BOLTENGINE_PLATFORM_WIN32
 LRESULT CALLBACK IWindow::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	if (iMessage == WM_CREATE)

@@ -18,6 +18,9 @@
     <ClInclude Include="CD2D1Text.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="CD2D1Texture.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CD2D1Renderer.cpp">
@@ -30,6 +33,9 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="CD2D1Text.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CD2D1Texture.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>

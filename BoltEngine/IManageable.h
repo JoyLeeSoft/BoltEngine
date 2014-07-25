@@ -25,6 +25,8 @@
 #ifndef IManageable_h_
 #define IManageable_h_
 
+#include "BoltConfigurationMacros.h"
+
 namespace BoltEngine
 {
 namespace Utility

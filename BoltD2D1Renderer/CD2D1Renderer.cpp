@@ -30,6 +30,7 @@
 
 #include "CD2D1Renderer.h"
 #include "CD2D1Text.h"
+#include "CD2D1Texture.h"
 
 namespace BoltEngine
 {
@@ -78,8 +79,16 @@ void CD2D1Renderer::Initialize()
 		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create Direct2D render target");
 	}
 
+	if (FAILED(CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&m_WICFactory))))
+	{
+		SAFE_RELEASE(m_RenderTarget);
+		SAFE_RELEASE(m_Factory);
+		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create WIC factory");
+	}
+
 	if (FAILED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(m_DWFactory), (IUnknown **)&m_DWFactory)))
 	{
+		SAFE_RELEASE(m_WICFactory);
 		SAFE_RELEASE(m_RenderTarget);
 		SAFE_RELEASE(m_Factory);
 		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create DirectWrite factory");
@@ -89,6 +98,7 @@ void CD2D1Renderer::Initialize()
 void CD2D1Renderer::Destroy()
 {
 	SAFE_RELEASE(m_DWFactory);
+	SAFE_RELEASE(m_WICFactory);
 	SAFE_RELEASE(m_RenderTarget);
 	SAFE_RELEASE(m_Factory);
 }
@@ -110,6 +120,14 @@ IText *CD2D1Renderer::CreateText(const wstring &font, const CColor &color, IText
 	m_Resources.push_back(text);
 
 	return text;
+}
+
+ITexture *CD2D1Renderer::CreateTexture(const wstring &filename)
+{
+	CD2D1Texture *texture = new CD2D1Texture(this, filename);
+	m_Resources.push_back(texture);
+
+	return texture;
 }
 
 }

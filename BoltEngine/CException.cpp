@@ -22,6 +22,8 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <sstream>
+
 #include "CException.h"
 #include "BoltUtilityMacros.h"
 
@@ -82,6 +84,15 @@ CException &CException::operator =(const CException &rhs)
 
 	return *this;
 }
+
+#ifdef BOLTENGINE_PLATFORM_WIN32
+BOLTENGINE_API wstring HResultToString(unsigned int hr)
+{
+	wstringstream ss;
+	ss << L"0x" << std::hex << hr << std::endl;
+	return ss.str();
+}
+#endif
 
 }
 }

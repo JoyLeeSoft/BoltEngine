@@ -29,7 +29,7 @@
 #include "BoltUtilityMacros.h"
 #include "STL.h"
 
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#ifdef BOLTENGINE_PLATFORM_WIN32
 #include <windows.h>
 #define DYNAMIC_LIB_HANDLE HMODULE
 #define DYNAMIC_LIB_LOAD(name) LoadLibraryExW(name, NULL, LOAD_WITH_ALTERED_SEARCH_PATH)

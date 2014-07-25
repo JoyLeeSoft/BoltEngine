@@ -35,20 +35,25 @@ namespace Renderer
 using namespace Exception;
 
 CD2D1Text::CD2D1Text(CD2D1Renderer *renderer, const wstring &font, const CColor &color,
-	ETextStyle style, unsigned int size) : m_Renderer(renderer)
+	ETextStyle style, unsigned int size)
 {
-	if (FAILED(renderer->GetDWriteFactory()->CreateTextFormat(font.c_str(), 0, DWRITE_FONT_WEIGHT_NORMAL,
+	m_RenderTarget = renderer->GetRenderTarget();
+	m_DWFactory = renderer->GetDWriteFactory();
+
+	if (FAILED(m_DWFactory->CreateTextFormat(font.c_str(), 0, DWRITE_FONT_WEIGHT_NORMAL,
 		(DWRITE_FONT_STYLE)style, DWRITE_FONT_STRETCH_NORMAL, (FLOAT)size, L"", &m_Format)))
 		THROW_EXCEPTION(RendererException, _W(BOOST_CURRENT_FUNCTION), L"Could not create DirectWrite text");
 
-	renderer->GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(color.ToRGB()), &m_Brush);
-	m_RenderTargetSize = renderer->GetRenderTarget()->GetSize();
+	m_RenderTarget->CreateSolidColorBrush(D2D1::ColorF(color.ToRGB()), &m_Brush);
+	m_RenderTargetSize = m_RenderTarget->GetSize();
 }
 
 CD2D1Text::~CD2D1Text()
 {
 	SAFE_RELEASE(m_Brush);
 	SAFE_RELEASE(m_Format);
+	SAFE_RELEASE(m_DWFactory);
+	SAFE_RELEASE(m_RenderTarget);
 }
 
 void CD2D1Text::SetColor(const CColor &color)
@@ -58,7 +63,7 @@ void CD2D1Text::SetColor(const CColor &color)
 
 void CD2D1Text::Render(const wstring &str, int x, int y)
 {
-	m_Renderer->GetRenderTarget()->DrawTextA(str.c_str(), str.size(), m_Format,
+	m_RenderTarget->DrawTextA(str.c_str(), str.size(), m_Format,
 		D2D1::RectF((float)x, (float)y, m_RenderTargetSize.width, m_RenderTargetSize.height), m_Brush);
 }
 

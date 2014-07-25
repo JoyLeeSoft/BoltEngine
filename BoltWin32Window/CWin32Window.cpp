@@ -75,7 +75,7 @@ private:
 	unsigned int m_W, m_Y;
 
 public:
-	virtual void OnCreate() override
+	virtual bool OnCreate() override
 	{
 		window = (CWin32Window *)CBoltEngine::Get().GetWindowManager().GetByName(m_Name);
 		m_hWnd = (HWND)window->GetHandle();
@@ -88,7 +88,7 @@ public:
 
 		HRSRC hResource = FindResourceW(m_hInst, MAKEINTRESOURCEW(IDB_LOGO),
 			L"PNG");
-		if (!hResource) return;
+		if (!hResource) return false;
 
 		DWORD imageSize = SizeofResource(m_hInst, hResource);
 		HGLOBAL hGlobal = LoadResource(m_hInst, hResource);
@@ -112,6 +112,8 @@ public:
 
 		m_W = (m_width - m_Logo->GetWidth()) / 2;
 		m_Y = (m_height - m_Logo->GetHeight()) / 2;
+
+		return true;
 	}
 
 	virtual void OnDestroy() override
@@ -152,7 +154,7 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CWin32Window::CWin32Window(const wstring &name) : IWindow(name), m_hWnd(0), m_Loop(false), m_IsInitialized(false)
+CWin32Window::CWin32Window(const wstring &name) : IWindow(name), m_hWnd(0), m_IsInitialized(false)
 {
 	m_SceneManager = new CSceneManager();
 }
@@ -229,17 +231,15 @@ void CWin32Window::Begin()
 {
 	MSG msg;
 
-	m_Loop = true;
 	m_SceneManager->ChangeScene(new CLogoScene(m_Name, m_StartScene));
 
-	while (m_Loop)
+	while (true)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
 			{
-				End();
-				continue;
+				break;
 			}
 
 			TranslateMessage(&msg);
@@ -247,8 +247,8 @@ void CWin32Window::Begin()
 		}
 		else
 		{
-			Update();
-			Render();
+			m_SceneManager->Update();
+			m_SceneManager->Render();
 		}
 
 		Sleep(1);
@@ -257,17 +257,7 @@ void CWin32Window::Begin()
 
 void CWin32Window::End()
 {
-	m_Loop = false;
-}
-
-void CWin32Window::Update()
-{
-	m_SceneManager->Update();
-}
-
-void CWin32Window::Render()
-{
-	m_SceneManager->Render();
+	SendMessage(m_hWnd, WM_CLOSE, (WPARAM)0, (LPARAM)0);
 }
 
 void CWin32Window::ChangeScene(IScene *scene)

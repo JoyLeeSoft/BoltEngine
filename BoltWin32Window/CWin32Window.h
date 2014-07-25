@@ -47,7 +47,6 @@ public:
 private:
 	bool m_IsInitialized;
 	HWND m_hWnd;
-	bool m_Loop;
 	IScene *m_StartScene;
 
 public:
@@ -59,8 +58,6 @@ public:
 	virtual void Begin() override;
 	virtual void End() override;
 
-	virtual void Update() override;
-	virtual void Render() override;
 	virtual void ChangeScene(IScene *scene) override;
 
 	virtual void SetCaption(const wstring &caption) override;

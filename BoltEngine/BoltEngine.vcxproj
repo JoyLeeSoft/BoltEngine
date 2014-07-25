@@ -109,6 +109,7 @@
     <ClInclude Include="IRendererPlugin.h" />
     <ClInclude Include="ISingleton.h" />
     <ClInclude Include="IText.h" />
+    <ClInclude Include="ITexture.h" />
     <ClInclude Include="IUnCopyable.h" />
     <ClInclude Include="IWindow.h" />
     <ClInclude Include="IWindowPlugin.h" />

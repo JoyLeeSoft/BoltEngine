@@ -26,6 +26,7 @@
 #define CD2D1Renderer_h_
 
 #include <d2d1.h>
+#include <wincodec.h>
 #include <dwrite.h>
 
 #include "../BoltEngine/BoltConfigurationMacros.h"
@@ -48,14 +49,16 @@ private:
 	IWindow *m_TargetWindow;
 	ID2D1Factory *m_Factory;
 	ID2D1HwndRenderTarget *m_RenderTarget;
+	IWICImagingFactory *m_WICFactory;
 	IDWriteFactory *m_DWFactory;
 
 	typedef vector<IManageable *> ResourceList;
 	ResourceList m_Resources;
 
 public:
-	ID2D1HwndRenderTarget *GetRenderTarget() { return m_RenderTarget; }
-	IDWriteFactory *GetDWriteFactory() { return m_DWFactory; }
+	ID2D1HwndRenderTarget *GetRenderTarget() { m_RenderTarget->AddRef(); return m_RenderTarget; }
+	IWICImagingFactory *GetWICFactory() { m_WICFactory->AddRef(); return m_WICFactory; }
+	IDWriteFactory *GetDWriteFactory() { m_DWFactory->AddRef(); return m_DWFactory; }
 
 public:
 	virtual void Initialize() override;
@@ -66,6 +69,7 @@ public:
 
 	virtual IText *CreateText(const wstring &font, const CColor &color,
 		IText::ETextStyle style, unsigned int size) override;
+	virtual ITexture *CreateTexture(const wstring &filename) override;
 };
 
 }

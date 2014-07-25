@@ -30,8 +30,11 @@
 #endif
 
 #pragma comment(lib, "d2d1")
+#pragma comment(lib, "windowscodecs")
 #pragma comment(lib, "dwrite")
 #endif
+
+#include <sstream>
 
 #include "../BoltEngine/BoltConfigurationMacros.h"
 #include "../BoltEngine/BoltUtilityMacros.h"

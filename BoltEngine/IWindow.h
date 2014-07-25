@@ -25,11 +25,12 @@
 #ifndef IWindow_h_
 #define IWindow_h_
 
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#include "BoltConfigurationMacros.h"
+
+#ifdef BOLTENGINE_PLATFORM_WIN32
 #include <windows.h>
 #endif
 
-#include "BoltConfigurationMacros.h"
 #include "BoltUtilityMacros.h"
 #include "STL.h"
 #include "CEventHandler.h"
@@ -89,14 +90,12 @@ public:
 	virtual void Begin() = 0;
 	virtual void End() = 0;
 
-	virtual void Update() = 0;
-	virtual void Render() = 0;
 	virtual void ChangeScene(IScene *scene) = 0;
 
 	virtual void SetCaption(const wstring &caption) = 0;
 
 public:
-#if BOLTENGINE_PLATFORM == BOLTENGINE_PLATFORM_WIN32
+#ifdef BOLTENGINE_PLATFORM_WIN32
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 #endif
 };
