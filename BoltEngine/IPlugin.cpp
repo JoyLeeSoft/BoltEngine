@@ -35,6 +35,11 @@ IPlugin::IPlugin(const wstring &name, const wstring &description,
 
 }
 
+IPlugin::~IPlugin()
+{
+
+}
+
 const wstring &IPlugin::GetName() const
 {
 	return m_Name;
